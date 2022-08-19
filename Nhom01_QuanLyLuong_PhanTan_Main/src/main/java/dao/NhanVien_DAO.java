@@ -16,4 +16,6 @@ public interface NhanVien_DAO extends Serializable{
 	public boolean deleteNhanVien(NhanVien nhanVien) throws RemoteException;
 	
 	public boolean updateNhanVien(NhanVien nhanVien) throws RemoteException;
+	
+	public List<NhanVien> getNhanVienTheoDanhMuc(int maNV, String tenNV, String sdt, String cmnd, int chucVu) throws RemoteException;
 }

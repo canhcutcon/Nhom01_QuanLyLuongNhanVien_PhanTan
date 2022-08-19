@@ -12,6 +12,7 @@
 		<class>entity.PhieuPhat</class>
 		<class>entity.BangChamCong</class>
 		<class>entity.BangLuongNhanVien</class>
+		<class>entity.PhieuLuong</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />

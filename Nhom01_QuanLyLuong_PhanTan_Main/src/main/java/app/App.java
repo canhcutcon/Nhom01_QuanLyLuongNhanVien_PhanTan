@@ -7,8 +7,11 @@ import javax.persistence.Persistence;
 
 import dao.ChucVu_DAO;
 import dao.NhanVien_DAO;
+import dao.PhongBan_DAO;
 import daoImpl.ChucVu_IMPL;
 import daoImpl.NhanVien_IMPL;
+import daoImpl.PhongBan_IMPL;
+import entity.ChucVu;
 
 public class App {
 
@@ -19,10 +22,19 @@ public class App {
 				.createEntityManager();
 
 		ChucVu_DAO chucVu_DAO = new ChucVu_IMPL();
-		NhanVien_DAO nhanVien_DAO = new NhanVien_IMPL();
+		ChucVu cVu = new ChucVu(3,"EmployeeManagerment", 1);
+		try {
+			chucVu_DAO.updateChucVu(cVu);
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+//		NhanVien_DAO nhanVien_DAO = new NhanVien_IMPL();
+//		PhongBan_DAO phongBan_DAO = new PhongBan_IMPL(); 
 		try {
 			chucVu_DAO.getListChucVU().forEach(chucVu -> System.out.println(chucVu));
-			nhanVien_DAO.getListNhanVien().forEach(nv -> System.out.println(nv));
+//			nhanVien_DAO.getListNhanVien().forEach(nv -> System.out.println(nv));
+//			phongBan_DAO.getListPhongBan().forEach(phogban -> System.out.println(phogban));
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
