@@ -26,16 +26,8 @@ public class NhanVien_IMPL implements NhanVien_DAO{
 	@Override
 	public List<NhanVien> getListNhanVien() throws RemoteException {
 		// TODO Auto-generated method stub
-		List<NhanVien> lstNhanViens = new ArrayList<NhanVien>();
-		String sql = "select * from nhan_vien";
-		List<?> temp = entityManager.createNativeQuery(sql).getResultList();
-		for (Object o : temp) {		
-			Object[] rs = (Object[]) o;		
-			int id = (int) rs[0];
-			NhanVien empl = entityManager.find(NhanVien.class, id);
-			lstNhanViens.add(empl);
-			System.out.println(empl.toString());
-		}
+		List<NhanVien> lstNhanViens = entityManager.createNativeQuery("Select * from nhan_vien where trangThai = 1", NhanVien.class)
+				.getResultList();
 		return lstNhanViens;
 	}
 
@@ -127,9 +119,14 @@ public class NhanVien_IMPL implements NhanVien_DAO{
 	}
 
 	@Override
-	public List<NhanVien> getNhanVienTheoDanhMuc(int maNV, String tenNV, String sdt, String cmnd, int chucVu)
+	public List<NhanVien> getNhanVienTheoDanhMuc(String tenNV, String sdt, String cmnd, int chucVu)
 			throws RemoteException {
 		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from nhan_vien where ((hoTen like '%"+ tenNV +"%') AND"
+												+  "(sdt like '%"+ sdt +"%') AND"
+												+  "(cmnd like '%"+ cmnd +"%') AND" 
+												+  "(idChucVu like '%"+ chucVu +"%') AND trangThai=1)";
+		List<NhanVien> lst = entityManager.createNativeQuery(sql,NhanVien.class).getResultList();
+		return lst;
 	}
 }

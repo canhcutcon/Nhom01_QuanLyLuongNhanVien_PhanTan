@@ -32,14 +32,6 @@ public class ChucVu_IMPL implements ChucVu_DAO{
 	public List<ChucVu> getListChucVU() throws RemoteException {
 		// TODO Auto-generated method stub
 		ArrayList<ChucVu> lstChucVu = new ArrayList<ChucVu>();
-//		String sql = "select * from chuc_vu";
-//		List<?> temp = entityManager.createNativeQuery(sql).getResultList();
-//		for (Object o : temp) {		
-//			Object[] rs = (Object[]) o;		
-//			int id = (int) rs[0];
-//			ChucVu empl = entityManager.find(ChucVu.class, id);
-//			lstChucVu.add(empl);		
-//		}
 		List<ChucVu> chucVus = entityManager.createNativeQuery("select * from chuc_vu where "
 				+ "trangThai=:x", ChucVu.class)
 				.setParameter("x",1)
