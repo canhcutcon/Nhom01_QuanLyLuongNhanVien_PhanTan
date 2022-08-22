@@ -14,6 +14,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name="chuc_vu")
 public class ChucVu implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2730763814858696672L;
 	@Id
 	@Column(name = "idChucVu")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

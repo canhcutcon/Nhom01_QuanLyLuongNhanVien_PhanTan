@@ -20,8 +20,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "nhan_vien")
 public class NhanVien implements Serializable {
-
-	private static final long serialVersionUID = 2306174430773041680L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2383884828589610531L;
 	@Id
 	@Column(name = "idNhanVien")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

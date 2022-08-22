@@ -1,5 +1,7 @@
 package entity;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,10 +14,16 @@ import javax.persistence.Table;
 /**
  * Launch the application. Tên: Võ Thị Trà Giang Ngày tạo: 21/08/2022
  */
+@SuppressWarnings("unused")
 @Entity
 @Table(name="phong_ban")
-public class PhongBan {
+public class PhongBan implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7807917797696933617L;
+
 	@Id
 	@Column(name="idphong_ban")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
