@@ -32,14 +32,10 @@ public class PhieuLuong implements Serializable {
 	private int idphieuLuong;
 	
 	@ManyToOne(targetEntity = NhanVien.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "idNhanVien")
+	@JoinColumn(name = "maNhanVien")
 	private NhanVien idNhanVien;
-	
 	@Column(nullable = false)
-	java.util.Date dt = new java.util.Date();
-	java.text.SimpleDateFormat sdf = 
-	new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	private String ngayNhan= sdf.format(dt);;
+	private String ngayNhan;
 	@Column(nullable = false)
 	private double tongLuongThucNhan;
 	@Column(nullable = false)
