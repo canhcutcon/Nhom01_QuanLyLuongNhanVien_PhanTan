@@ -4,6 +4,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
 public class HibernateUtil {
+	/**
+	 * Launch the application. Tên: Võ Thị Trà Giang Ngày tạo: 21/08/2022
+	 */
 private static HibernateUtil instance = null;
 	
 	private EntityManager entityManager;

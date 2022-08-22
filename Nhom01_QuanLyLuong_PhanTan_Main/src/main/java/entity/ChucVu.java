@@ -8,7 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+/**
+ * Launch the application. Tên: Võ Thị Trà Giang Ngày tạo: 21/08/2022
+ */
 @Entity
 @Table(name="chuc_vu")
 public class ChucVu implements Serializable{

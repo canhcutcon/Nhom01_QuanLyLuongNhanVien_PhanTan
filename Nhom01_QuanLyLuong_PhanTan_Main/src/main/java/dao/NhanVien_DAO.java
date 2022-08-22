@@ -5,7 +5,9 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import entity.NhanVien;
-
+/**
+ * Launch the application. Tên: Võ Thị Trà Giang Ngày tạo: 21/08/2022
+ */
 public interface NhanVien_DAO extends Serializable{
 	public List<NhanVien> getListNhanVien() throws RemoteException;
 	

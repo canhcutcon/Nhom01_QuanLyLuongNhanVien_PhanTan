@@ -34,8 +34,8 @@ public class App {
 //		PhongBan_DAO phongBan_DAO = new PhongBan_IMPL(); 
 		try {
 //			chucVu_DAO.getListChucVU().forEach(chucVu -> System.out.println(chucVu));
-			nhanVien_DAO.getListNhanVien().forEach(nv -> System.out.println(nv));
-//			nhanVien_DAO.getNhanVienTheoDanhMuc("Duy", "","", 2).forEach(nv -> System.out.println(nv));
+//			nhanVien_DAO.getListNhanVien().forEach(nv -> System.out.println(nv));
+			nhanVien_DAO.getNhanVienTheoDanhMuc("Duy Ngoc", "","", 2).forEach(nv -> System.out.println(nv));
 			
 //			phongBan_DAO.getListPhongBan().forEach(phogban -> System.out.println(phogban));
 		} catch (RemoteException e) {

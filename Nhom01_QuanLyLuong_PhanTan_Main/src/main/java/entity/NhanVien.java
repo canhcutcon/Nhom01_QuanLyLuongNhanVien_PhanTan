@@ -14,7 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+/**
+ * Launch the application. Tên: Võ Thị Trà Giang Ngày tạo: 21/08/2022
+ */
 @Entity
 @Table(name = "nhan_vien")
 public class NhanVien implements Serializable {

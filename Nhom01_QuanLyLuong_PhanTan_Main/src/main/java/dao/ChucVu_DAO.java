@@ -5,7 +5,9 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import entity.*;
-
+/**
+ * Launch the application. Tên: Võ Thị Trà Giang Ngày tạo: 21/08/2022
+ */
 public interface ChucVu_DAO extends Remote {
 	
 	public List<ChucVu> getListChucVU() throws RemoteException;
