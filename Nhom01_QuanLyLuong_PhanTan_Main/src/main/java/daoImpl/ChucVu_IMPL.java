@@ -20,7 +20,7 @@ import entity.NhanVien;
 import Util.*;
 
 public class ChucVu_IMPL implements ChucVu_DAO{
-	private static final long serialVersionUID = 3111304828983788972L;
+	
 
 	private EntityManager entityManager;
 	private EntityTransaction entityTrans;
