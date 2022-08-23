@@ -48,13 +48,40 @@ public class MucPhat_IMPL implements MucPhat_DAO {
 
 	@Override
 	public boolean updateMucPhat(MucPhat mucPhat) throws RemoteException {
-		// TODO Auto-generated method stub
+		entityTrans = entityManager.getTransaction();
+		List<MucPhat> lstMucPhats = entityManager.createNativeQuery("select * from muc_tien_phat where id =:x").setParameter("x", mucPhat.getIdMucPhat()).getResultList();
+		try {
+			entityTrans.begin();
+			for(MucPhat temp : lstMucPhats) {
+				temp.setTenMucPhat(mucPhat.getTenMucPhat());
+				temp.setTienPhat(mucPhat.getTienPhat());
+				temp.setTrangThai(mucPhat.getIdMucPhat());
+				entityManager.merge(temp);
+				entityTrans.commit();
+			}
+			return true;
+		}catch (Exception e) {
+			entityTrans.rollback();
+		}
+		
 		return false;
 	}
 
 	@Override
 	public boolean deleteMucPhat(MucPhat mucPhat) throws RemoteException {
-		// TODO Auto-generated method stub
+		entityTrans = entityManager.getTransaction();
+		List<MucPhat> lstMucPhats = entityManager.createNativeQuery("select * from muc_tien_phat where id =:x").setParameter("x", mucPhat.getIdMucPhat()).getResultList();
+		try {
+			entityTrans.begin();
+			for(MucPhat temp : lstMucPhats) {
+				temp.setTrangThai(0);
+				entityManager.merge(temp);
+				entityTrans.commit();
+			}
+			return true;
+		}catch (Exception e) {
+			entityTrans.rollback();
+		}
 		return false;
 	}
 }

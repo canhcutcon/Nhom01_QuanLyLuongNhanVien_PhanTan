@@ -50,13 +50,27 @@ public class BangChamCong_IMPL implements BangChamCong_DAO {
 
 	@Override
 	public List<BangChamCong> getListChamCongTheoNgay(Date date) throws RemoteException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean updateChamCong(BangChamCong bangChamCong) throws RemoteException {
-		// TODO Auto-generated method stub
+		entityTrans = entityManager.getTransaction();
+		List<BangChamCong> lstBangChamCongs = entityManager.createNativeQuery("select * from bang_cham_cong where idBangChamCong =:x").setParameter("", bangChamCong.getIdBangChamCong()).getResultList();
+		try {
+			entityTrans.begin();
+			for(BangChamCong temp : lstBangChamCongs) {
+				temp.setNgayCong(bangChamCong.getNgayCong());
+				temp.setChamCong(bangChamCong.getChamCong());
+				temp.setTrangThai(bangChamCong.getTrangThai());
+				entityManager.merge(temp);
+				entityTrans.commit();
+			}
+			return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+			entityTrans.rollback();
+		}
 		return false;
 	}
 
