@@ -13,7 +13,7 @@ public class FrmTrangChinh {
 	/**
 	 * Launch the application. Tên: Võ Thị Trà Giang Ngày tạo: 21/08/2022
 	 */
-	private JFrame frmCngTyGsb;
+	public JFrame frmCngTyGsb;
 	private JPanel contentPane;
 	private JDesktopPane desktopPane;
 	private JMenu mnHeThong,mntimKiem, mnDanhMuc,mnXuLy, mnCapNhat;
@@ -26,7 +26,7 @@ public class FrmTrangChinh {
 	private FrmTrangChu frmTrangChu;
 	/**
 	 * Launch the application.
-	 */
+	 */ 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -50,7 +50,7 @@ public class FrmTrangChinh {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public void initialize() {
 		frmCngTyGsb = new JFrame();
 		frmCngTyGsb.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
 		frmCngTyGsb.setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -78,13 +78,6 @@ public class FrmTrangChinh {
 		desktopPane.setLayout(null);
 		contentPane.add(desktopPane);
 
-//		Internal Jframe
-//		JInternalFrame internalFrame = new JInternalFrame("New JInternalFrame");
-//		internalFrame.setBounds(0, 0, 1530, 800);
-//		internalFrame.setBorder(new EmptyBorder(0, 0, 0, 0));
-//		desktopPane.add(internalFrame);
-//		internalFrame.setVisible(true);
-//		
 		// === interframe
 		initInternalFrame();
 //		Menu 
