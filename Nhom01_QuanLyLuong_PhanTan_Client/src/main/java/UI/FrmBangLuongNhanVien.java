@@ -67,6 +67,11 @@ public class FrmBangLuongNhanVien extends JInternalFrame {
 		getContentPane().setEnabled(false);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
+		
+	}
+
+	private void setUI() {
+	
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
@@ -165,13 +170,13 @@ public class FrmBangLuongNhanVien extends JInternalFrame {
 		
 		JButton btn_ThemLuong = new JButton("Thêm lương");
 		btn_ThemLuong.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btn_ThemLuong.setBounds(24, 74, 182, 33);
+		btn_ThemLuong.setBounds(24, 55, 182, 33);
 		pnl_Control.add(btn_ThemLuong);
 		
 		
 		JButton btn_ThongKeThang = new JButton("Tổng tháng");
 		btn_ThongKeThang.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btn_ThongKeThang.setBounds(92, 146, 114, 33);
+		btn_ThongKeThang.setBounds(92, 167, 114, 33);
 		pnl_Control.add(btn_ThongKeThang);
 		
 		JButton btn_ThongKeNam = new JButton("Tổng năm");
@@ -182,7 +187,7 @@ public class FrmBangLuongNhanVien extends JInternalFrame {
 		JComboBox cbb_Thang = new JComboBox();
 		cbb_Thang.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
 		cbb_Thang.setSelectedIndex(0);
-		cbb_Thang.setBounds(24, 146, 68, 33);
+		cbb_Thang.setBounds(24, 167, 68, 33);
 		pnl_Control.add(cbb_Thang);
 		
 		JComboBox cbb_Nam = new JComboBox();
@@ -196,24 +201,19 @@ public class FrmBangLuongNhanVien extends JInternalFrame {
 		pnl_Chart.setBounds(237, 11, 375, 233);
 		pnl_Control.add(pnl_Chart);
 		
+		JButton btn_XuatPhieuLuong = new JButton("Xuất phiếu lương");
+		btn_XuatPhieuLuong.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btn_XuatPhieuLuong.setBounds(24, 99, 182, 33);
+		pnl_Control.add(btn_XuatPhieuLuong);
+		
 		JPanel pnl_Table = new JPanel();
 		pnl_Table.setBackground(new Color(255, 255, 255));
-		pnl_Table.setBounds(10, 341, 1258, 404);
+		pnl_Table.setBounds(20, 341, 1258, 404);
 		panel.add(pnl_Table);
 		
 		tbl_BangLuong = new JTable();
 		tbl_BangLuong.setBackground(new Color(192, 192, 192));
 		pnl_Table.add(tbl_BangLuong);
-		
-		
-		
-		
-		
-	}
-
-	private void setUI() {
-	
-		
 	}
 }
 
