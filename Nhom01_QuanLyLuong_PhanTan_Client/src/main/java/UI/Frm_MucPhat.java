@@ -25,7 +25,9 @@ public class Frm_MucPhat extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
-	private JTable tbl_BangLuong;
+	private JTextField txt_TenMucPhat;
+	private JTextField txt_TienPhat;
+	private JTable tbl_MucPhat;
 
 
 	/**
@@ -69,65 +71,56 @@ public class Frm_MucPhat extends JFrame {
 		panel.setLayout(null);
 		
 		JPanel pnl_Input = new JPanel();
-		pnl_Input.setBounds(10, 75, 1266, 137);
+		pnl_Input.setBounds(10, 75, 980, 416);
 		panel.add(pnl_Input);
 		pnl_Input.setLayout(null);
 		
-		JLabel lblNewLabel_4_2 = new JLabel("Mã mức phạt");
+		JLabel lblNewLabel_4_2 = new JLabel("Tên mức phạt");
 		lblNewLabel_4_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_4_2.setBounds(10, 23, 151, 23);
 		pnl_Input.add(lblNewLabel_4_2);
 		
-		JLabel lblNewLabel_4_2_1 = new JLabel("Mã nhân viên");
+		JLabel lblNewLabel_4_2_1 = new JLabel("Tiền phạt");
 		lblNewLabel_4_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel_4_2_1.setBounds(10, 57, 151, 23);
 		pnl_Input.add(lblNewLabel_4_2_1);
 		
-		JComboBox cbb_MaMucPhat = new JComboBox();
-		cbb_MaMucPhat.setBounds(171, 25, 1085, 22);
-		pnl_Input.add(cbb_MaMucPhat);
-		
-		JComboBox cbb_MaNhanVien = new JComboBox();
-		cbb_MaNhanVien.setBounds(171, 59, 1085, 22);
-		pnl_Input.add(cbb_MaNhanVien);
-		
-		JButton btnXoa = new JButton("Xoá phiếu");
+		JButton btnXoa = new JButton("Xoá mức phạt");
 		btnXoa.setBounds(734, 92, 230, 33);
 		pnl_Input.add(btnXoa);
 		btnXoa.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JButton btn_Sua = new JButton("Sửa phiếu");
+		JButton btn_Sua = new JButton("Sửa mức phạt");
 		btn_Sua.setBounds(455, 92, 230, 33);
 		pnl_Input.add(btn_Sua);
 		btn_Sua.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JButton btn_Them = new JButton("Thêm phiếu");
+		JButton btn_Them = new JButton("Thêm mức phạt");
 		btn_Them.setBounds(171, 92, 230, 33);
 		pnl_Input.add(btn_Them);
 		btn_Them.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JButton btn_MucPhat = new JButton("Mức phạt");
-		btn_MucPhat.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btn_MucPhat.setBounds(1026, 92, 230, 33);
-		pnl_Input.add(btn_MucPhat);
+		txt_TenMucPhat = new JTextField();
+		txt_TenMucPhat.setBounds(170, 23, 794, 23);
+		pnl_Input.add(txt_TenMucPhat);
+		txt_TenMucPhat.setColumns(10);
+		
+		txt_TienPhat = new JTextField();
+		txt_TienPhat.setColumns(10);
+		txt_TienPhat.setBounds(171, 57, 793, 23);
+		pnl_Input.add(txt_TienPhat);
+		
+		tbl_MucPhat = new JTable();
+		tbl_MucPhat.setBounds(10, 136, 954, 269);
+		pnl_Input.add(tbl_MucPhat);
 		btn_Them.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		
-		JLabel lblNewLabel_4_2_1_1 = new JLabel("Quản lý phiếu phạt");
+		JLabel lblNewLabel_4_2_1_1 = new JLabel("Quản lý mức phạt");
 		lblNewLabel_4_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblNewLabel_4_2_1_1.setBounds(508, 11, 221, 44);
+		lblNewLabel_4_2_1_1.setBounds(382, 11, 221, 44);
 		panel.add(lblNewLabel_4_2_1_1);
-		
-		JPanel pnl_Table = new JPanel();
-		pnl_Table.setBackground(new Color(255, 255, 255));
-		pnl_Table.setBounds(10, 223, 1268, 522);
-		panel.add(pnl_Table);
-		
-		tbl_BangLuong = new JTable();
-		tbl_BangLuong.setBackground(new Color(192, 192, 192));
-		pnl_Table.add(tbl_BangLuong);
 	}
-
 }
