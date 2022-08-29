@@ -199,6 +199,7 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 		functionPanel.add(okButton);
 
 		cancelButton.addActionListener(this);
+		okButton.addActionListener(this);
 		taiKhoanText.addKeyListener(this);
 		passwordText.addKeyListener(this);
 	}
@@ -217,6 +218,8 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 			if (n == JOptionPane.YES_OPTION) {
 				close();
 			}
+		}else if(obj == okButton) {
+			loginUser();
 		}
 	}
 
