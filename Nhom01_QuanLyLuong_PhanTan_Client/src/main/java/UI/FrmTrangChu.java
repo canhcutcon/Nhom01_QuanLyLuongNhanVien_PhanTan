@@ -9,6 +9,9 @@ import java.awt.Window.Type;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
+
+import componentCustom.CurrentState;
+
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -20,6 +23,8 @@ import javax.swing.Box;
 
 public class FrmTrangChu extends JInternalFrame {
 	private JPanel centerPanel;
+	private String name;
+	private String role;
 
 	/**
 	 * Launch the application.
@@ -44,6 +49,39 @@ public class FrmTrangChu extends JInternalFrame {
 		setBackground(Color.WHITE);
 		initGUI();
 		setUI();
+	}
+
+	public FrmTrangChu(String name, CurrentState role) {
+		setBackground(Color.WHITE);
+		setAuthentication(role);
+		this.name = name;
+		initGUI();
+		setUI();
+	}
+
+	private void setAuthentication(CurrentState role2) {
+		// TODO Auto-generated method stub
+		switch (role2) {
+		case ADMIN:
+			role = "Quản lý";
+			break;
+		case EMPLOYEE:
+			role = "Nhân viên";
+			break;
+		case EMPLOYEE_MANAGER:
+			role = "Quản lý nhân sự";
+			break;
+		case SALARY_MANAGER:
+			role = "Quản lý lương";
+			break;
+		case MANAGER:
+			role = "Trưởng Phòng";
+		case NONE:
+			role = "Không";
+		default:
+			break;
+
+		}
 	}
 
 	public void initGUI() {
@@ -90,7 +128,7 @@ public class FrmTrangChu extends JInternalFrame {
 		tblInfo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		infoPanel.add(tblInfo);
 
-		JLabel txtTenNhanVien = new JLabel("Vo Thi tra Giang");
+		JLabel txtTenNhanVien = new JLabel(name);
 		txtTenNhanVien.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		infoPanel.add(txtTenNhanVien);
 
@@ -106,7 +144,7 @@ public class FrmTrangChu extends JInternalFrame {
 		lblChucVu.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		infoRole.add(lblChucVu);
 
-		JLabel txtChucVu = new JLabel("Quản lý");
+		JLabel txtChucVu = new JLabel(role);
 		txtChucVu.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		infoRole.add(txtChucVu);
 

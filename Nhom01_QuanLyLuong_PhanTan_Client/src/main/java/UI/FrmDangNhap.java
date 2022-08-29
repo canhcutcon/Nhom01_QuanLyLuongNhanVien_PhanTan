@@ -31,11 +31,15 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import componentCustom.CurrentState;
+import javax.swing.JPasswordField;
+
 public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 
 	private JPanel contentPane;
-	private JTextField taiKhoanText, passwordText;
+	private JTextField taiKhoanText;
 	private JButton cancelButton, okButton;
+	private JPasswordField passwordText;
 
 	/**
 	 * Launch the application.
@@ -67,7 +71,6 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 		});
 		setFocusable(true);
 		initFrameDangNhap();
-
 		setUIFrmDangNhap();
 
 	}
@@ -154,7 +157,7 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		userPanel.add(horizontalStrut);
 
-		taiKhoanText = new JTextField();
+		taiKhoanText = new JTextField("admin");
 		taiKhoanText.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		userPanel.add(taiKhoanText);
 		taiKhoanText.setColumns(15);
@@ -171,11 +174,11 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 		passPanel.add(horizontalStrut_1);
 
-		passwordText = new JTextField();
+		passwordText = new JPasswordField("admin");;
 		passwordText.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		passPanel.add(passwordText);
 		passwordText.setColumns(15);
-
+		
 		Component verticalStrut_3 = Box.createVerticalStrut(40);
 		infoLoginPanel.add(verticalStrut_3);
 
@@ -237,16 +240,25 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 		}
 	}
 	
+
 	private void loginUser() {
 		String userName = taiKhoanText.getText();
-		@SuppressWarnings("deprecation")
 		String password = passwordText.getText();
-		
-		if(userName.equals("admin") && password.equals("admin")) {
-			FrmTrangChinh window = new FrmTrangChinh();
+
+		if (checkLoginUser(userName,password)) {
+			this.setVisible(false);
+			FrmTrangChinh window = new FrmTrangChinh("Giang", CurrentState.ADMIN);
 			window.frmCngTyGsb.setVisible(true);
-			close();
+			window.frmCngTyGsb.setLocationRelativeTo(null);
 		}
+	}
+
+	private boolean checkLoginUser(String userName, String password) {
+		// TODO Auto-generated method stub
+		if (userName.equals("admin") && password.equals("admin")) {
+			return true;
+		}
+		return false;
 	}
 
 }

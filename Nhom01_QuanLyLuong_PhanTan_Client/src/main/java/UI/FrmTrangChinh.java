@@ -4,9 +4,14 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.border.EmptyBorder;
+
+import componentCustom.CurrentState;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Window.Type;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Dialog.ModalExclusionType;
 
 public class FrmTrangChinh {
@@ -24,6 +29,9 @@ public class FrmTrangChinh {
 						mnItem_DM_NhanVien, mnItem_DM_PhongBan, mnItem_DM_PhieuPhat;
 
 	private FrmTrangChu frmTrangChu;
+	private FrmChamCong frmChamCong;
+	private String name;
+	
 	/**
 	 * Launch the application.
 	 */ 
@@ -31,7 +39,7 @@ public class FrmTrangChinh {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmTrangChinh window = new FrmTrangChinh();
+					FrmTrangChinh window = new FrmTrangChinh("Vo Thi Tra Giang", CurrentState.MANAGER);
 					window.frmCngTyGsb.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,6 +53,129 @@ public class FrmTrangChinh {
 	 */
 	public FrmTrangChinh() {
 		initialize();
+	}
+	public FrmTrangChinh(String name, CurrentState role) {
+		this.name = name;
+		initialize();
+		setAuthentication(role);
+	}
+
+	private void setAuthentication(CurrentState role) {
+		// TODO Auto-generated method stub
+		switch (role) {
+		case ADMIN:
+			mnDanhMuc.setVisible(true);
+			mnCapNhat.setVisible(true);
+			mnXuLy.setVisible(true);
+			mntimKiem.setVisible(true);
+			
+			mnItem_DM_NhanVien.setVisible(true);
+			mnItem_DM_PhieuPhat.setVisible(true);
+			mnItem_DM_PhongBan.setVisible(true);
+			//--- cap nhat
+			mnItem_CN_BangChamCong.setVisible(true);
+			mnItem_CN_ChucVu.setVisible(true);
+			mnItem_CN_MucPhat.setVisible(true);
+			mnItem_CN_LuongNV.setVisible(true);
+			//=== xu ly
+			mnItem_XL_ChamCong.setVisible(true);
+			mnItem_XL_TinhLuong.setVisible(true);
+//			=== tim kiem 
+			mnItem_TK_NhanVien.setVisible(true);
+			mnItem_TK_PhongBan.setVisible(true);
+			break;
+		case EMPLOYEE:
+			mnDanhMuc.setVisible(false);
+			mnCapNhat.setVisible(false);
+			mnXuLy.setVisible(false);
+			mntimKiem.setVisible(false);
+			break;
+		case EMPLOYEE_MANAGER:
+			mnDanhMuc.setVisible(true);
+			mnCapNhat.setVisible(true);
+			mnXuLy.setVisible(true);
+			mntimKiem.setVisible(true);
+			//-- danh muc
+			mnItem_DM_NhanVien.setVisible(true);
+			mnItem_DM_PhieuPhat.setVisible(false);
+			mnItem_DM_PhongBan.setVisible(true);
+			//--- cap nhat
+			mnItem_CN_BangChamCong.setVisible(false);
+			mnItem_CN_ChucVu.setVisible(true);
+			mnItem_CN_MucPhat.setVisible(false);
+			mnItem_CN_LuongNV.setVisible(false);
+			//=== xu ly
+			mnItem_XL_ChamCong.setVisible(false);
+			mnItem_XL_TinhLuong.setVisible(false);
+//			=== tim kiem 
+			mnItem_TK_NhanVien.setVisible(true);
+			mnItem_TK_PhongBan.setVisible(true);
+			break;
+		case SALARY_MANAGER:
+			mnDanhMuc.setVisible(true);
+			mnCapNhat.setVisible(true);
+			mnXuLy.setVisible(true);
+			mntimKiem.setVisible(true);
+			//-- danh muc
+			mnItem_DM_NhanVien.setVisible(false);
+			mnItem_DM_PhieuPhat.setVisible(true);
+			mnItem_DM_PhongBan.setVisible(false);
+			//--- cap nhat
+			mnItem_CN_BangChamCong.setVisible(false);
+			mnItem_CN_ChucVu.setVisible(false);
+			mnItem_CN_MucPhat.setVisible(true);
+			mnItem_CN_LuongNV.setVisible(true);
+			//=== xu ly
+			mnItem_XL_ChamCong.setVisible(false);
+			mnItem_XL_TinhLuong.setVisible(true);
+//			=== tim kiem 
+			mnItem_TK_NhanVien.setVisible(true);
+			mnItem_TK_PhongBan.setVisible(true);
+			break;
+		case MANAGER:
+			mnDanhMuc.setVisible(true);
+			mnCapNhat.setVisible(true);
+			mnXuLy.setVisible(true);
+			mntimKiem.setVisible(true);
+			//-- danh muc
+			mnItem_DM_NhanVien.setVisible(false);
+			mnItem_DM_PhieuPhat.setVisible(false);
+			mnItem_DM_PhongBan.setVisible(false);
+			//--- cap nhat
+			mnItem_CN_BangChamCong.setVisible(true);
+			mnItem_CN_ChucVu.setVisible(false);
+			mnItem_CN_MucPhat.setVisible(false);
+			mnItem_CN_LuongNV.setVisible(false);
+			//=== xu ly
+			mnItem_XL_ChamCong.setVisible(true);
+			mnItem_XL_TinhLuong.setVisible(false);
+//			=== tim kiem 
+			mnItem_TK_NhanVien.setVisible(true);
+			mnItem_TK_PhongBan.setVisible(false);
+		case NONE:
+			mnDanhMuc.setVisible(true);
+			mnCapNhat.setVisible(true);
+			mnXuLy.setVisible(true);
+			mntimKiem.setVisible(true);
+			
+			mnItem_DM_NhanVien.setVisible(false);
+			mnItem_DM_PhieuPhat.setVisible(false);
+			mnItem_DM_PhongBan.setVisible(false);
+			//--- cap nhat
+			mnItem_CN_BangChamCong.setVisible(false);
+			mnItem_CN_ChucVu.setVisible(false);
+			mnItem_CN_MucPhat.setVisible(false);
+			mnItem_CN_LuongNV.setVisible(false);
+			//=== xu ly
+			mnItem_XL_ChamCong.setVisible(false);
+			mnItem_XL_TinhLuong.setVisible(false);
+//			=== tim kiem 
+			mnItem_TK_NhanVien.setVisible(false);
+			mnItem_TK_PhongBan.setVisible(false);
+		default:
+			break;
+	
+		}
 	}
 
 	/**
@@ -79,20 +210,21 @@ public class FrmTrangChinh {
 		contentPane.add(desktopPane);
 
 		// === interframe
-		initInternalFrame();
+		initInternalFrame(frmTrangChu = new FrmTrangChu("Vo Thi Tra Giang", CurrentState.ADMIN));
+		frmTrangChu.setVisible(true);
+		
+		initInternalFrame(frmChamCong = new FrmChamCong());
+		//==== authentication
 //		Menu 
 		initMenuItem();
 		
 	}
 
-	private void initInternalFrame() {
+	private void initInternalFrame(JInternalFrame frm) {
 //		========================== Frm Trang Chu ======================
-		frmTrangChu = new FrmTrangChu();
-		frmTrangChu.setBounds(0, 0, 1530, 800);
-		frmTrangChu.setBorder(new EmptyBorder(0, 0, 0, 0));
-		desktopPane.add(frmTrangChu);
-		frmTrangChu.setVisible(true);
-		
+		frm.setBounds(0, 0, 1530, 800);
+		frm.setBorder(new EmptyBorder(0, 0, 0, 0));
+		desktopPane.add(frm);
 	}
 
 	private void initMenuItem() {
@@ -115,6 +247,13 @@ public class FrmTrangChinh {
 		
 		mnItem_HT_DangXuat = createJMenuItem("Đăng Xuất","HinhAnh/Icon/log-out.png");
 		mnHeThong.add(mnItem_HT_DangXuat);
+		mnHeThong.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				anTatCa();
+				setAuthentication(CurrentState.NONE);
+			}
+		});
 		
 		
 		
@@ -150,6 +289,13 @@ public class FrmTrangChinh {
 		
 		mnItem_CN_BangChamCong = createJMenuItem("Bảng Chấm Công", "HinhAnh/Icon/private.png");
 		mnCapNhat.add(mnItem_CN_BangChamCong);
+		mnItem_CN_BangChamCong.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				anTatCa();
+				frmChamCong.setVisible(true);
+			}
+		});
 		
 //		========= Xử lý ====	
 		mnXuLy = createJMenu("Xử Lý", "HinhAnh/Icon/private.png");
@@ -157,6 +303,12 @@ public class FrmTrangChinh {
 		
 		mnItem_XL_TinhLuong = createJMenuItem("Tính Lương", "HinhAnh/Icon/private.png");
 		mnXuLy.add(mnItem_XL_TinhLuong);
+		mnItem_XL_TinhLuong.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		
 		mnItem_XL_ChamCong = createJMenuItem("Chấm Công", "HinhAnh/Icon/private.png");
 		mnXuLy.add(mnItem_XL_ChamCong);
@@ -189,5 +341,6 @@ public class FrmTrangChinh {
 	
 	private void anTatCa() {
 		frmTrangChu.setVisible(false);
+		frmChamCong.setVisible(false);
 	}
 }

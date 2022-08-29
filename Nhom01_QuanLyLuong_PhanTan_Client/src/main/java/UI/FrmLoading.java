@@ -9,11 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JProgressBar;
+import java.awt.BorderLayout;
 
 public class FrmLoading extends JFrame {
 
 	private JPanel contentPane;
-
+	public JProgressBar progressBar;
 	/**
 	 * Launch the application.
 	 */
@@ -42,11 +44,15 @@ public class FrmLoading extends JFrame {
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon("HinhAnh\\Logo\\41973c0e30db4c36924ab8e4a4a9cd33 (1).png"));
 		contentPane.add(lblNewLabel);
+		
+		progressBar = new JProgressBar();
+		progressBar.setForeground(Color.PINK);
+		contentPane.add(progressBar, BorderLayout.SOUTH);
 	}
 
 }
