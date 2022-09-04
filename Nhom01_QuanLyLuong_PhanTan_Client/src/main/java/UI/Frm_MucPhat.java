@@ -10,13 +10,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class Frm_MucPhat extends JFrame {
+public class Frm_MucPhat extends JInternalFrame {
 
 
 	private JPanel contentPane;
@@ -55,6 +57,8 @@ public class Frm_MucPhat extends JFrame {
 		setUI();
 	}
 	private void initGUI() {
+		
+		setBounds(100, 100, 1013, 533);
 		setFocusCycleRoot(true);
 		setFocusable(true);
 		setFocusCycleRoot(true);
@@ -67,11 +71,13 @@ public class Frm_MucPhat extends JFrame {
 	private void setUI() {
 	
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(252, 222, 223));
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
 		JPanel pnl_Input = new JPanel();
 		pnl_Input.setBounds(10, 75, 980, 416);
+		pnl_Input.setBackground(new Color(252, 222, 223));
 		panel.add(pnl_Input);
 		pnl_Input.setLayout(null);
 		
@@ -86,11 +92,21 @@ public class Frm_MucPhat extends JFrame {
 		pnl_Input.add(lblNewLabel_4_2_1);
 		
 		JButton btnXoa = new JButton("Xoá mức phạt");
+		btnXoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int n = JOptionPane.showConfirmDialog(null, "Xoá ", "Thông báo", JOptionPane.YES_NO_OPTION);
+			}
+		});
 		btnXoa.setBounds(734, 92, 230, 33);
 		pnl_Input.add(btnXoa);
 		btnXoa.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JButton btn_Sua = new JButton("Sửa mức phạt");
+		btn_Sua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int n = JOptionPane.showConfirmDialog(null, "Sửa", "Thông báo", JOptionPane.YES_NO_OPTION);
+			}
+		});
 		btn_Sua.setBounds(455, 92, 230, 33);
 		pnl_Input.add(btn_Sua);
 		btn_Sua.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -115,6 +131,7 @@ public class Frm_MucPhat extends JFrame {
 		pnl_Input.add(tbl_MucPhat);
 		btn_Them.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int n = JOptionPane.showConfirmDialog(null, "Thêm", "Thông báo", JOptionPane.YES_NO_OPTION);
 			}
 		});
 		

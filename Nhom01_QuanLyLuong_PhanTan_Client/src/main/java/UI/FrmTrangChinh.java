@@ -30,6 +30,11 @@ public class FrmTrangChinh {
 
 	private FrmTrangChu frmTrangChu;
 	private FrmChamCong frmChamCong;
+	private FrmQuanLyPhieuPhat frmQuanLyPhieuPhat;
+	private FrmBangLuongNhanVien frmBangLuongNhanVien;
+	private Frm_MucPhat frm_MucPhat;
+	
+	
 	private String name;
 	
 	/**
@@ -214,6 +219,9 @@ public class FrmTrangChinh {
 		frmTrangChu.setVisible(true);
 		
 		initInternalFrame(frmChamCong = new FrmChamCong());
+		initInternalFrame(frmQuanLyPhieuPhat = new FrmQuanLyPhieuPhat());
+		initInternalFrame(frmBangLuongNhanVien = new FrmBangLuongNhanVien());
+		initInternalFrame(frm_MucPhat = new Frm_MucPhat());
 		//==== authentication
 //		Menu 
 		initMenuItem();
@@ -271,7 +279,13 @@ public class FrmTrangChinh {
 		
 		mnItem_DM_PhieuPhat = createJMenuItem("Phiếu phạt", "HinhAnh/Icon/private.png");
 		mnDanhMuc.add(mnItem_DM_PhieuPhat);
-		
+		mnItem_DM_PhieuPhat.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				anTatCa();
+				frmQuanLyPhieuPhat.setVisible(true);
+			}
+		});
 		//======== Cập nhật
 		mnCapNhat = createJMenu("Cập Nhật","HinhAnh/Icon/private.png");
 		menuBar.add(mnCapNhat);
@@ -280,9 +294,22 @@ public class FrmTrangChinh {
 		
 		mnItem_CN_LuongNV = createJMenuItem("Lương Nhân Viên", "HinhAnh/Icon/private.png");
 		mnCapNhat.add(mnItem_CN_LuongNV);
-		
+		mnItem_CN_LuongNV.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				anTatCa();
+				frmBangLuongNhanVien.setVisible(true);
+			}
+		});
 		mnItem_CN_MucPhat = createJMenuItem("Mức Phạt", "HinhAnh/Icon/private.png");
 		mnCapNhat.add(mnItem_CN_MucPhat);
+		mnItem_CN_MucPhat.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				anTatCa();
+				frm_MucPhat.setVisible(true);
+			}
+		});
 		
 		mnItem_CN_ChucVu = createJMenuItem("Chức Vụ", "HinhAnh/Icon/private.png");
 		mnCapNhat.add(mnItem_CN_ChucVu);
@@ -342,5 +369,8 @@ public class FrmTrangChinh {
 	private void anTatCa() {
 		frmTrangChu.setVisible(false);
 		frmChamCong.setVisible(false);
+		frmQuanLyPhieuPhat.setVisible(false);
+		frmBangLuongNhanVien.setVisible(false);
+		frm_MucPhat.setVisible(false);
 	}
 }

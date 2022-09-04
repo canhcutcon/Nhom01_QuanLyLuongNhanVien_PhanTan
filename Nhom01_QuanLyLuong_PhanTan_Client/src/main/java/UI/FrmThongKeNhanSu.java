@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -16,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 
-public class FrmThongKeNhanSu extends JFrame {
+public class FrmThongKeNhanSu extends JInternalFrame {
 
 	private JPanel contentPane;
 	private JTextField txtThue;
@@ -51,6 +52,7 @@ public class FrmThongKeNhanSu extends JFrame {
 		setUI();
 	}
 	private void initGUI() {
+		setBounds(100, 100, 1010, 536);
 		setFocusCycleRoot(true);
 		setFocusable(true);
 		setFocusCycleRoot(true);
@@ -63,11 +65,13 @@ public class FrmThongKeNhanSu extends JFrame {
 	private void setUI() {
 	
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(252, 222, 223));
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
 		JPanel pnl_Input = new JPanel();
 		pnl_Input.setBounds(10, 75, 980, 416);
+		pnl_Input.setBackground(new Color(252, 222, 223));
 		panel.add(pnl_Input);
 		pnl_Input.setLayout(null);
 		
