@@ -47,6 +47,10 @@ public class NhanVien implements Serializable {
 	@ManyToOne(targetEntity = ChucVu.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idChucVu")
 	private ChucVu chucVu;
+	
+	@ManyToOne(targetEntity = PhongBan.class,cascade = CascadeType.ALL)
+	@JoinColumn(name = "idPhongBan")
+	private PhongBan phongBan;
 
 	@Column(columnDefinition = "nvarchar(255)", nullable = true)
 	private String matKhau;
@@ -59,6 +63,24 @@ public class NhanVien implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public NhanVien(String hoTen, String sdt, String cmnd, String diaChi, String ngayVaoLam, String ngaySinh,
+			ChucVu chucVu, PhongBan phongBan, String matKhau, String hinhAnh, int trangThai) {
+		super();
+		this.hoTen = hoTen;
+		this.sdt = sdt;
+		this.cmnd = cmnd;
+		this.diaChi = diaChi;
+		this.ngayVaoLam = ngayVaoLam;
+		this.ngaySinh = ngaySinh;
+		this.chucVu = chucVu;
+		this.phongBan = phongBan;
+		this.matKhau = matKhau;
+		this.hinhAnh = hinhAnh;
+		this.trangThai = trangThai;
+	}
+
 
 	public NhanVien(String hoTen, String sdt, String cmnd, String diaChi, String ngayVaoLam, String ngaySinh,
 			ChucVu chucVu, String matKhau, String hinhAnh, int trangThai) {
@@ -153,6 +175,14 @@ public class NhanVien implements Serializable {
 
 	public void setChucVu(ChucVu chucVu) {
 		this.chucVu = chucVu;
+	}
+	
+	public PhongBan getPhongBan() {
+		return phongBan;
+	}
+
+	public void setPhongBan(PhongBan phongBan) {
+		this.phongBan = phongBan;
 	}
 
 	public String getMatKhau() {

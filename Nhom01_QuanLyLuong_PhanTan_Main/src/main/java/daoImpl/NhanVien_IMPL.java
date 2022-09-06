@@ -1,7 +1,6 @@
 package daoImpl;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,11 +8,15 @@ import javax.persistence.EntityTransaction;
 
 import Util.HibernateUtil;
 import dao.NhanVien_DAO;
-import entity.ChucVu;
 import entity.NhanVien;
 
 public class NhanVien_IMPL implements NhanVien_DAO{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private EntityManager entityManager;
 	EntityTransaction entityTrans;
 	
@@ -104,6 +107,7 @@ public class NhanVien_IMPL implements NhanVien_DAO{
 				temp.setNgayVaoLam(nhanVien.getNgayVaoLam());
 				temp.setNgaySinh(nhanVien.getNgaySinh());
 				temp.setChucVu(nhanVien.getChucVu());
+				temp.setPhongBan(nhanVien.getPhongBan());
 				temp.setMatKhau(nhanVien.getMatKhau());
 				temp.setHinhAnh(nhanVien.getHinhAnh());
 				temp.setTrangThai(nhanVien.getTrangThai());

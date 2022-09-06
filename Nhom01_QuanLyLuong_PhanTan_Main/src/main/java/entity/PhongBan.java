@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 /**
  * Launch the application. Tên: Võ Thị Trà Giang Ngày tạo: 21/08/2022
@@ -32,7 +33,7 @@ public class PhongBan implements Serializable{
 	@Column(columnDefinition = "varchar(255)",nullable = false)
 	private String tenPhongBan;
 	
-	@ManyToOne(targetEntity = NhanVien.class)
+	@OneToOne(targetEntity = NhanVien.class)
 	@JoinColumn(name = "quanLyPhongBan")
 	private NhanVien quanLyPB;
 	
@@ -97,6 +98,4 @@ public class PhongBan implements Serializable{
 				+ ", trangThai=" + trangThai + "]";
 	}
 	
-	
-
 }
