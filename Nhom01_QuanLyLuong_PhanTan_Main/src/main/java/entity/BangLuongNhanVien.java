@@ -1,69 +1,87 @@
 package entity;
 
-import java.beans.Transient;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-/**
- * Launch the application. Tên: Huỳnh Nguyễn Quốc Bảo
- */
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
 @Entity
-@Table(name = "luong_nhan_vien")
-
+@Table(name = "bang_luong")
 public class BangLuongNhanVien implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 562606000692588963L;
 
-	private static final long serialVersionUID = 2306174430773041680L;
 	@Id
-	@Column(name = "idLuongNhanVien")
+	@Column(name = "ma_luong")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idLuongNhanVien;
-	@Column(nullable = false)
+	private int maLuong;
+
 	private double thue;
-	@Column(nullable = false)
-	private int soNgayLamDuoc;
-	@Column(nullable = false)
-	private double luongCoBan;
-	@Column(nullable = false)
+
+	@Column(name = "phu_cap")
+	private double PhuCap;
+
+	@Column(name = "ngay_tinh_luong", columnDefinition = "datetime")
 	private String ngayTinhLuong;
-	@Column(nullable = false)
-	private int chungChi;
-	
-	//wait for PhieuPhat
-	@OneToMany(targetEntity = PhieuPhat.class)
-	@JoinColumn(name="idPhieuPhat")
-	private Integer maPhieuPhat;
-	
-	@ManyToOne(targetEntity = NhanVien.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "idNhanVien")
-	private NhanVien idNhanVien;
-	
-	@Column(nullable = false)
+
+	@Column(name = "so_ngay_lam")
+	private int soNgayLam;
+
+	@Column(name = "luong_co_ban")
+	private double luongCoBan;
+
+	@Column(name = "chung_chi")
+	private int soChungChi;
+
+	@Column(name = "ngay_nhan", columnDefinition = "datetime")
+	private LocalDate ngayNhan;
+
+	@Column(name = "trang_thai")
 	private int trangThai;
 
+	@Column(name = "luong_thuc_nhan")
+	private double luongThucNhan;
+
+	@OneToOne(mappedBy = "bangLuongNhanVien")
+	private NhanVien nhanVien;
+
 	public BangLuongNhanVien() {
-		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getIdLuongNhanVien() {
-		return idLuongNhanVien;
+	public BangLuongNhanVien(int maLuong, double thue, double phuCap, String ngayTinhLuong, int soNgayLam,
+			double luongCoBan, int soChungChi, LocalDate ngayNhan, int trangThai, double luongThucNhan,
+			NhanVien nhanVien) {
+		super();
+		this.maLuong = maLuong;
+		this.thue = thue;
+		PhuCap = phuCap;
+		this.ngayTinhLuong = ngayTinhLuong;
+		this.soNgayLam = soNgayLam;
+		this.luongCoBan = luongCoBan;
+		this.soChungChi = soChungChi;
+		this.ngayNhan = ngayNhan;
+		this.trangThai = trangThai;
+		this.luongThucNhan = luongThucNhan;
+		this.nhanVien = nhanVien;
 	}
 
-	public void setIdLuongNhanVien(int idLuongNhanVien) {
-		this.idLuongNhanVien = idLuongNhanVien;
+	public int getMaLuong() {
+		return maLuong;
+	}
+
+	public void setMaLuong(int maLuong) {
+		this.maLuong = maLuong;
 	}
 
 	public double getThue() {
@@ -74,20 +92,12 @@ public class BangLuongNhanVien implements Serializable {
 		this.thue = thue;
 	}
 
-	public int getSoNgayLamDuoc() {
-		return soNgayLamDuoc;
+	public double getPhuCap() {
+		return PhuCap;
 	}
 
-	public void setSoNgayLamDuoc(int soNgayLamDuoc) {
-		this.soNgayLamDuoc = soNgayLamDuoc;
-	}
-
-	public double getLuongCoBan() {
-		return luongCoBan;
-	}
-
-	public void setLuongCoBan(double luongCoBan) {
-		this.luongCoBan = luongCoBan;
+	public void setPhuCap(double phuCap) {
+		PhuCap = phuCap;
 	}
 
 	public String getNgayTinhLuong() {
@@ -98,28 +108,36 @@ public class BangLuongNhanVien implements Serializable {
 		this.ngayTinhLuong = ngayTinhLuong;
 	}
 
-	public int getChungChi() {
-		return chungChi;
+	public int getSoNgayLam() {
+		return soNgayLam;
 	}
 
-	public void setChungChi(int chungChi) {
-		this.chungChi = chungChi;
+	public void setSoNgayLam(int soNgayLam) {
+		this.soNgayLam = soNgayLam;
 	}
 
-	public int getMaPhieuPhat() {
-		return maPhieuPhat;
+	public double getLuongCoBan() {
+		return luongCoBan;
 	}
 
-	public void setMaPhieuPhat(Integer maPhieuPhat) {
-		this.maPhieuPhat = maPhieuPhat;
+	public void setLuongCoBan(double luongCoBan) {
+		this.luongCoBan = luongCoBan;
 	}
 
-	public NhanVien getIdNhanVien() {
-		return idNhanVien;
+	public int getSoChungChi() {
+		return soChungChi;
 	}
 
-	public void setIdNhanVien(NhanVien idNhanVien) {
-		this.idNhanVien = idNhanVien;
+	public void setSoChungChi(int soChungChi) {
+		this.soChungChi = soChungChi;
+	}
+
+	public LocalDate getNgayNhan() {
+		return ngayNhan;
+	}
+
+	public void setNgayNhan(LocalDate ngayNhan) {
+		this.ngayNhan = ngayNhan;
 	}
 
 	public int getTrangThai() {
@@ -130,50 +148,32 @@ public class BangLuongNhanVien implements Serializable {
 		this.trangThai = trangThai;
 	}
 
+	public double getLuongThucNhan() {
+		return luongThucNhan;
+	}
+
+	public void setLuongThucNhan(double luongThucNhan) {
+		this.luongThucNhan = luongThucNhan;
+	}
+
+	public NhanVien getNhanVien() {
+		return nhanVien;
+	}
+
+	public void setNhanVien(NhanVien nhanVien) {
+		this.nhanVien = nhanVien;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-
-
-	public BangLuongNhanVien(double thue, int soNgayLamDuoc, double luongCoBan, String ngayTinhLuong, int chungChi,
-			Integer maPhieuPhat, NhanVien idNhanVien, int trangThai) {
-		super();
-		this.thue = thue;
-		this.soNgayLamDuoc = soNgayLamDuoc;
-		this.luongCoBan = luongCoBan;
-		this.ngayTinhLuong = ngayTinhLuong;
-		this.chungChi = chungChi;
-		this.maPhieuPhat = maPhieuPhat;
-		this.idNhanVien = idNhanVien;
-		this.trangThai = trangThai;
-	}
-
-	public BangLuongNhanVien(int idLuongNhanVien, double thue, int soNgayLamDuoc, double luongCoBan,
-			String ngayTinhLuong, int chungChi, Integer maPhieuPhat, NhanVien idNhanVien, int trangThai) {
-		super();
-		this.idLuongNhanVien = idLuongNhanVien;
-		this.thue = thue;
-		this.soNgayLamDuoc = soNgayLamDuoc;
-		this.luongCoBan = luongCoBan;
-		this.ngayTinhLuong = ngayTinhLuong;
-		this.chungChi = chungChi;
-		this.maPhieuPhat = maPhieuPhat;
-		this.idNhanVien = idNhanVien;
-		this.trangThai = trangThai;
-	}
-
 	@Override
 	public String toString() {
-		return "BangLuongNhanVien [idLuongNhanVien=" + idLuongNhanVien + ", thue=" + thue + ", soNgayLamDuoc="
-				+ soNgayLamDuoc + ", luongCoBan=" + luongCoBan + ", ngayTinhLuong="
-				+ ngayTinhLuong + ", chungChi=" + chungChi + ", maPhieuPhat=" + maPhieuPhat + ", idNhanVien="
-				+ idNhanVien + ", trangThai=" + trangThai + "]";
+		return "BangLuongNhanVien [maLuong=" + maLuong + ", thue=" + thue + ", PhuCap=" + PhuCap + ", ngayTinhLuong="
+				+ ngayTinhLuong + ", soNgayLam=" + soNgayLam + ", luongCoBan=" + luongCoBan + ", soChungChi="
+				+ soChungChi + ", ngayNhan=" + ngayNhan + ", trangThai=" + trangThai + ", luongThucNhan="
+				+ luongThucNhan + ", nhanVien=" + nhanVien + "]";
 	}
-
-
-
-
-
 
 }

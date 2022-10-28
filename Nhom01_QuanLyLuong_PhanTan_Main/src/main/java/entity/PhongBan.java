@@ -1,87 +1,82 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-/**
- * Launch the application. Tên: Võ Thị Trà Giang Ngày tạo: 21/08/2022
- */
-@SuppressWarnings("unused")
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
 @Entity
-@Table(name="phong_ban")
-public class PhongBan implements Serializable{
-	
+@Table(name = "phong_ban")
+public class PhongBan implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7807917797696933617L;
+	private static final long serialVersionUID = -4371582851637178956L;
 
 	@Id
-	@Column(name="idphong_ban")
+	@Column(name = "ma_pb")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idPhongBan;
-	
-	@Column(columnDefinition = "varchar(255)",nullable = false)
-	private String tenPhongBan;
-	
-	@OneToOne(targetEntity = NhanVien.class)
-	@JoinColumn(name = "quanLyPhongBan")
-	private NhanVien quanLyPB;
-	
-	@Column(nullable = true)
+	private int maPB;
+
+	@Column(name = "ten_pb", columnDefinition = "varchar(255)", nullable = false)
+	private String tenPB;
+
+	@Column(name = "trang_thai", nullable = true)
 	private int trangThai;
 
+	@OneToMany(mappedBy = "phongBan")
+	private List<NhanVien> nhanViens = new ArrayList<NhanVien>();
+
 	public PhongBan() {
-		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public PhongBan(int idPhongBan, String tenPhongBan, NhanVien quanLyPB, int trangThai) {
+	public PhongBan(int maPB, String tenPB, int trangThai, List<NhanVien> nhanViens) {
 		super();
-		this.idPhongBan = idPhongBan;
-		this.tenPhongBan = tenPhongBan;
-		this.quanLyPB = quanLyPB;
+		this.maPB = maPB;
+		this.tenPB = tenPB;
+		this.trangThai = trangThai;
+		this.nhanViens = nhanViens;
+	}
+
+	public PhongBan(String tenPB, int trangThai, List<NhanVien> nhanViens) {
+		super();
+		this.tenPB = tenPB;
+		this.trangThai = trangThai;
+		this.nhanViens = nhanViens;
+	}
+	
+	
+
+	public PhongBan(int maPB, String tenPB, int trangThai) {
+		super();
+		this.maPB = maPB;
+		this.tenPB = tenPB;
 		this.trangThai = trangThai;
 	}
 
-	public PhongBan(String tenPhongBan, NhanVien quanLyPB, int trangThai) {
-		super();
-		this.tenPhongBan = tenPhongBan;
-		this.quanLyPB = quanLyPB;
-		this.trangThai = trangThai;
+	public int getMaPB() {
+		return maPB;
 	}
 
-	public int getIdPhongBan() {
-		return idPhongBan;
+	public void setMaPB(int maPB) {
+		this.maPB = maPB;
 	}
 
-	public void setIdPhongBan(int idPhongBan) {
-		this.idPhongBan = idPhongBan;
+	public String getTenPB() {
+		return tenPB;
 	}
 
-	public String getTenPhongBan() {
-		return tenPhongBan;
-	}
-
-	public void setTenPhongBan(String tenPhongBan) {
-		this.tenPhongBan = tenPhongBan;
-	}
-
-	public NhanVien getQuanLyPB() {
-		return quanLyPB;
-	}
-
-	public void setQuanLyPB(NhanVien quanLyPB) {
-		this.quanLyPB = quanLyPB;
+	public void setTenPB(String tenPB) {
+		this.tenPB = tenPB;
 	}
 
 	public int getTrangThai() {
@@ -92,10 +87,22 @@ public class PhongBan implements Serializable{
 		this.trangThai = trangThai;
 	}
 
+	public List<NhanVien> getNhanViens() {
+		return nhanViens;
+	}
+
+	public void setNhanViens(List<NhanVien> nhanViens) {
+		this.nhanViens = nhanViens;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
-		return "PhongBan [idPhongBan=" + idPhongBan + ", tenPhongBan=" + tenPhongBan + ", quanLyPB=" + quanLyPB
-				+ ", trangThai=" + trangThai + "]";
+		return "PhongBan [maPB=" + maPB + ", tenPB=" + tenPB + ", trangThai=" + trangThai + ", nhanViens=" + nhanViens
+				+ "]";
 	}
-	
+
 }
