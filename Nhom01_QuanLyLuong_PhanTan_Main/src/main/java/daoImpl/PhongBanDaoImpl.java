@@ -1,6 +1,7 @@
 package daoImpl;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import entity.PhongBan;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-public class PhongBanDaoImpl implements PhongBanDao {
+public class PhongBanDaoImpl extends UnicastRemoteObject implements PhongBanDao {
 	/**
 	 * 
 	 */
@@ -18,7 +19,7 @@ public class PhongBanDaoImpl implements PhongBanDao {
 	EntityManager entityManager;
 	EntityTransaction entityTrans;
 
-	public PhongBanDaoImpl() {
+	public PhongBanDaoImpl() throws RemoteException{
 		// TODO Auto-generated constructor stub
 		entityManager = HibernateUtil.getInstance().getEntityManager();
 	}

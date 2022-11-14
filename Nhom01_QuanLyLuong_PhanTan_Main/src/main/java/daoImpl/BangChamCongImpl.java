@@ -1,21 +1,23 @@
 package daoImpl;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.Date;
 import java.util.List;
 
 import dao.BangChamCongDao;
 import entity.BangChamCong;
 
-public class BangChamCongImpl implements BangChamCongDao{
+public class BangChamCongImpl extends UnicastRemoteObject implements BangChamCongDao{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5495703951755090109L;
 
-	public BangChamCongImpl() {
+	public BangChamCongImpl() throws RemoteException{
 		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override

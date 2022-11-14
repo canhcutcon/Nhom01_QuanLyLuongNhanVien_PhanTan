@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 /**
@@ -26,6 +26,7 @@ public class NhanVien implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2383884828589610531L;
+
 	@Id
 	@Column(name = "ma_nv")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,78 +34,55 @@ public class NhanVien implements Serializable {
 
 	@Column(name = "ten_nv")
 	private String tenNV;
-	
+
 	private String sdt;
-	
+
 	private String cmnd;
-	
+
 	@Column(name = "dia_chi")
 	private String diaChi;
-	
-	@Column(name = "ngay_vao_lam",columnDefinition = "datetime")
-	private String ngayVaoLam;
-	
-	@Column(name = "ngay_sinh",columnDefinition = "datetime")
-	private String ngaySinh;
-	
+
+	@Column(name = "ngay_vao_lam", columnDefinition = "datetime")
+	private LocalDate ngayVaoLam;
+
+	@Column(name = "ngay_sinh", columnDefinition = "datetime")
+	private LocalDate ngaySinh;
+
 	@Column(name = "chuc_vu")
 	private String chucVu;
-	
-	@Column(name = "mat_khau")	
+
+	@Column(name = "mat_khau")
 	private String matKhau;
-	
+
 	@Column(name = "is_admin")
 	private Boolean idAdmin;
-	
+
 	@Column(name = "hinh_anh")
 	private String hinhAnh;
-	
+
 	@Column(name = "trang_thai")
 	private int trangThai;
 
 	@ManyToOne
 	@JoinColumn(name = "ma_pb")
 	private PhongBan phongBan;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ma_cc")
 	private BangChamCong bangChamCong;
-	
+
 	@OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL)
 	private List<PhieuPhat> phieuPhats = new ArrayList<PhieuPhat>();
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ma_luong", unique = true)
-    private BangLuongNhanVien bangLuongNhanVien;
-	
+
+	@OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL)
+	private List<BangLuongNhanVien> bangLuongNhanViens = new ArrayList<BangLuongNhanVien>();
+
 	public NhanVien() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public NhanVien(int maNV, String tenNV, String sdt, String cmnd, String diaChi, String ngayVaoLam, String ngaySinh,
-			String chucVu, String matKhau, Boolean idAdmin, String hinhAnh, int trangThai, PhongBan phongBan,
-			BangChamCong bangChamCong, List<PhieuPhat> phieuPhats, BangLuongNhanVien bangLuongNhanVien) {
-		super();
-		this.maNV = maNV;
-		this.tenNV = tenNV;
-		this.sdt = sdt;
-		this.cmnd = cmnd;
-		this.diaChi = diaChi;
-		this.ngayVaoLam = ngayVaoLam;
-		this.ngaySinh = ngaySinh;
-		this.chucVu = chucVu;
-		this.matKhau = matKhau;
-		this.idAdmin = idAdmin;
-		this.hinhAnh = hinhAnh;
-		this.trangThai = trangThai;
-		this.phongBan = phongBan;
-		this.bangChamCong = bangChamCong;
-		this.phieuPhats = phieuPhats;
-		this.bangLuongNhanVien = bangLuongNhanVien;
-	}
-
-	public NhanVien(String tenNV, String sdt, String cmnd, String diaChi, String ngayVaoLam, String ngaySinh,
+	public NhanVien(String tenNV, String sdt, String cmnd, String diaChi, LocalDate ngayVaoLam, LocalDate ngaySinh,
 			String chucVu, String matKhau, Boolean idAdmin, String hinhAnh, int trangThai, PhongBan phongBan) {
 		super();
 		this.tenNV = tenNV;
@@ -119,6 +97,22 @@ public class NhanVien implements Serializable {
 		this.hinhAnh = hinhAnh;
 		this.trangThai = trangThai;
 		this.phongBan = phongBan;
+	}
+
+	public LocalDate getNgayVaoLam() {
+		return ngayVaoLam;
+	}
+
+	public void setNgayVaoLam(LocalDate ngayVaoLam) {
+		this.ngayVaoLam = ngayVaoLam;
+	}
+
+	public LocalDate getNgaySinh() {
+		return ngaySinh;
+	}
+
+	public void setNgaySinh(LocalDate ngaySinh) {
+		this.ngaySinh = ngaySinh;
 	}
 
 	public int getMaNV() {
@@ -159,22 +153,6 @@ public class NhanVien implements Serializable {
 
 	public void setDiaChi(String diaChi) {
 		this.diaChi = diaChi;
-	}
-
-	public String getNgayVaoLam() {
-		return ngayVaoLam;
-	}
-
-	public void setNgayVaoLam(String ngayVaoLam) {
-		this.ngayVaoLam = ngayVaoLam;
-	}
-
-	public String getNgaySinh() {
-		return ngaySinh;
-	}
-
-	public void setNgaySinh(String ngaySinh) {
-		this.ngaySinh = ngaySinh;
 	}
 
 	public String getChucVu() {
@@ -241,12 +219,12 @@ public class NhanVien implements Serializable {
 		this.phieuPhats = phieuPhats;
 	}
 
-	public BangLuongNhanVien getBangLuongNhanVien() {
-		return bangLuongNhanVien;
+	public List<BangLuongNhanVien> getBangLuongNhanViens() {
+		return bangLuongNhanViens;
 	}
 
-	public void setBangLuongNhanVien(BangLuongNhanVien bangLuongNhanVien) {
-		this.bangLuongNhanVien = bangLuongNhanVien;
+	public void setBangLuongNhanViens(List<BangLuongNhanVien> bangLuongNhanViens) {
+		this.bangLuongNhanViens = bangLuongNhanViens;
 	}
 
 	public static long getSerialversionuid() {
@@ -257,11 +235,7 @@ public class NhanVien implements Serializable {
 	public String toString() {
 		return "NhanVien [maNV=" + maNV + ", tenNV=" + tenNV + ", sdt=" + sdt + ", cmnd=" + cmnd + ", diaChi=" + diaChi
 				+ ", ngayVaoLam=" + ngayVaoLam + ", ngaySinh=" + ngaySinh + ", chucVu=" + chucVu + ", matKhau="
-				+ matKhau + ", idAdmin=" + idAdmin + ", hinhAnh=" + hinhAnh + ", trangThai=" + trangThai + ", phongBan="
-				+ phongBan + ", bangChamCong=" + bangChamCong + ", phieuPhats=" + phieuPhats + ", bangLuongNhanVien="
-				+ bangLuongNhanVien + "]";
+				+ matKhau + ", idAdmin=" + idAdmin + ", hinhAnh=" + hinhAnh + ", trangThai=" + trangThai ;
 	}
-
-	
 
 }

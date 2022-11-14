@@ -1,14 +1,16 @@
 package daoImpl;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 import dao.ChiTietPhieuPhatDao;
 import entity.ChiTietPhieuPhat;
 
-public class ChiTietPhieuPhatImpl implements ChiTietPhieuPhatDao{
+public class ChiTietPhieuPhatImpl extends UnicastRemoteObject implements ChiTietPhieuPhatDao {
 
-	public ChiTietPhieuPhatImpl() {
+	public ChiTietPhieuPhatImpl() throws RemoteException {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 

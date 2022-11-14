@@ -297,7 +297,7 @@ public class FrmTrangChinh {
 		mnItem_CN_LuongNV.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				anTatCa();
+ 
 				frmBangLuongNhanVien.setVisible(true);
 			}
 		});

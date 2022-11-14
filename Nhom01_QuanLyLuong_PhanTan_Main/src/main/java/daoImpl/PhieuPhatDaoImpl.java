@@ -1,6 +1,7 @@
 package daoImpl;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 import Util.HibernateUtil;
@@ -9,7 +10,7 @@ import entity.PhieuPhat;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-public class PhieuPhatDaoImpl implements PhieuPhatDao{
+public class PhieuPhatDaoImpl extends UnicastRemoteObject implements PhieuPhatDao{
 
 	/**
 	 * 
@@ -18,7 +19,7 @@ public class PhieuPhatDaoImpl implements PhieuPhatDao{
 	EntityManager entityManager;
 	EntityTransaction entityTrans;
 	
-	public PhieuPhatDaoImpl() {
+	public PhieuPhatDaoImpl() throws RemoteException{
 		// TODO Auto-generated constructor stub
 		this.entityManager = HibernateUtil.getInstance().getEntityManager();
 	}

@@ -11,9 +11,7 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.Rectangle;
 import java.awt.ScrollPane;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.text.SimpleDateFormat;
+
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -30,7 +28,13 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.toedter.calendar.JCalendar;
+import org.jdatepicker.impl.UtilCalendarModel;
+import org.jdatepicker.impl.UtilDateModel;
+
+import com.toedter.calendar.JDateChooser;
+
+
+
 
 public class FrmChamCong extends JInternalFrame {
 	private JTextField txtTenNVCM, txtCVNV,txtPhongban,txtNgayCong;
@@ -39,7 +43,6 @@ public class FrmChamCong extends JInternalFrame {
 	private JLabel lblTenNhanVien;
 	private JTable tableChamCong;
 	private DefaultTableModel tblModelChamCong;
-	private JCalendar calendar;
 
 	String[] col = { "Mã nhân viên", "Tên nhân viên", "Trạng thái" };
 	/**
@@ -112,7 +115,7 @@ public class FrmChamCong extends JInternalFrame {
 		panelBangChamCong.setLayout(new BoxLayout(panelBangChamCong, BoxLayout.Y_AXIS));
 		
 		JLabel lblNewLabel = new JLabel("BẢNG CHẤM CÔNG NHÂN VIÊN");
-		lblNewLabel.setBounds(new Rectangle(0, 0, 900, 0));
+//		lblNewLabel.setBounds(new Rectangle(0, 0, 900, 0));
 		lblNewLabel.setPreferredSize(new Dimension(1000, 50));
 		lblNewLabel.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -146,21 +149,16 @@ public class FrmChamCong extends JInternalFrame {
 		label.setAlignment(Label.CENTER);
 		panelTimeLine.add(label);
 		
-		JPanel panel_2 = new JPanel();
-		panelTimeLine.add(panel_2);
+		JPanel datePanel = new JPanel();
+		datePanel.setLayout(new java.awt.BorderLayout(0, 0));
+		panelTimeLine.add(datePanel);
 		
-		calendar = new JCalendar();
-		panel_2.add(calendar);
+		UtilDateModel dateModel = new UtilDateModel();
+		JDateChooser chooser = new JDateChooser();
+		datePanel.add(chooser);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-
-		txtNgayCong.setText(sdf.format(calendar.getDate()));
-		calendar.addPropertyChangeListener(new PropertyChangeListener() {
-	          @Override
-	          public void propertyChange(PropertyChangeEvent evt) {
-	        	  txtNgayCong.setText(sdf.format(calendar.getDate()));
-	          }
-	      });
+//		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+//		txtNgayCong.setText(sdf.format(date));
 		
 		btnToday = new JButton("Today");
 		btnToday.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);

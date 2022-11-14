@@ -1,15 +1,19 @@
 package daoImpl;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import Util.HibernateUtil;
 import dao.NhanVienDao;
 import entity.NhanVien;
+import entity.PhongBan;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-public class NhanVienDaoImpl implements NhanVienDao {
+public class NhanVienDaoImpl extends UnicastRemoteObject implements NhanVienDao {
 
 	/**
 	 * 
@@ -19,7 +23,7 @@ public class NhanVienDaoImpl implements NhanVienDao {
 	private EntityManager entityManager;
 	EntityTransaction entityTrans;
 
-	public NhanVienDaoImpl() {
+	public NhanVienDaoImpl() throws RemoteException {
 		// TODO Auto-generated constructor stub
 		this.entityManager = HibernateUtil.getInstance().getEntityManager();
 	}
@@ -27,8 +31,18 @@ public class NhanVienDaoImpl implements NhanVienDao {
 	@Override
 	public List<NhanVien> getListNhanVien() throws RemoteException {
 		// TODO Auto-generated method stub
-		List<NhanVien> lstNhanViens = entityManager
-				.createNativeQuery("Select * from nhan_vien where trang_thai = 1", NhanVien.class).getResultList();
+		List<NhanVien> lstNhanViens =(List<NhanVien>)entityManager.createNativeQuery("select * from nhan_vien where trang_thai = 1", NhanVien.class).getResultList();
+//				.getResultList();
+//		List<NhanVien> lstNhanViens = new ArrayList<NhanVien>();
+//		List<?> lst = entityManager.createNativeQuery("select * from nhan_vien where trang_thai = 1", NhanVien.class)
+//				.getResultList();
+//		for (Object object : lst) {
+//			Object[] rs = (Object[])object;		
+//			int id = Integer.parseInt(rs[0].toString());
+//			String ten = (String)rs[1];
+//			int trangThai = Integer.parseInt(rs[2].toString());
+//			lstPhongBans.add(new PhongBan(id, ten, trangThai));
+//		}
 		return lstNhanViens;
 	}
 

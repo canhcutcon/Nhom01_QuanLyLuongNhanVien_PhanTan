@@ -2,6 +2,7 @@ package entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -52,7 +54,8 @@ public class BangLuongNhanVien implements Serializable {
 	@Column(name = "luong_thuc_nhan")
 	private double luongThucNhan;
 
-	@OneToOne(mappedBy = "bangLuongNhanVien")
+	@ManyToOne
+	@JoinColumn(name = "ma_nv")
 	private NhanVien nhanVien;
 
 	public BangLuongNhanVien() {
@@ -164,10 +167,7 @@ public class BangLuongNhanVien implements Serializable {
 		this.nhanVien = nhanVien;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "BangLuongNhanVien [maLuong=" + maLuong + ", thue=" + thue + ", PhuCap=" + PhuCap + ", ngayTinhLuong="
@@ -175,5 +175,31 @@ public class BangLuongNhanVien implements Serializable {
 				+ soChungChi + ", ngayNhan=" + ngayNhan + ", trangThai=" + trangThai + ", luongThucNhan="
 				+ luongThucNhan + ", nhanVien=" + nhanVien + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(PhuCap, luongCoBan, luongThucNhan, maLuong, ngayNhan, ngayTinhLuong, nhanVien, soChungChi,
+				soNgayLam, thue, trangThai);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BangLuongNhanVien other = (BangLuongNhanVien) obj;
+		return Double.doubleToLongBits(PhuCap) == Double.doubleToLongBits(other.PhuCap)
+				&& Double.doubleToLongBits(luongCoBan) == Double.doubleToLongBits(other.luongCoBan)
+				&& Double.doubleToLongBits(luongThucNhan) == Double.doubleToLongBits(other.luongThucNhan)
+				&& maLuong == other.maLuong && Objects.equals(ngayNhan, other.ngayNhan)
+				&& Objects.equals(ngayTinhLuong, other.ngayTinhLuong) && Objects.equals(nhanVien, other.nhanVien)
+				&& soChungChi == other.soChungChi && soNgayLam == other.soNgayLam
+				&& Double.doubleToLongBits(thue) == Double.doubleToLongBits(other.thue) && trangThai == other.trangThai;
+	}
+	
+	
 
 }

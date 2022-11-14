@@ -35,21 +35,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="libs/itext-2.1.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/javax.activation-1.2.0-javadoc.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/javax.mail.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/jcalendar-1.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/jcalendar-1.4.zip"/>
-	<classpathentry exported="true" kind="lib" path="libs/jcalendar-license.txt"/>
-	<classpathentry exported="true" kind="lib" path="libs/jdatepicker-1.3.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/jgoodies-common-1.2.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/jgoodies-forms-1.8.0-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/jgoodies-looks-2.4.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/jgoodies-looks-license.txt"/>
-	<classpathentry exported="true" kind="lib" path="libs/JPlanner.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/junit-4.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/png-encoder-1.5.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/readme.txt"/>
-	<classpathentry exported="true" kind="lib" path="libs/swingx-all-1.6.4.jar"/>
+	<classpathentry kind="lib" path="libs/remote.jar"/>
+	<classpathentry kind="lib" path="libs/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="libs/jdatepicker-1.3.4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

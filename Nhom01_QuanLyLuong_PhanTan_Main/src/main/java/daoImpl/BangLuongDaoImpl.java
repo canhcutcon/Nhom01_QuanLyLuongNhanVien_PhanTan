@@ -1,12 +1,18 @@
 package daoImpl;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 import dao.BangLuongDao;
 import entity.BangLuongNhanVien;
 
-public class BangLuongDaoImpl implements BangLuongDao{
+public class BangLuongDaoImpl extends UnicastRemoteObject implements BangLuongDao{
+
+	public BangLuongDaoImpl() throws RemoteException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * 

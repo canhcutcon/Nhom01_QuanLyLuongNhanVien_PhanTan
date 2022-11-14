@@ -53,8 +53,6 @@ public class PhongBan implements Serializable {
 		this.trangThai = trangThai;
 		this.nhanViens = nhanViens;
 	}
-	
-	
 
 	public PhongBan(int maPB, String tenPB, int trangThai) {
 		super();
@@ -101,8 +99,7 @@ public class PhongBan implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PhongBan [maPB=" + maPB + ", tenPB=" + tenPB + ", trangThai=" + trangThai + ", nhanViens=" + nhanViens
-				+ "]";
+		return "PhongBan [maPB=" + maPB + ", tenPB=" + tenPB + ", trangThai=" + trangThai + "]";
 	}
 
 }
