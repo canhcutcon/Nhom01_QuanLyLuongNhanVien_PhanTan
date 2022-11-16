@@ -6,6 +6,8 @@ import jakarta.persistence.EntityTransaction;
 
 public class test {
 	public static void main(String[] args) {
+		
+		//Create database
 		EntityManager entityManager;
 		EntityTransaction entityTransaction;
 		entityManager =HibernateUtil.getInstance().getEntityManager();

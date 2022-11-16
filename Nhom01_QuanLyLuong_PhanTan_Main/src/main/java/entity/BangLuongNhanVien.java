@@ -2,11 +2,8 @@ package entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,9 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -55,13 +49,9 @@ public class BangLuongNhanVien implements Serializable {
 	@Column(name = "trang_thai")
 	private int trangThai;
 
-	@Column(name = "luong_thuc_nhan")
-	private double luongThucNhan;
+	@Column(name = "tien_phat")
+	private double tienPhat;
 	
-	@OneToMany
-	@JoinColumn(name = "ma_luong")
-	private List<PhieuPhat> phieuphats = new ArrayList<PhieuPhat>();
-
 	@ManyToOne
 	@JoinColumn(name = "ma_nv")
 	private NhanVien nhanVien;
@@ -71,7 +61,7 @@ public class BangLuongNhanVien implements Serializable {
 	}
 
 	public BangLuongNhanVien(int maLuong, double thue, double phuCap, String ngayTinhLuong, int soNgayLam,
-			double luongCoBan, int soChungChi, LocalDate ngayNhan, int trangThai, double luongThucNhan,
+			double luongCoBan, int soChungChi, LocalDate ngayNhan, int trangThai, double tienPhat,
 			NhanVien nhanVien) {
 		super();
 		this.maLuong = maLuong;
@@ -83,7 +73,7 @@ public class BangLuongNhanVien implements Serializable {
 		this.soChungChi = soChungChi;
 		this.ngayNhan = ngayNhan;
 		this.trangThai = trangThai;
-		this.luongThucNhan = luongThucNhan;
+		this.tienPhat = tienPhat;
 		this.nhanVien = nhanVien;
 	}
 
@@ -160,11 +150,11 @@ public class BangLuongNhanVien implements Serializable {
 	}
 
 	public double getLuongThucNhan() {
-		return luongThucNhan;
+		return tienPhat;
 	}
 
 	public void setLuongThucNhan(double luongThucNhan) {
-		this.luongThucNhan = luongThucNhan;
+		this.tienPhat = luongThucNhan;
 	}
 
 	public NhanVien getNhanVien() {
@@ -181,12 +171,12 @@ public class BangLuongNhanVien implements Serializable {
 		return "BangLuongNhanVien [maLuong=" + maLuong + ", thue=" + thue + ", PhuCap=" + PhuCap + ", ngayTinhLuong="
 				+ ngayTinhLuong + ", soNgayLam=" + soNgayLam + ", luongCoBan=" + luongCoBan + ", soChungChi="
 				+ soChungChi + ", ngayNhan=" + ngayNhan + ", trangThai=" + trangThai + ", luongThucNhan="
-				+ luongThucNhan + ", nhanVien=" + nhanVien + "]";
+				+ tienPhat + ", nhanVien=" + nhanVien + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(PhuCap, luongCoBan, luongThucNhan, maLuong, ngayNhan, ngayTinhLuong, nhanVien, soChungChi,
+		return Objects.hash(PhuCap, luongCoBan, tienPhat, maLuong, ngayNhan, ngayTinhLuong, nhanVien, soChungChi,
 				soNgayLam, thue, trangThai);
 	}
 
@@ -201,7 +191,7 @@ public class BangLuongNhanVien implements Serializable {
 		BangLuongNhanVien other = (BangLuongNhanVien) obj;
 		return Double.doubleToLongBits(PhuCap) == Double.doubleToLongBits(other.PhuCap)
 				&& Double.doubleToLongBits(luongCoBan) == Double.doubleToLongBits(other.luongCoBan)
-				&& Double.doubleToLongBits(luongThucNhan) == Double.doubleToLongBits(other.luongThucNhan)
+				&& Double.doubleToLongBits(tienPhat) == Double.doubleToLongBits(other.tienPhat)
 				&& maLuong == other.maLuong && Objects.equals(ngayNhan, other.ngayNhan)
 				&& Objects.equals(ngayTinhLuong, other.ngayTinhLuong) && Objects.equals(nhanVien, other.nhanVien)
 				&& soChungChi == other.soChungChi && soNgayLam == other.soNgayLam
