@@ -12,7 +12,7 @@ import daoImpl.PhongBanDaoImpl;
 import entity.NhanVien;
 import entity.PhongBan;
 
-public class app {
+public class App {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

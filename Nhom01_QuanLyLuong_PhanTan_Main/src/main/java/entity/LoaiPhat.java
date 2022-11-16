@@ -15,7 +15,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "loai_phat")
+@Table(name = "muc_tien_phat")
 public class LoaiPhat implements Serializable {
 	/**
 	 * 
@@ -23,11 +23,11 @@ public class LoaiPhat implements Serializable {
 	private static final long serialVersionUID = 2126773171731199974L;
 
 	@Id
-	@Column(name = "ma_lp")
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int maLoaiPhat;
 
-	@Column(name = "ten_loai", columnDefinition = "varchar(255) not null")
+	@Column(name = "ten_muc_phat", columnDefinition = "varchar(255) not null")
 	private String tenLoai;
 
 	@Column(name = "tien_phat", columnDefinition = "double not null")
@@ -36,9 +36,7 @@ public class LoaiPhat implements Serializable {
 	@Column(name = "trang_thai", nullable = false)
 	private int trangThai;
 
-	@OneToMany(mappedBy = "loaiPhat")
-	private List<ChiTietPhieuPhat> chiTietPhieuPhats = new ArrayList<ChiTietPhieuPhat>();
-
+	
 	public LoaiPhat() {
 		// TODO Auto-generated constructor stub
 	}
@@ -56,6 +54,45 @@ public class LoaiPhat implements Serializable {
 		this.tenLoai = tenLoai;
 		this.tienPhat = tienPhat;
 		this.trangThai = trangThai;
+	}
+	
+	
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + maLoaiPhat;
+		result = prime * result + ((tenLoai == null) ? 0 : tenLoai.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(tienPhat);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + trangThai;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LoaiPhat other = (LoaiPhat) obj;
+		if (maLoaiPhat != other.maLoaiPhat)
+			return false;
+		if (tenLoai == null) {
+			if (other.tenLoai != null)
+				return false;
+		} else if (!tenLoai.equals(other.tenLoai))
+			return false;
+		if (Double.doubleToLongBits(tienPhat) != Double.doubleToLongBits(other.tienPhat))
+			return false;
+		if (trangThai != other.trangThai)
+			return false;
+		return true;
 	}
 
 	public int getMaLoaiPhat() {
@@ -90,22 +127,9 @@ public class LoaiPhat implements Serializable {
 		this.trangThai = trangThai;
 	}
 
-	public List<ChiTietPhieuPhat> getChiTietPhieuPhats() {
-		return chiTietPhieuPhats;
-	}
-
-	public void setChiTietPhieuPhats(List<ChiTietPhieuPhat> chiTietPhieuPhats) {
-		this.chiTietPhieuPhats = chiTietPhieuPhats;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	@Override
-	public String toString() {
-		return "LoaiPhat [maLoaiPhat=" + maLoaiPhat + ", tenLoai=" + tenLoai + ", tienPhat=" + tienPhat + ", trangThai="
-				+ trangThai + ", chiTietPhieuPhats=" + chiTietPhieuPhats + "]";
-	}
 
 }

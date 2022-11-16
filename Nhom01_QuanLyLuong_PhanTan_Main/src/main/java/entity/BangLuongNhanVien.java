@@ -2,8 +2,11 @@ package entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -53,6 +57,10 @@ public class BangLuongNhanVien implements Serializable {
 
 	@Column(name = "luong_thuc_nhan")
 	private double luongThucNhan;
+	
+	@OneToMany
+	@JoinColumn(name = "ma_luong")
+	private List<PhieuPhat> phieuphats = new ArrayList<PhieuPhat>();
 
 	@ManyToOne
 	@JoinColumn(name = "ma_nv")

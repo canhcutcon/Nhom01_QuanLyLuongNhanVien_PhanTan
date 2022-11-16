@@ -67,12 +67,10 @@ public class NhanVien implements Serializable {
 	@JoinColumn(name = "ma_pb")
 	private PhongBan phongBan;
 
-	@ManyToOne
-	@JoinColumn(name = "ma_cc")
-	private BangChamCong bangChamCong;
+//	@ManyToOne
+//	@JoinColumn(name = "ma_cc")
+//	private BangChamCong bangChamCong;
 
-	@OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL)
-	private List<PhieuPhat> phieuPhats = new ArrayList<PhieuPhat>();
 
 	@OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL)
 	private List<BangLuongNhanVien> bangLuongNhanViens = new ArrayList<BangLuongNhanVien>();
@@ -203,21 +201,21 @@ public class NhanVien implements Serializable {
 		this.phongBan = phongBan;
 	}
 
-	public BangChamCong getBangChamCong() {
-		return bangChamCong;
-	}
+//	public BangChamCong getBangChamCong() {
+//		return bangChamCong;
+//	}
+//
+//	public void setBangChamCong(BangChamCong bangChamCong) {
+//		this.bangChamCong = bangChamCong;
+//	}
 
-	public void setBangChamCong(BangChamCong bangChamCong) {
-		this.bangChamCong = bangChamCong;
-	}
-
-	public List<PhieuPhat> getPhieuPhats() {
-		return phieuPhats;
-	}
-
-	public void setPhieuPhats(List<PhieuPhat> phieuPhats) {
-		this.phieuPhats = phieuPhats;
-	}
+//	public List<PhieuPhat> getPhieuPhats() {
+//		return phieuPhats;
+//	}
+//
+//	public void setPhieuPhats(List<PhieuPhat> phieuPhats) {
+//		this.phieuPhats = phieuPhats;
+//	}
 
 	public List<BangLuongNhanVien> getBangLuongNhanViens() {
 		return bangLuongNhanViens;

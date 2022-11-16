@@ -3,18 +3,17 @@ package entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,43 +29,74 @@ public class PhieuPhat implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int maPhieuPhat;
 
+	@ManyToOne
+	@JoinColumn(name = "ma_nv")
+	private NhanVien maNV;
+
 	@Column(name = "ngay_phat", columnDefinition = "datetime")
 	private LocalDate ngayPhat;
 
 	@Column(name = "trang_thai")
 	private int trangThai;
 
-	@Column(name = "tong_tien_phat")
-	private double tongTienPhat;
-
 	@ManyToOne
-	@JoinColumn(name = "ma_nv")
-	private NhanVien nhanVien;
-
-	@OneToMany(mappedBy = "phieuPhat", cascade = CascadeType.ALL)
-	private List<ChiTietPhieuPhat> chiTietPhieuPhats = new ArrayList<ChiTietPhieuPhat>();
+	@JoinColumn(name = "ma_muc_phat")
+	private LoaiPhat loaiPhat;
 
 	public PhieuPhat() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PhieuPhat(int maPhieuPhat, LocalDate ngayPhat, int trangThai, double tongTienPhat, NhanVien nhanVien,
-			List<ChiTietPhieuPhat> chiTietPhieuPhats) {
+	public PhieuPhat(int maPhieuPhat, NhanVien maNV, LocalDate ngayPhat, int trangThai, LoaiPhat loaiPhat) {
 		super();
 		this.maPhieuPhat = maPhieuPhat;
+		this.maNV = maNV;
 		this.ngayPhat = ngayPhat;
 		this.trangThai = trangThai;
-		this.tongTienPhat = tongTienPhat;
-		this.nhanVien = nhanVien;
-		this.chiTietPhieuPhats = chiTietPhieuPhats;
+		this.loaiPhat = loaiPhat;
 	}
 
-	public PhieuPhat(LocalDate ngayPhat, int trangThai, double tongTienPhat, NhanVien nhanVien) {
-		super();
-		this.ngayPhat = ngayPhat;
-		this.trangThai = trangThai;
-		this.tongTienPhat = tongTienPhat;
-		this.nhanVien = nhanVien;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((loaiPhat == null) ? 0 : loaiPhat.hashCode());
+		result = prime * result + ((maNV == null) ? 0 : maNV.hashCode());
+		result = prime * result + maPhieuPhat;
+		result = prime * result + ((ngayPhat == null) ? 0 : ngayPhat.hashCode());
+		result = prime * result + trangThai;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PhieuPhat other = (PhieuPhat) obj;
+		if (loaiPhat == null) {
+			if (other.loaiPhat != null)
+				return false;
+		} else if (!loaiPhat.equals(other.loaiPhat))
+			return false;
+		if (maNV == null) {
+			if (other.maNV != null)
+				return false;
+		} else if (!maNV.equals(other.maNV))
+			return false;
+		if (maPhieuPhat != other.maPhieuPhat)
+			return false;
+		if (ngayPhat == null) {
+			if (other.ngayPhat != null)
+				return false;
+		} else if (!ngayPhat.equals(other.ngayPhat))
+			return false;
+		if (trangThai != other.trangThai)
+			return false;
+		return true;
 	}
 
 	public int getMaPhieuPhat() {
@@ -75,6 +105,14 @@ public class PhieuPhat implements Serializable {
 
 	public void setMaPhieuPhat(int maPhieuPhat) {
 		this.maPhieuPhat = maPhieuPhat;
+	}
+
+	public NhanVien getMaNV() {
+		return maNV;
+	}
+
+	public void setMaNV(NhanVien maNV) {
+		this.maNV = maNV;
 	}
 
 	public LocalDate getNgayPhat() {
@@ -93,39 +131,16 @@ public class PhieuPhat implements Serializable {
 		this.trangThai = trangThai;
 	}
 
-	public double getTongTienPhat() {
-		return tongTienPhat;
+	public LoaiPhat getLoaiPhat() {
+		return loaiPhat;
 	}
 
-	public void setTongTienPhat(double tongTienPhat) {
-		this.tongTienPhat = tongTienPhat;
-	}
-
-	public NhanVien getNhanVien() {
-		return nhanVien;
-	}
-
-	public void setNhanVien(NhanVien nhanVien) {
-		this.nhanVien = nhanVien;
-	}
-
-	public List<ChiTietPhieuPhat> getChiTietPhieuPhats() {
-		return chiTietPhieuPhats;
-	}
-
-	public void setChiTietPhieuPhats(List<ChiTietPhieuPhat> chiTietPhieuPhats) {
-		this.chiTietPhieuPhats = chiTietPhieuPhats;
+	public void setLoaiPhats(LoaiPhat loaiPhat) {
+		this.loaiPhat = loaiPhat;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	@Override
-	public String toString() {
-		return "PhieuPhat [maPhieuPhat=" + maPhieuPhat + ", ngayPhat=" + ngayPhat + ", trangThai=" + trangThai
-				+ ", tongTienPhat=" + tongTienPhat + ", nhanVien=" + nhanVien + ", chiTietPhieuPhats="
-				+ chiTietPhieuPhats + "]";
 	}
 
 }
