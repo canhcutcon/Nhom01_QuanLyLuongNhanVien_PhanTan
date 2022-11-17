@@ -1,12 +1,12 @@
 package dao;
 
-import java.io.Serializable;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
 import entity.BangLuongNhanVien;
 
-public interface BangLuongDao extends Serializable {
+public interface BangLuongDao extends Remote {
 
 	public List<BangLuongNhanVien> getListBangLuongNhanVien() throws RemoteException;
 

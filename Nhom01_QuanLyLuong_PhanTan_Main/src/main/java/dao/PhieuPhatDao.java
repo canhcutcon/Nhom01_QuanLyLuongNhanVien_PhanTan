@@ -1,12 +1,12 @@
 package dao;
 
-import java.io.Serializable;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
 import entity.PhieuPhat;
 
-public interface PhieuPhatDao extends Serializable {
+public interface PhieuPhatDao extends Remote {
 
 public  List<PhieuPhat> getListPhieuPhat() throws RemoteException;
 	

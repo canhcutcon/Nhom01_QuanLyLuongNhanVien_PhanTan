@@ -3,7 +3,6 @@ package Server;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.time.LocalDateTime;
-import java.util.Hashtable;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -25,16 +24,20 @@ import daoImpl.PhieuPhatDaoImpl;
 import daoImpl.PhongBanDaoImpl;
 
 public class Server {
-	public static String CONFIG = "rmi://172.28.150.126:8988";
+	public static String CONFIG = "rmi://192.168.1.28:8988";
 	public static int PORT = 8988;
 
 	public static void main(String[] args) throws NamingException, RemoteException {
 		// TODO Auto-generated method stub
-		Hashtable<String, String> hashtable = new Hashtable<String, String>();
-		hashtable.put("java.security.policy", "policy/policy.policy");
+//		Hashtable<String, String> hashtable = new Hashtable<String, String>();
+//		hashtable.put("java.security.policy", "policy/policy.policy");
+		SecurityManager securityManager= System.getSecurityManager();
+		if(securityManager==null) {
+			System.setProperty("java.security.policy", "policy/policy.policy");
+			System.setSecurityManager(new SecurityManager());
+		}
 
-		Context context = new InitialContext(hashtable);
-
+		Context context = new InitialContext();
 		
 		try {
 			PhongBanDao phongBanDao = new PhongBanDaoImpl();
@@ -46,7 +49,7 @@ public class Server {
 			BangLuongDao bangLuongDao = new BangLuongDaoImpl();
 
 			LocateRegistry.createRegistry(PORT);
-			context.bind(CONFIG + "/phongBanDao", phongBanDao);
+			context.bind("rmi://192.168.56.1:8988/phongBanDao", phongBanDao);
 			context.bind(CONFIG + "/nhanVienDao", nhanVienDao);
 			context.bind(CONFIG + "/loaiPhatDao", loaiPhatDao);
 			context.bind(CONFIG + "/phieuPhatDao", phieuPhatDao);

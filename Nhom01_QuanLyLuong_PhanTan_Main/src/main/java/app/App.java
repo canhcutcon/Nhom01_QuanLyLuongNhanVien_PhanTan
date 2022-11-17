@@ -19,7 +19,8 @@ public class App {
 		PhongBanDao phongBanDao = null;
 		try {
 			phongBanDao = new PhongBanDaoImpl();
-			addAllNhanVien() ;
+			System.out.println(phongBanDao.getPhongBanTheoMa(1).getTenPB());
+//			addAllNhanVien() ;
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

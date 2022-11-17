@@ -1,12 +1,12 @@
 package dao;
 
-import java.io.Serializable;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
 import entity.ChiTietPhieuPhat;
 
-public interface ChiTietPhieuPhatDao extends Serializable{
+public interface ChiTietPhieuPhatDao extends Remote{
 	public ChiTietPhieuPhat getCTPhieuPhatTheoMa(int id) throws RemoteException;
 
 	public boolean createCTPhieuPhat(ChiTietPhieuPhat chiTietPhieuPhat) throws RemoteException;
