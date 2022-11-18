@@ -43,7 +43,10 @@ public class PhongBanDaoImpl extends UnicastRemoteObject implements PhongBanDao 
 		}
 		return lstPhongBans;
 	}
-
+	public void hello() {
+		System.out.println("hello");
+	}
+	
 	@Override
 	public PhongBan getPhongBanTheoMa(int id) throws RemoteException {
 		// TODO Auto-generated method stub
@@ -80,47 +83,62 @@ public class PhongBanDaoImpl extends UnicastRemoteObject implements PhongBanDao 
 
 	@Override
 	public boolean updatePhongBan(PhongBan phongBan) throws RemoteException {
-		// TODO Auto-generated method stub
 		entityTrans = entityManager.getTransaction();
-		List<PhongBan> phongBans = entityManager.createNativeQuery("select * from phong_ban where ma_pb=:x")
-				.setParameter("x", phongBan.getMaPB())
-				.getResultList();
-		for (PhongBan temp : phongBans) {
-			try {
-				entityTrans.begin();
-				temp.setTenPB(phongBan.getTenPB());
-				temp.setTrangThai(phongBan.getTrangThai());
-				entityManager.merge(temp);
-				entityTrans.commit();
-			} catch (Exception e) {
-				// TODO: handle exception
-				entityTrans.rollback();
-				throw e;
-			}
+		PhongBan pb = this.getPhongBanTheoMa(phongBan.getMaPB());
+		pb.setTenPB(phongBan.getTenPB());
+		try {
+			entityTrans.begin();
+			entityManager.persist(pb);
+			entityTrans.commit();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			entityTrans.rollback();
 		}
+		
 		return true;
 	}
 
 	@Override
-	public boolean deletePhongBan(PhongBan phongBan) throws RemoteException {
-		// TODO Auto-generated method stub
+	public boolean deletePhongBan(int id) throws RemoteException {
 		entityTrans = entityManager.getTransaction();
-		List<PhongBan> phongBans = entityManager.createNativeQuery("select * from phong_ban where ma_pb=:x")
-				.setParameter("x", phongBan.getMaPB())
-				.getResultList();
-		for (PhongBan temp : phongBans) {
+		PhongBan pb = this.getPhongBanTheoMa(id);
+		if(pb!=null) {
+			pb.setTrangThai(0);
 			try {
 				entityTrans.begin();
-				temp.setTrangThai(0);
-				entityManager.merge(temp);
+				entityManager.persist(pb);
 				entityTrans.commit();
+				return true;
 			} catch (Exception e) {
 				// TODO: handle exception
+				e.printStackTrace();
 				entityTrans.rollback();
-				throw e;
 			}
+		}else {
+			return false;
 		}
+		
 		return true;
+//		// TODO Auto-generated method stub
+//		entityTrans = entityManager.getTransaction();
+//		List<PhongBan> phongBans = entityManager.createNativeQuery("select * from phong_ban where ma_pb=:x")
+//				.setParameter("x", phongBan.getMaPB())
+//				.getResultList();
+//		for (PhongBan temp : phongBans) {
+//			try {
+//				entityTrans.begin();
+//				temp.setTrangThai(0);
+//				entityManager.merge(temp);
+//				entityTrans.commit();
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//				entityTrans.rollback();
+//				throw e;
+//			}
+//		}
+//		return true;
 	}
 
 }

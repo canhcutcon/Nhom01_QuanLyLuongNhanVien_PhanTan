@@ -24,8 +24,11 @@ import daoImpl.PhieuPhatDaoImpl;
 import daoImpl.PhongBanDaoImpl;
 
 public class Server {
-	public static String CONFIG = "rmi://192.168.1.28:8988";
-	public static int PORT = 8988;
+	/*
+	 * Đặt biến hằng số mà ko final vcl
+	 * */
+	public static final String CONFIG = "rmi://localhost:8988";
+	public static final int PORT = 8988;
 
 	public static void main(String[] args) throws NamingException, RemoteException {
 		// TODO Auto-generated method stub
@@ -38,7 +41,6 @@ public class Server {
 		}
 
 		Context context = new InitialContext();
-		
 		try {
 			PhongBanDao phongBanDao = new PhongBanDaoImpl();
 			NhanVienDao nhanVienDao = new NhanVienDaoImpl();
@@ -48,8 +50,9 @@ public class Server {
 			BangChamCongDao bangChamCongDao = new BangChamCongImpl();
 			BangLuongDao bangLuongDao = new BangLuongDaoImpl();
 
+			
 			LocateRegistry.createRegistry(PORT);
-			context.bind("rmi://192.168.56.1:8988/phongBanDao", phongBanDao);
+			context.bind(CONFIG + "/phongBanDao", phongBanDao);
 			context.bind(CONFIG + "/nhanVienDao", nhanVienDao);
 			context.bind(CONFIG + "/loaiPhatDao", loaiPhatDao);
 			context.bind(CONFIG + "/phieuPhatDao", phieuPhatDao);
