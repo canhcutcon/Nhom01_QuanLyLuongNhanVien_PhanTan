@@ -15,9 +15,8 @@ public class aaaa {
 			System.setSecurityManager(new SecurityManager());
 		}
 		try {
-			PhongBanDao phongBanDao = (PhongBanDao) Naming.lookup("rmi://192.168.56.1:8988/phongBanDao");
-			@SuppressWarnings("unused")
-			PhongBan ban = phongBanDao.getPhongBanTheoMa(1);
+			PhongBanDao phongBanDao = (PhongBanDao) Naming.lookup("rmi://192.168.1.5:8988/phongBanDao");
+			System.out.println(phongBanDao.getPhongBanTheoMa(1));
 
 		} catch (Exception e) {
 			// TODO: handle exception

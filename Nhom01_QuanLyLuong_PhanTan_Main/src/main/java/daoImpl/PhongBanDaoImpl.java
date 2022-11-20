@@ -101,44 +101,21 @@ public class PhongBanDaoImpl extends UnicastRemoteObject implements PhongBanDao 
 	}
 
 	@Override
-	public boolean deletePhongBan(int id) throws RemoteException {
+	public boolean deletePhongBan(PhongBan phongBan) throws RemoteException {
 		entityTrans = entityManager.getTransaction();
-		PhongBan pb = this.getPhongBanTheoMa(id);
-		if(pb!=null) {
-			pb.setTrangThai(0);
-			try {
-				entityTrans.begin();
-				entityManager.persist(pb);
-				entityTrans.commit();
-				return true;
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-				entityTrans.rollback();
-			}
-		}else {
-			return false;
-		}
-		
+		PhongBan pb = this.getPhongBanTheoMa(phongBan.getMaPB());
+		pb.setTrangThai(0);
+		try {
+			entityTrans.begin();
+			entityManager.persist(pb);
+			entityTrans.commit();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			entityTrans.rollback();
+		}	
 		return true;
-//		// TODO Auto-generated method stub
-//		entityTrans = entityManager.getTransaction();
-//		List<PhongBan> phongBans = entityManager.createNativeQuery("select * from phong_ban where ma_pb=:x")
-//				.setParameter("x", phongBan.getMaPB())
-//				.getResultList();
-//		for (PhongBan temp : phongBans) {
-//			try {
-//				entityTrans.begin();
-//				temp.setTrangThai(0);
-//				entityManager.merge(temp);
-//				entityTrans.commit();
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//				entityTrans.rollback();
-//				throw e;
-//			}
-//		}
-//		return true;
 	}
 
 }

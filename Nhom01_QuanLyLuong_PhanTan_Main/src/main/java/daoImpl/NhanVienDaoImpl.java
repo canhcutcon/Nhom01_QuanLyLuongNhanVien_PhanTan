@@ -31,7 +31,8 @@ public class NhanVienDaoImpl extends UnicastRemoteObject implements NhanVienDao 
 	@Override
 	public List<NhanVien> getListNhanVien() throws RemoteException {
 		// TODO Auto-generated method stub
-		List<NhanVien> lstNhanViens =(List<NhanVien>)entityManager.createNativeQuery("select * from nhan_vien where trang_thai = 1", NhanVien.class).getResultList();
+		List<NhanVien> lstNhanViens = (List<NhanVien>) entityManager
+				.createNativeQuery("select * from nhan_vien where trang_thai = 1", NhanVien.class).getResultList();
 //				.getResultList();
 //		List<NhanVien> lstNhanViens = new ArrayList<NhanVien>();
 //		List<?> lst = entityManager.createNativeQuery("select * from nhan_vien where trang_thai = 1", NhanVien.class)
@@ -141,6 +142,16 @@ public class NhanVienDaoImpl extends UnicastRemoteObject implements NhanVienDao 
 				+ "%') AND trang_thai=1)";
 		List<NhanVien> lst = entityManager.createNativeQuery(sql, NhanVien.class).getResultList();
 		return lst;
+	}
+
+	@Override
+	public boolean checkLoginUser(int maNV, String makhau) throws RemoteException {
+		entityTrans = entityManager.getTransaction();
+		NhanVien nv = this.getNhanVienTheoMa(maNV);
+		if (nv != null && nv.getMatKhau().equalsIgnoreCase(makhau))
+			return true;
+		else 
+			return false;
 	}
 
 }

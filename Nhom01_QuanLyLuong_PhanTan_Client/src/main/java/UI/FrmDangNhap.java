@@ -13,6 +13,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
+import java.rmi.RemoteException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -31,6 +32,10 @@ import componentCustom.CurrentState;
 
 public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField taiKhoanText;
 	private JButton cancelButton, okButton;
@@ -60,7 +65,12 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					loginUser();
+					try {
+						loginUser();
+					} catch (RemoteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
@@ -214,7 +224,12 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 				close();
 			}
 		}else if(obj == okButton) {
-			loginUser();
+			try {
+				loginUser();
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 
@@ -234,12 +249,17 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			loginUser();
+			try {
+				loginUser();
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 	
 
-	private void loginUser() {
+	private void loginUser() throws RemoteException {
 		String userName = taiKhoanText.getText();
 		String password = passwordText.getText();
 

@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.awt.Dialog.ModalExclusionType;
 
 public class FrmTrangChinh {
@@ -33,6 +34,7 @@ public class FrmTrangChinh {
 	private FrmQuanLyPhieuPhat frmQuanLyPhieuPhat;
 	private FrmBangLuongNhanVien frmBangLuongNhanVien;
 	private Frm_MucPhat frm_MucPhat;
+	private FrmQuanLyPhongBan frmQuanLyPhongBan;
 	
 	
 	private String name;
@@ -55,11 +57,12 @@ public class FrmTrangChinh {
 
 	/**
 	 * Create the application.
+	 * @throws RemoteException 
 	 */
-	public FrmTrangChinh() {
+	public FrmTrangChinh() throws RemoteException {
 		initialize();
 	}
-	public FrmTrangChinh(String name, CurrentState role) {
+	public FrmTrangChinh(String name, CurrentState role) throws RemoteException {
 		this.name = name;
 		initialize();
 		setAuthentication(role);
@@ -185,13 +188,14 @@ public class FrmTrangChinh {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws RemoteException 
 	 */
-	public void initialize() {
+	public void initialize() throws RemoteException {
 		frmCngTyGsb = new JFrame();
 		frmCngTyGsb.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
 		frmCngTyGsb.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frmCngTyGsb.setResizable(false);
-		frmCngTyGsb.setBounds(0, 0, 1550, 850);
+		frmCngTyGsb.setBounds(0, 0, 1200, 850);
 		frmCngTyGsb.setType(Type.POPUP);
 		frmCngTyGsb.setTitle("Công ty GSB");
 		frmCngTyGsb.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -222,6 +226,7 @@ public class FrmTrangChinh {
 		initInternalFrame(frmQuanLyPhieuPhat = new FrmQuanLyPhieuPhat());
 		initInternalFrame(frmBangLuongNhanVien = new FrmBangLuongNhanVien());
 		initInternalFrame(frm_MucPhat = new Frm_MucPhat());
+		initInternalFrame(frmQuanLyPhongBan = new FrmQuanLyPhongBan()); 
 		//==== authentication
 //		Menu 
 		initMenuItem();
@@ -276,6 +281,15 @@ public class FrmTrangChinh {
 		
 		mnItem_DM_PhongBan = createJMenuItem("Phòng Ban", "HinhAnh/Icon/private.png");
 		mnDanhMuc.add(mnItem_DM_PhongBan);
+		mnItem_DM_PhongBan.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				anTatCa();
+				frmQuanLyPhongBan.setVisible(true);
+			}
+		});
 		
 		mnItem_DM_PhieuPhat = createJMenuItem("Phiếu phạt", "HinhAnh/Icon/private.png");
 		mnDanhMuc.add(mnItem_DM_PhieuPhat);

@@ -154,6 +154,6 @@ public class FrmTrangChu extends JInternalFrame {
 		backgroundLabel.setIcon(new ImageIcon("HinhAnh\\Logo\\befunky_layer.jpg"));
 		centerPanel.add(backgroundLabel);
 		setResizable(true);
-		setBounds(-10, 0, 1530, 800);
+		setBounds(-10, 0, 977, 800);
 	}
 }

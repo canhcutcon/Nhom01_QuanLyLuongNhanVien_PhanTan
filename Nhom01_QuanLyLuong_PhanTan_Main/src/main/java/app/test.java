@@ -1,11 +1,15 @@
 package app;
 
+import java.rmi.RemoteException;
+
 import Util.HibernateUtil;
+import dao.NhanVienDao;
+import daoImpl.NhanVienDaoImpl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
 public class test {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws RemoteException {
 		
 		//Create database
 		EntityManager entityManager;
@@ -19,6 +23,9 @@ public class test {
 			// TODO: handle exception
 			entityTransaction.rollback();
 		}
+		
+		NhanVienDao nv = new NhanVienDaoImpl();
+		System.out.println(nv.checkLoginUser(1, "123456"));
 		
 	}
 }
