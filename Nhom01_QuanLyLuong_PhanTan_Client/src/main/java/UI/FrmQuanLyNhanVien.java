@@ -458,17 +458,10 @@ public class FrmQuanLyNhanVien extends JInternalFrame implements MouseListener, 
 
 	public NhanVien creatNhanVien() {
 		int cv = cboChucVu.getSelectedIndex();
-		String chucvu;
 		Boolean isAdmin = false;
-		if (cv == 0) {
-			chucvu = "nhanvien";
-		} else {
-			chucvu = "quanly";
-			isAdmin = true;
-		}
+		String chucvu = getRolẹ(cboChucVu.getSelectedItem().toString()).name();
 		String cmnd = txtCMNDNV.getText().trim();
 		String hinhAnh = txtPath.getText().trim();
-		System.out.println(hinhAnh);
 		String matKhau = "123456";
 		LocalDate ngayVaoLam = LocalDate.now();
 		LocalDate ngaySinh = LocalDate.parse(txtNgaySinh.getText().trim());

@@ -45,6 +45,11 @@ public class NhanVienService {
 		return nhanVienDao.getListNhanVien();
 	}
 	
+	public List<NhanVien> getAllNhanVien(String maPB) throws RemoteException{
+		return nhanVienDao.getListNhanVien(maPB);
+	}
+	
+	
 	public boolean updateNhanVien(NhanVien nhanVien) throws RemoteException {
 		return nhanVienDao.updateNhanVien(nhanVien);
 	}

@@ -40,6 +40,13 @@ public class PhongBan implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	public PhongBan(int maPB, String tenPB) {
+		super();
+		this.maPB = maPB;
+		this.tenPB = tenPB;
+		this.trangThai = 1;
+	}
+
 	public PhongBan(int maPB, String tenPB, int trangThai, List<NhanVien> nhanViens) {
 		super();
 		this.maPB = maPB;

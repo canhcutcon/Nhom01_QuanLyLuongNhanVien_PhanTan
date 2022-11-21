@@ -11,12 +11,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
 @SuppressWarnings("serial")
 @Entity
-@Table(name ="bang_cham_cong")
-public class BangChamCong implements Serializable{
+@Table(name = "bang_cham_cong")
+public class BangChamCong implements Serializable {
 
-	
 	/**
 	 * 
 	 */
@@ -26,19 +26,25 @@ public class BangChamCong implements Serializable{
 	@Column(name = "ma_cc")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int maChamCong;
-	
-	@Column(name = "ngay_cong", columnDefinition = "datetime")
-	private LocalDate ngayCong;
-	
+
+	@Column(name = "ngay_cong")
+	private int ngayCong;
+
+	@Column(name = "thang_cong")
+	private int thangCong;
+
+	@Column(name = "name_cong")
+	private int namCong;
+
 	@Column(name = "di_lam")
 	private boolean diLam;
-	
+
 	@Column(name = "di_tre")
 	private boolean diTre;
-	
+
 	@Column(name = "trang_thai")
 	private int trangThai;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ma_NV")
 	private NhanVien nhanVien;
@@ -47,58 +53,51 @@ public class BangChamCong implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public BangChamCong(int maChamCong, LocalDate ngayCong, boolean diLam, boolean diTre, int trangThai,
-			NhanVien nhanVien) {
+	public BangChamCong(int maChamCong, int ngayCong, int thangCong, int namCong, boolean diLam, boolean diTre,
+			int trangThai, NhanVien nhanVien) {
 		super();
 		this.maChamCong = maChamCong;
 		this.ngayCong = ngayCong;
+		this.thangCong = thangCong;
+		this.namCong = namCong;
 		this.diLam = diLam;
 		this.diTre = diTre;
 		this.trangThai = trangThai;
 		this.nhanVien = nhanVien;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (diLam ? 1231 : 1237);
-		result = prime * result + (diTre ? 1231 : 1237);
-		result = prime * result + maChamCong;
-		result = prime * result + ((ngayCong == null) ? 0 : ngayCong.hashCode());
-		result = prime * result + ((nhanVien == null) ? 0 : nhanVien.hashCode());
-		result = prime * result + trangThai;
-		return result;
+	public BangChamCong(int ngayCong, int thangCong, int namCong, boolean diLam, boolean diTre, int trangThai,
+			NhanVien nhanVien) {
+		super();
+		this.ngayCong = ngayCong;
+		this.thangCong = thangCong;
+		this.namCong = namCong;
+		this.diLam = diLam;
+		this.diTre = diTre;
+		this.trangThai = trangThai;
+		this.nhanVien = nhanVien;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		BangChamCong other = (BangChamCong) obj;
-		if (diLam != other.diLam)
-			return false;
-		if (diTre != other.diTre)
-			return false;
-		if (maChamCong != other.maChamCong)
-			return false;
-		if (ngayCong == null) {
-			if (other.ngayCong != null)
-				return false;
-		} else if (!ngayCong.equals(other.ngayCong))
-			return false;
-		if (nhanVien == null) {
-			if (other.nhanVien != null)
-				return false;
-		} else if (!nhanVien.equals(other.nhanVien))
-			return false;
-		if (trangThai != other.trangThai)
-			return false;
-		return true;
+	public BangChamCong(int maChamCong, int ngayCong, int thangCong, int namCong, boolean diLam, boolean diTre,
+			int trangThai) {
+		super();
+		this.maChamCong = maChamCong;
+		this.ngayCong = ngayCong;
+		this.thangCong = thangCong;
+		this.namCong = namCong;
+		this.diLam = diLam;
+		this.diTre = diTre;
+		this.trangThai = trangThai;
+	}
+
+	public BangChamCong(int ngayCong, int thangCong, int namCong, boolean diLam, boolean diTre, int trangThai) {
+		super();
+		this.ngayCong = ngayCong;
+		this.thangCong = thangCong;
+		this.namCong = namCong;
+		this.diLam = diLam;
+		this.diTre = diTre;
+		this.trangThai = trangThai;
 	}
 
 	public int getMaChamCong() {
@@ -109,12 +108,28 @@ public class BangChamCong implements Serializable{
 		this.maChamCong = maChamCong;
 	}
 
-	public LocalDate getNgayCong() {
+	public int getNgayCong() {
 		return ngayCong;
 	}
 
-	public void setNgayCong(LocalDate ngayCong) {
+	public void setNgayCong(int ngayCong) {
 		this.ngayCong = ngayCong;
+	}
+
+	public int getThangCong() {
+		return thangCong;
+	}
+
+	public void setThangCong(int thangCong) {
+		this.thangCong = thangCong;
+	}
+
+	public int getNamCong() {
+		return namCong;
+	}
+
+	public void setNamCong(int namCong) {
+		this.namCong = namCong;
 	}
 
 	public boolean isDiLam() {
@@ -152,10 +167,11 @@ public class BangChamCong implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "BangChamCong [maChamCong=" + maChamCong + ", ngayCong=" + ngayCong + ", thangCong=" + thangCong
+				+ ", namCong=" + namCong + ", diLam=" + diLam + ", diTre=" + diTre + ", trangThai=" + trangThai;
+	}
 
 }

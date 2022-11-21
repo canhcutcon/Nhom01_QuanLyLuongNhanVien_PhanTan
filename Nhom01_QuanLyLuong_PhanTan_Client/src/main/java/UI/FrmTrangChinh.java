@@ -220,7 +220,7 @@ public class FrmTrangChinh {
 		frmQuanLyNhanVien = new FrmQuanLyNhanVien();
 		desktopPane.add(frmQuanLyNhanVien);
 		frmQuanLyNhanVien.setBounds(0, 0, 1530, 800);
-		initInternalFrame(frmChamCong = new FrmChamCong());
+//		initInternalFrame(frmChamCong = new FrmChamCong());
 		initInternalFrame(frmQuanLyPhieuPhat = new FrmQuanLyPhieuPhat());
 		initInternalFrame(frmBangLuongNhanVien = new FrmBangLuongNhanVien());
 		initInternalFrame(frm_MucPhat = new Frm_MucPhat());

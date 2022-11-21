@@ -5,15 +5,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import Util.HibernateUtil;
+import dao.BangChamCongDao;
 import dao.NhanVienDao;
 import dao.PhongBanDao;
+import daoImpl.BangChamCongImpl;
 import daoImpl.NhanVienDaoImpl;
 import daoImpl.PhongBanDaoImpl;
+import entity.BangChamCong;
 import entity.NhanVien;
 import entity.PhongBan;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
 
 public class test {
 	public static void main(String[] args) {
@@ -22,12 +22,25 @@ public class test {
 		try {
 			NhanVienDao nvDao = new NhanVienDaoImpl();
 			PhongBanDao phongBanDao = new PhongBanDaoImpl();
-//			NhanVien a = nvDao.getNhanVienTheoMa(2);
+			NhanVien a = nvDao.getNhanVienTheoMa(30);
 //			a.setTenNV("Mã Tiểu Linh");
-			System.out.println(nvDao.getNhanVienTheoDanhMuc("Giang", "", "", ""));
+//			System.out.println(nvDao.getNhanVienTheoDanhMuc("Giang", "", "", ""));
 //			nvDao.deleteNhanVien(a);
 //			addAllNhanVien();
 //			nvDao.getListNhanVien().forEach(e -> System.out.println(e));
+			BangChamCongDao bangChamCongDao = new BangChamCongImpl();
+//			for (int i = 1; i < 31; i++) {
+//				BangChamCong bangChamCong = new BangChamCong(i, 11, 2022, 
+//			true, false, 1,a);
+//				bangChamCongDao.createChamCong(bangChamCong);
+//			}
+			BangChamCong bangChamCong = bangChamCongDao.getBangChamCongById(1);
+			System.out.println(bangChamCong);
+			bangChamCong.setDiTre(true);
+			bangChamCongDao.updateChamCong(bangChamCong);
+//			bangChamCongDao.getListChamCong(1, 11, 2022, 1).forEach(e -> System.out.println(e));
+//			System.out.println(bangChamCongDao.getBangChamCongById(1));
+			System.out.println(bangChamCongDao.getSoNgayCong(11, 2022, 1, 11));
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
