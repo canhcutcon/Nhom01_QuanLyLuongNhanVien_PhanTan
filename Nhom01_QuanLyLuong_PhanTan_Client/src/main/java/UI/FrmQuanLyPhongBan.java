@@ -140,12 +140,6 @@ public class FrmQuanLyPhongBan extends JFrame {
 					PhongBan pb = new PhongBan();
 					pb.setMaPB(2);
 					boolean isDelete = false;
-					try {
-						isDelete = phongBanDao.deletePhongBan(pb);
-					} catch (RemoteException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
 					if (isDelete) {
 						JOptionPane.showMessageDialog(null, "Success ^^");
 					} else {

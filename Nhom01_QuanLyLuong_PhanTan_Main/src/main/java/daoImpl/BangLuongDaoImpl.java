@@ -6,18 +6,19 @@ import java.util.List;
 
 import dao.BangLuongDao;
 import entity.BangLuongNhanVien;
-
+@SuppressWarnings("serial")
 public class BangLuongDaoImpl extends UnicastRemoteObject implements BangLuongDao{
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7296567180198371088L;
 
 	public BangLuongDaoImpl() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7296567180198371088L;
 
 	@Override
 	public List<BangLuongNhanVien> getListBangLuongNhanVien() throws RemoteException {

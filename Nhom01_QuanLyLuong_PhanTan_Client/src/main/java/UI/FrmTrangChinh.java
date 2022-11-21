@@ -33,7 +33,7 @@ public class FrmTrangChinh {
 	private FrmQuanLyPhieuPhat frmQuanLyPhieuPhat;
 	private FrmBangLuongNhanVien frmBangLuongNhanVien;
 	private Frm_MucPhat frm_MucPhat;
-	
+	private FrmQuanLyNhanVien frmQuanLyNhanVien;
 	
 	private String name;
 	
@@ -198,7 +198,7 @@ public class FrmTrangChinh {
 		frmCngTyGsb.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 15));
 		frmCngTyGsb.setBackground(new Color(255, 192, 203));
 		frmCngTyGsb.setFocusCycleRoot(true);
-		frmCngTyGsb.setFocusableWindowState(false);
+		frmCngTyGsb.setFocusableWindowState(true);
 		frmCngTyGsb.setUndecorated(false);
 
 		// === set Main Panel =================================
@@ -213,16 +213,20 @@ public class FrmTrangChinh {
 		desktopPane.setBounds(0, 0, 1550, 850);
 		desktopPane.setLayout(null);
 		contentPane.add(desktopPane);
-
-		// === interframe
-		initInternalFrame(frmTrangChu = new FrmTrangChu("Vo Thi Tra Giang", CurrentState.ADMIN));
-		frmTrangChu.setVisible(true);
 		
+
+		initInternalFrame(frmTrangChu = new FrmTrangChu("Vo Thi Tra Giang", CurrentState.ADMIN));
+		
+		frmQuanLyNhanVien = new FrmQuanLyNhanVien();
+		desktopPane.add(frmQuanLyNhanVien);
+		frmQuanLyNhanVien.setBounds(0, 0, 1530, 800);
 		initInternalFrame(frmChamCong = new FrmChamCong());
 		initInternalFrame(frmQuanLyPhieuPhat = new FrmQuanLyPhieuPhat());
 		initInternalFrame(frmBangLuongNhanVien = new FrmBangLuongNhanVien());
 		initInternalFrame(frm_MucPhat = new Frm_MucPhat());
+//		initInternalFrame(frmQuanLyNhanVien = new FrmQuanLyNhanVien());
 		//==== authentication
+		frmTrangChu.setVisible(true);
 //		Menu 
 		initMenuItem();
 		
@@ -273,7 +277,14 @@ public class FrmTrangChinh {
 		
 		mnItem_DM_NhanVien = createJMenuItem("Nhân Viên", "HinhAnh/Icon/private.png");
 		mnDanhMuc.add(mnItem_DM_NhanVien);
-		
+		mnItem_DM_NhanVien.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				anTatCa();
+				frmQuanLyNhanVien.setVisible(true);
+
+			}
+		});
 		mnItem_DM_PhongBan = createJMenuItem("Phòng Ban", "HinhAnh/Icon/private.png");
 		mnDanhMuc.add(mnItem_DM_PhongBan);
 		
@@ -297,7 +308,7 @@ public class FrmTrangChinh {
 		mnItem_CN_LuongNV.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
- 
+				anTatCa();
 				frmBangLuongNhanVien.setVisible(true);
 			}
 		});
@@ -372,5 +383,6 @@ public class FrmTrangChinh {
 		frmQuanLyPhieuPhat.setVisible(false);
 		frmBangLuongNhanVien.setVisible(false);
 		frm_MucPhat.setVisible(false);
+		frmQuanLyNhanVien.setVisible(false);
 	}
 }

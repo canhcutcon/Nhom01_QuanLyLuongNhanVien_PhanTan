@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "phong_ban")
 public class PhongBan implements Serializable {
@@ -19,7 +20,7 @@ public class PhongBan implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4371582851637178956L;
+	private static final long serialVersionUID = -7942409844739226189L;
 
 	@Id
 	@Column(name = "ma_pb")

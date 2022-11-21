@@ -10,18 +10,19 @@ import dao.PhongBanDao;
 import entity.PhongBan;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-
+@SuppressWarnings("serial")
 public class PhongBanDaoImpl extends UnicastRemoteObject implements PhongBanDao {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7887358672797562188L;
+	private static final long serialVersionUID = -4022194536706674242L;
 	EntityManager entityManager;
 	EntityTransaction entityTrans;
 
 	public PhongBanDaoImpl() throws RemoteException{
 		// TODO Auto-generated constructor stub
-		entityManager = HibernateUtil.getInstance().getEntityManager();
+		this.entityManager = HibernateUtil.getInstance().getEntityManagerFactory().createEntityManager();
 	}
 
 	@SuppressWarnings("unchecked")

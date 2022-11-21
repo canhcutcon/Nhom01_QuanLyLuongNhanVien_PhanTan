@@ -9,19 +9,20 @@ import dao.LoaiPhatDao;
 import entity.LoaiPhat;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-
+@SuppressWarnings("serial")
 public class LoaiPhatDaoImpl extends UnicastRemoteObject implements LoaiPhatDao {
+
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4833322125228667375L;
+	private static final long serialVersionUID = -2939410895801573856L;
 	EntityManager entityManager;
 	EntityTransaction entityTrans;
 
 	public LoaiPhatDaoImpl() throws RemoteException{
 		// TODO Auto-generated constructor stub
-		this.entityManager = HibernateUtil.getInstance().getEntityManager();
+		this.entityManager = HibernateUtil.getInstance().getEntityManagerFactory().createEntityManager();
 	}
 
 	@Override

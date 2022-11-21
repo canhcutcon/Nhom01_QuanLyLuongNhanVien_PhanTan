@@ -8,14 +8,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "muc_tien_phat")
 public class LoaiPhat implements Serializable {
+
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2126773171731199974L;
+	private static final long serialVersionUID = -8856085131589941773L;
 
 	@Id
 	@Column(name = "id")

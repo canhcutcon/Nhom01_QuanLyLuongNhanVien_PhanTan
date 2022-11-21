@@ -9,19 +9,20 @@ import dao.PhieuPhatDao;
 import entity.PhieuPhat;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-
+@SuppressWarnings("serial")
 public class PhieuPhatDaoImpl extends UnicastRemoteObject implements PhieuPhatDao{
 
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 211070984887927662L;
+	private static final long serialVersionUID = 4864422418199696665L;
 	EntityManager entityManager;
 	EntityTransaction entityTrans;
 	
 	public PhieuPhatDaoImpl() throws RemoteException{
 		// TODO Auto-generated constructor stub
-		this.entityManager = HibernateUtil.getInstance().getEntityManager();
+		this.entityManager = HibernateUtil.getInstance().getEntityManagerFactory().createEntityManager();
 	}
 
 	@Override

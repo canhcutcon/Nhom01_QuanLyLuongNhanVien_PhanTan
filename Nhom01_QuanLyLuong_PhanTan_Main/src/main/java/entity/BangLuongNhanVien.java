@@ -12,14 +12,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "bang_luong")
 public class BangLuongNhanVien implements Serializable {
+	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 562606000692588963L;
+	private static final long serialVersionUID = -3735667916553231485L;
 
 	@Id
 	@Column(name = "ma_luong")

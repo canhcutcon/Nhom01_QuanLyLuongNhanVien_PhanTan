@@ -7,7 +7,7 @@ import java.util.List;
 
 import dao.BangChamCongDao;
 import entity.BangChamCong;
-
+@SuppressWarnings("serial")
 public class BangChamCongImpl extends UnicastRemoteObject implements BangChamCongDao{
 
 	/**
