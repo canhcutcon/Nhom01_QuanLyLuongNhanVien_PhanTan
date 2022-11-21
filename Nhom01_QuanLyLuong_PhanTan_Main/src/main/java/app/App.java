@@ -1,14 +1,15 @@
 package app;
 
 import java.rmi.RemoteException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
+import dao.LoaiPhatDao;
 import dao.NhanVienDao;
 import dao.PhongBanDao;
+import daoImpl.LoaiPhatDaoImpl;
 import daoImpl.NhanVienDaoImpl;
 import daoImpl.PhongBanDaoImpl;
+import entity.LoaiPhat;
 import entity.NhanVien;
 import entity.PhongBan;
 
@@ -18,8 +19,11 @@ public class App {
 		// TODO Auto-generated method stub
 		PhongBanDao phongBanDao = null;
 		try {
-			phongBanDao = new PhongBanDaoImpl();
-			System.out.println(phongBanDao.getPhongBanTheoMa(1).getTenPB());
+			LoaiPhatDao dao = new LoaiPhatDaoImpl();
+			List<LoaiPhat> loaiPhats = dao.getListMucPhat();
+			loaiPhats.forEach(b->System.out.println(b.getTenLoai()));
+//			phongBanDao = new PhongBanDaoImpl();
+//			System.out.println(phongBanDao.getPhongBanTheoMa(1).getTenPB());
 //			addAllNhanVien() ;
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
@@ -37,6 +41,7 @@ public class App {
 			bans.forEach(b -> System.out.println(b));
 			List<NhanVien> list = dao.getListNhanVien();
 			list.forEach(b -> System.out.println(b));
+			
 			
 //			list.add(new NhanVien("Võ Thị Trà Giang", "0908776678", "123456789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now().toString(), LocalDate.now().toString(), "quanly", "123456", true, "", 1, bans.get(0)));
 //			list.add(new NhanVien("Trần Văn Sỹ", "0908776111", "113456789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now().toString(), LocalDate.now().toString(), "quanly", "123456", true, "", 1, bans.get(1)));

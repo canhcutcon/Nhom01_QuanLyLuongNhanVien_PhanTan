@@ -386,5 +386,6 @@ public class FrmTrangChinh {
 		frmQuanLyPhieuPhat.setVisible(false);
 		frmBangLuongNhanVien.setVisible(false);
 		frm_MucPhat.setVisible(false);
+		frmQuanLyPhongBan.setVisible(false);
 	}
 }

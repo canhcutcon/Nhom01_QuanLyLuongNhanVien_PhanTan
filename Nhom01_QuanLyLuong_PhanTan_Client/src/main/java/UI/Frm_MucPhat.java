@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,9 +22,17 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import dao.LoaiPhatDao;
+import dao.PhongBanDao;
+import entity.LoaiPhat;
+
 public class Frm_MucPhat extends JInternalFrame {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtThue;
 	private JTextField txtSoNgayLam;
@@ -131,7 +143,15 @@ public class Frm_MucPhat extends JInternalFrame {
 		pnl_Input.add(tbl_MucPhat);
 		btn_Them.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int n = JOptionPane.showConfirmDialog(null, "Thêm", "Thông báo", JOptionPane.YES_NO_OPTION);
+//				int n = JOptionPane.showConfirmDialog(null, "Thêm", "Thông báo", JOptionPane.YES_NO_OPTION);
+				LoaiPhat loaiPhat = new LoaiPhat("Nghỉ không phép", 120000.0, 1);
+				LoaiPhatDao loaiPhatDao = getLoaiPhat();
+				try {
+					loaiPhatDao.createMucPhat(loaiPhat);
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -139,5 +159,14 @@ public class Frm_MucPhat extends JInternalFrame {
 		lblNewLabel_4_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		lblNewLabel_4_2_1_1.setBounds(382, 11, 221, 44);
 		panel.add(lblNewLabel_4_2_1_1);
+	}
+	public LoaiPhatDao getLoaiPhat() {
+		try {
+			return (LoaiPhatDao) Naming.lookup("rmi://localhost:8988/loaiPhatDao");
+		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return null;
 	}
 }

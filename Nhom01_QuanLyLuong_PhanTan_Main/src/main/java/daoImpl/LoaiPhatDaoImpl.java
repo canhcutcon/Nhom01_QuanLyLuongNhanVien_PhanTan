@@ -2,6 +2,7 @@ package daoImpl;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
 import Util.HibernateUtil;
@@ -19,7 +20,7 @@ public class LoaiPhatDaoImpl extends UnicastRemoteObject implements LoaiPhatDao 
 	EntityManager entityManager;
 	EntityTransaction entityTrans;
 
-	public LoaiPhatDaoImpl() throws RemoteException{
+	public LoaiPhatDaoImpl() throws RemoteException {
 		// TODO Auto-generated constructor stub
 		this.entityManager = HibernateUtil.getInstance().getEntityManager();
 	}
@@ -27,8 +28,17 @@ public class LoaiPhatDaoImpl extends UnicastRemoteObject implements LoaiPhatDao 
 	@Override
 	public List<LoaiPhat> getListMucPhat() throws RemoteException {
 		// TODO Auto-generated method stub
-		List<LoaiPhat> lstMucPhats = entityManager
-				.createQuery("select * from loai_phat where trang_thai=1", LoaiPhat.class).getResultList();
+		List<LoaiPhat> lstMucPhats = new ArrayList<LoaiPhat>();
+		List<?> lstLists = entityManager.createNativeQuery("SELECT * FROM muc_tien_phat where trang_thai=1")
+				.getResultList();
+		for (Object object : lstLists) {
+			Object[] rs = (Object[]) object;
+			int id = Integer.parseInt(rs[0].toString());
+			String tenMucPhat = rs[1].toString();
+			Double tienPhat = Double.parseDouble(rs[2].toString());
+			int trangThai = Integer.parseInt(rs[3].toString());
+			lstMucPhats.add(new LoaiPhat(id, tenMucPhat, tienPhat, trangThai));
+		}
 		return lstMucPhats;
 	}
 
@@ -41,7 +51,7 @@ public class LoaiPhatDaoImpl extends UnicastRemoteObject implements LoaiPhatDao 
 			entityManager.persist(mucPhat);
 			entityTrans.commit();
 			return true;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			entityTrans.rollback();
 		}
@@ -52,10 +62,11 @@ public class LoaiPhatDaoImpl extends UnicastRemoteObject implements LoaiPhatDao 
 	public boolean updateMucPhat(LoaiPhat loaiPhat) throws RemoteException {
 		// TODO Auto-generated method stub
 		entityTrans = entityManager.getTransaction();
-		List<LoaiPhat> lstMucPhats = entityManager.createNativeQuery("select * from loai_phat where ma_lp=:x").setParameter("x", loaiPhat.getMaLoaiPhat()).getResultList();
+		List<LoaiPhat> lstMucPhats = entityManager.createNativeQuery("select * from loai_phat where ma_lp=:x")
+				.setParameter("x", loaiPhat.getMaLoaiPhat()).getResultList();
 		try {
 			entityTrans.begin();
-			for(LoaiPhat temp : lstMucPhats) {
+			for (LoaiPhat temp : lstMucPhats) {
 				temp.setTenLoai(loaiPhat.getTenLoai());
 				temp.setTienPhat(loaiPhat.getTienPhat());
 				temp.setTrangThai(loaiPhat.getMaLoaiPhat());
@@ -63,10 +74,10 @@ public class LoaiPhatDaoImpl extends UnicastRemoteObject implements LoaiPhatDao 
 				entityTrans.commit();
 			}
 			return true;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			entityTrans.rollback();
 		}
-		
+
 		return false;
 	}
 
@@ -74,16 +85,17 @@ public class LoaiPhatDaoImpl extends UnicastRemoteObject implements LoaiPhatDao 
 	public boolean deleteMucPhat(LoaiPhat mucPhat) throws RemoteException {
 		// TODO Auto-generated method stub
 		entityTrans = entityManager.getTransaction();
-		List<LoaiPhat> lstMucPhats = entityManager.createNativeQuery("select * from loai_phat where ma_lp =:x").setParameter("x", mucPhat.getMaLoaiPhat()).getResultList();
+		List<LoaiPhat> lstMucPhats = entityManager.createNativeQuery("select * from loai_phat where ma_lp =:x")
+				.setParameter("x", mucPhat.getMaLoaiPhat()).getResultList();
 		try {
 			entityTrans.begin();
-			for(LoaiPhat temp : lstMucPhats) {
+			for (LoaiPhat temp : lstMucPhats) {
 				temp.setTrangThai(0);
 				entityManager.merge(temp);
 				entityTrans.commit();
 			}
 			return true;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			entityTrans.rollback();
 		}
 		return false;

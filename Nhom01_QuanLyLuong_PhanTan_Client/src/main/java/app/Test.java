@@ -5,6 +5,7 @@ import java.rmi.Naming;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
+import dao.LoaiPhatDao;
 import dao.PhongBanDao;
 
 public class Test {
@@ -21,7 +22,9 @@ public class Test {
 		
 		try {
 			PhongBanDao phongBanDao = (PhongBanDao)Naming.lookup("rmi://LAPTOP-27HK0FFM:8988/phongBanDao");
-			phongBanDao.getListPhongBan().forEach(e -> System.out.println(e));
+			LoaiPhatDao loaiPhatDao = (LoaiPhatDao) Naming.lookup("rmi://localhost:8988/loaiPhatDao");
+//			phongBanDao.getListPhongBan().forEach(e -> System.out.println(e));
+			loaiPhatDao.getListMucPhat().forEach(e->System.out.println(e.getTenLoai()));
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
