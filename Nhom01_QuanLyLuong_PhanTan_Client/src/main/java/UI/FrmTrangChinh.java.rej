@@ -1,0 +1,30 @@
+diff a/Nhom01_QuanLyLuong_PhanTan_Client/src/main/java/UI/FrmTrangChinh.java b/Nhom01_QuanLyLuong_PhanTan_Client/src/main/java/UI/FrmTrangChinh.java	(rejected hunks)
+@@ -364,27 +364,28 @@
+ 		mnItem_TK_PhongBan = createJMenuItem("Phòng Ban", "HinhAnh/Icon/private.png");
+ 		mntimKiem.add(mnItem_TK_PhongBan);
+ 		
+ 	}
+ 	
+ 	private JMenu createJMenu(String name, String image) {
+ 		JMenu mnTemp = new JMenu(name);
+ 		mnTemp.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+ 		mnTemp.setIcon(new ImageIcon(image));
+ 		return mnTemp;
+ 	}
+ 	
+ 	private JMenuItem createJMenuItem(String name, String image) {
+ 		JMenuItem mnItem = new JMenuItem(name);
+ 		mnItem.setBackground(new Color(135, 206, 250));
+ 		mnItem.setIcon(new ImageIcon(image));
+ 		return mnItem;
+ 	};
+ 	
+ 	private void anTatCa() {
+ 		frmTrangChu.setVisible(false);
+ 		frmChamCong.setVisible(false);
+ 		frmQuanLyPhieuPhat.setVisible(false);
+ 		frmBangLuongNhanVien.setVisible(false);
+ 		frm_MucPhat.setVisible(false);
++		frmQuanLyPhongBan.setVisible(false);
+ 	}
+ }

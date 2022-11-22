@@ -38,6 +38,7 @@ public class FrmTrangChinh {
 	
 	
 	private String name;
+	private CurrentState role;
 	
 	/**
 	 * Launch the application.
@@ -64,11 +65,12 @@ public class FrmTrangChinh {
 	}
 	public FrmTrangChinh(String name, CurrentState role) throws RemoteException {
 		this.name = name;
+		this.role = role;
 		initialize();
-		setAuthentication(role);
+		setAuthentication(name,role);
 	}
 
-	private void setAuthentication(CurrentState role) {
+	private void setAuthentication(String name,CurrentState role) {
 		// TODO Auto-generated method stub
 		switch (role) {
 		case ADMIN:
@@ -219,7 +221,7 @@ public class FrmTrangChinh {
 		contentPane.add(desktopPane);
 
 		// === interframe
-		initInternalFrame(frmTrangChu = new FrmTrangChu("Vo Thi Tra Giang", CurrentState.ADMIN));
+		initInternalFrame(frmTrangChu = new FrmTrangChu(name, role));
 		frmTrangChu.setVisible(true);
 		
 		initInternalFrame(frmChamCong = new FrmChamCong());
@@ -264,7 +266,10 @@ public class FrmTrangChinh {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				anTatCa();
-				setAuthentication(CurrentState.NONE);
+				setAuthentication(null, CurrentState.NONE);
+
+				FrmDangNhap frmDangNhap = new FrmDangNhap();
+				
 			}
 		});
 		

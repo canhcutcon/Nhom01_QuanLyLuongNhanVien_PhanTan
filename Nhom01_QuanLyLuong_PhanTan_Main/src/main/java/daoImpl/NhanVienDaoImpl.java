@@ -2,6 +2,7 @@ package daoImpl;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -52,15 +53,27 @@ public class NhanVienDaoImpl extends UnicastRemoteObject implements NhanVienDao 
 		// TODO Auto-generated method stub
 		entityTrans = entityManager.getTransaction();
 		NhanVien nhanVien = null;
-		try {
-			entityTrans.begin();
-			nhanVien = entityManager.find(NhanVien.class, id);
-			entityTrans.commit();
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			entityTrans.rollback();
-		}
+		Object a = entityManager.createNativeQuery("select * from nhan_vien where ma_nv=:x").setParameter("x", id)
+				.getSingleResult();
+		
+		Object[] rs = (Object[]) a;
+		int maNV = Integer.parseInt(rs[0].toString());
+		String chucVu = (String) rs[1];
+		String cmnd = (String) rs[2];
+		String diaChi = (String) rs[3];
+		String hinhAnh = (String) rs[4];
+		Boolean isAdmin = (Boolean) rs[5];
+		String matKhau = (String) rs[6];
+		String ngaySinh = rs[7].toString().substring(0, 10);
+		String ngayVaoLam = rs[8].toString().substring(0, 10);
+		String sdt = (String) rs[9];
+		String ten = (String) rs[10];
+		int trangThai = Integer.parseInt(rs[11].toString());
+		Object maPb = rs[12];
+
+		nhanVien = new NhanVien(maNV, ten, sdt, cmnd, diaChi, LocalDate.parse(ngayVaoLam),
+				LocalDate.parse(ngaySinh), chucVu, matKhau, isAdmin, hinhAnh, trangThai,
+				null);
 		return nhanVien;
 	}
 

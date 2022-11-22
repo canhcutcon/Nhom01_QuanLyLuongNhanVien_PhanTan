@@ -301,10 +301,9 @@ public class FrmQuanLyPhongBan extends JInternalFrame {
 		else
 			return false;
 	}
-	
+
 	public void clearModel(DefaultTableModel model) {
-		while(model.getRowCount() > 0)
-		{
+		while (model.getRowCount() > 0) {
 			model.removeRow(0);
 		}
 	}

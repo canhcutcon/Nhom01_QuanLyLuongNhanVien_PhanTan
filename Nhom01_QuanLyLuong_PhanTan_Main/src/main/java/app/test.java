@@ -25,7 +25,7 @@ public class test {
 		}
 		
 		NhanVienDao nv = new NhanVienDaoImpl();
-		System.out.println(nv.checkLoginUser(1, "123456"));
+		System.out.println(nv.getNhanVienTheoMa(1).getTenNV());
 		
 	}
 }
