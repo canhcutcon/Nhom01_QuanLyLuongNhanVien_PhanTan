@@ -13,6 +13,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -28,9 +32,15 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import componentCustom.CurrentState;
+import dao.NhanVienDao;
+import entity.NhanVien;
 
 public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField taiKhoanText;
 	private JButton cancelButton, okButton;
@@ -60,7 +70,12 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					loginUser();
+					try {
+						loginUser();
+					} catch (RemoteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
@@ -152,7 +167,7 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		userPanel.add(horizontalStrut);
 
-		taiKhoanText = new JTextField("admin");
+		taiKhoanText = new JTextField("4");
 		taiKhoanText.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		userPanel.add(taiKhoanText);
 		taiKhoanText.setColumns(15);
@@ -169,11 +184,12 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 		passPanel.add(horizontalStrut_1);
 
-		passwordText = new JPasswordField("admin");;
+		passwordText = new JPasswordField("123456");
+		;
 		passwordText.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		passPanel.add(passwordText);
 		passwordText.setColumns(15);
-		
+
 		Component verticalStrut_3 = Box.createVerticalStrut(40);
 		infoLoginPanel.add(verticalStrut_3);
 
@@ -213,8 +229,13 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 			if (n == JOptionPane.YES_OPTION) {
 				close();
 			}
-		}else if(obj == okButton) {
-			loginUser();
+		} else if (obj == okButton) {
+			try {
+				loginUser();
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 
@@ -234,29 +255,69 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			loginUser();
-		}
-	}
-	
-
-	private void loginUser() {
-		String userName = taiKhoanText.getText();
-		String password = passwordText.getText();
-
-		if (checkLoginUser(userName,password)) {
-			this.setVisible(false);
-			FrmTrangChinh window = new FrmTrangChinh("Giang", CurrentState.ADMIN);
-			window.frmCngTyGsb.setVisible(true);
-			window.frmCngTyGsb.setLocationRelativeTo(null);
+			try {
+				loginUser();
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 
-	private boolean checkLoginUser(String userName, String password) {
+	private void loginUser() throws RemoteException {
+		try {
+			int userName = Integer.parseInt(taiKhoanText.getText());
+			@SuppressWarnings("deprecation")
+			String password = passwordText.getText();
+			NhanVienDao nhanVienDao = getNhanVienDao();
+			NhanVien nhanVien = nhanVienDao.getNhanVienTheoMa(userName);
+			if (checkLoginUser(userName, password)) {
+				this.setVisible(false);
+				FrmTrangChinh window = new FrmTrangChinh(nhanVien.getTenNV(),getRole(nhanVien.getChucVu().trim()));
+				window.frmCngTyGsb.setVisible(true);
+				window.frmCngTyGsb.setLocationRelativeTo(null);
+			} else {
+				JOptionPane.showMessageDialog(null, "Tài khoản mật khẩu không chính xác");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			JOptionPane.showMessageDialog(null, "Tài khoản mật khẩu không chính xác");
+		}
+	}
+
+	private boolean checkLoginUser(int userName, String password) throws NumberFormatException, RemoteException {
 		// TODO Auto-generated method stub
-		if (userName.equals("admin") && password.equals("admin")) {
+		NhanVienDao nhanVienDao = getNhanVienDao();
+		boolean isLogin = nhanVienDao.checkLoginUser(userName, password);
+		if (isLogin) {
 			return true;
 		}
 		return false;
+	}
+
+	public NhanVienDao getNhanVienDao() {
+		try {
+			return (NhanVienDao) Naming.lookup("rmi://localhost:8988/nhanVienDao");
+		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return null;
+	}
+
+	public CurrentState getRole(String role) {
+		if (role.equalsIgnoreCase("ADMIN"))
+			return CurrentState.ADMIN;
+		else if (role.equalsIgnoreCase("EMPLOYEE"))
+			return CurrentState.EMPLOYEE;
+		else if (role.equalsIgnoreCase("MANAGER"))
+			return CurrentState.MANAGER;
+		else if (role.equalsIgnoreCase("SALARY_MANAGER"))
+			return CurrentState.SALARY_MANAGER;
+		else if (role.equalsIgnoreCase("EMPLOYEE_MANAGER"))
+			return CurrentState.EMPLOYEE_MANAGER;
+		return CurrentState.NONE;
+
 	}
 
 }

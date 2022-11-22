@@ -22,5 +22,6 @@ public interface NhanVienDao extends Remote {
 
 	public List<NhanVien> getNhanVienTheoDanhMuc(String tenNV, String sdt, String cmnd, String chucVu)
 			throws RemoteException;
+	public boolean checkLoginUser(int maNV,String makhau) throws RemoteException;
 
 }

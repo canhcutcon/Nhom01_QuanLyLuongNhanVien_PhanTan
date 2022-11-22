@@ -233,5 +233,15 @@ public class NhanVienDaoImpl extends UnicastRemoteObject implements NhanVienDao 
 		}
 		return lstNhanViens;
 	}
+	
+	@Override
+	public boolean checkLoginUser(int maNV, String makhau) throws RemoteException {
+		entityTrans = entityManager.getTransaction();
+		NhanVien nv = this.getNhanVienTheoMa(maNV);
+		if (nv != null && nv.getMatKhau().equalsIgnoreCase(makhau))
+			return true;
+		else 
+			return false;
+	}
 
 }

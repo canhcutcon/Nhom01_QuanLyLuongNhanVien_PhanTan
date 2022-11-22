@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.awt.Dialog.ModalExclusionType;
 
 public class FrmTrangChinh {
@@ -34,8 +35,9 @@ public class FrmTrangChinh {
 	private FrmBangLuongNhanVien frmBangLuongNhanVien;
 	private Frm_MucPhat frm_MucPhat;
 	private FrmQuanLyNhanVien frmQuanLyNhanVien;
-	
+	private FrmQuanLyPhongBan frmQuanLyPhongBan;
 	private String name;
+	private CurrentState role;
 	
 	/**
 	 * Launch the application.
@@ -55,12 +57,14 @@ public class FrmTrangChinh {
 
 	/**
 	 * Create the application.
+	 * @throws RemoteException 
 	 */
-	public FrmTrangChinh() {
+	public FrmTrangChinh() throws RemoteException {
 		initialize();
 	}
-	public FrmTrangChinh(String name, CurrentState role) {
+	public FrmTrangChinh(String name, CurrentState role) throws RemoteException {
 		this.name = name;
+		this.role = role;
 		initialize();
 		setAuthentication(role);
 	}
@@ -185,8 +189,9 @@ public class FrmTrangChinh {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws RemoteException 
 	 */
-	public void initialize() {
+	public void initialize() throws RemoteException {
 		frmCngTyGsb = new JFrame();
 		frmCngTyGsb.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
 		frmCngTyGsb.setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -215,7 +220,7 @@ public class FrmTrangChinh {
 		contentPane.add(desktopPane);
 		
 
-		initInternalFrame(frmTrangChu = new FrmTrangChu("Vo Thi Tra Giang", CurrentState.ADMIN));
+		initInternalFrame(frmTrangChu = new FrmTrangChu(name, role));
 		
 		frmQuanLyNhanVien = new FrmQuanLyNhanVien();
 		desktopPane.add(frmQuanLyNhanVien);
@@ -224,6 +229,7 @@ public class FrmTrangChinh {
 		initInternalFrame(frmQuanLyPhieuPhat = new FrmQuanLyPhieuPhat());
 //		initInternalFrame(frmBangLuongNhanVien = new FrmBangLuongNhanVien());
 		initInternalFrame(frm_MucPhat = new Frm_MucPhat());
+		initInternalFrame(frmQuanLyPhongBan=new FrmQuanLyPhongBan());
 //		initInternalFrame(frmQuanLyNhanVien = new FrmQuanLyNhanVien());
 		//==== authentication
 		frmTrangChu.setVisible(true);
@@ -287,6 +293,15 @@ public class FrmTrangChinh {
 		});
 		mnItem_DM_PhongBan = createJMenuItem("Phòng Ban", "HinhAnh/Icon/private.png");
 		mnDanhMuc.add(mnItem_DM_PhongBan);
+		mnItem_DM_PhongBan.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				anTatCa();
+				frmQuanLyPhongBan.setVisible(true);
+			}
+		});
 		
 		mnItem_DM_PhieuPhat = createJMenuItem("Phiếu phạt", "HinhAnh/Icon/private.png");
 		mnDanhMuc.add(mnItem_DM_PhieuPhat);
@@ -378,6 +393,7 @@ public class FrmTrangChinh {
 	};
 	
 	private void anTatCa() {
+		frmQuanLyPhongBan.setVisible(false);
 		frmTrangChu.setVisible(false);
 		frmChamCong.setVisible(false);
 		frmQuanLyPhieuPhat.setVisible(false);

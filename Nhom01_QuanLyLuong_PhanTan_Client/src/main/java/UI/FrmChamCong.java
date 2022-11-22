@@ -33,6 +33,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -153,7 +154,7 @@ public class FrmChamCong extends JInternalFrame implements ActionListener, Mouse
 					btnChamCong.setEnabled(true);
 					cnkDiLam.setEnabled(true);
 				}
-				
+
 				if (d.after(date))
 					btnChamCong.setEnabled(false);
 				else
@@ -461,7 +462,6 @@ public class FrmChamCong extends JInternalFrame implements ActionListener, Mouse
 			tblModelChamCong.addRow(obj);
 		}
 	}
-
 
 	public void loadBangChamCongDatatoTable(String mapb, int ngayCong, int thang, int nam) {
 		List<BangChamCong> aBangChamCongs = null;

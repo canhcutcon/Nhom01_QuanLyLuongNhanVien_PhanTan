@@ -16,6 +16,6 @@ public interface PhongBanDao extends Remote {
 
 	public boolean updatePhongBan(PhongBan phongBan) throws RemoteException;
 
-	public boolean deletePhongBan(int id ) throws RemoteException;
+	public boolean deletePhongBan(PhongBan phongBan) throws RemoteException;
 
 }
