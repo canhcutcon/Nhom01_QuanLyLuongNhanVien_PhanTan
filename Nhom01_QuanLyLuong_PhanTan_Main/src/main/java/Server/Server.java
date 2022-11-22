@@ -13,12 +13,14 @@ import dao.BangChamCongDao;
 import dao.BangLuongDao;
 import dao.LoaiPhatDao;
 import dao.NhanVienDao;
+import dao.PhieuLuongDao;
 import dao.PhieuPhatDao;
 import dao.PhongBanDao;
 import daoImpl.BangChamCongImpl;
 import daoImpl.BangLuongDaoImpl;
 import daoImpl.LoaiPhatDaoImpl;
 import daoImpl.NhanVienDaoImpl;
+import daoImpl.PhieuLuongImpl;
 import daoImpl.PhieuPhatDaoImpl;
 import daoImpl.PhongBanDaoImpl;
 
@@ -50,6 +52,7 @@ public class Server {
 			PhieuPhatDao phieuPhatDao = new PhieuPhatDaoImpl();
 			BangChamCongDao bangChamCongDao = new BangChamCongImpl();
 			BangLuongDao bangLuongDao = new BangLuongDaoImpl();
+			PhieuLuongDao phieuLuongDao = new PhieuLuongImpl();
 
 			
 			LocateRegistry.createRegistry(PORT);
@@ -59,6 +62,7 @@ public class Server {
 			context.bind(CONFIG + "/phieuPhatDao", phieuPhatDao);
 			context.bind(CONFIG + "/bangLuongDao", bangLuongDao);
 			context.bind(CONFIG + "/bangChamCongDao", bangChamCongDao);
+			context.bind(CONFIG + "/phieuLuongDao", bangChamCongDao);
 			System.out.println("Server started at " + LocalDateTime.now() + " on port " + PORT);
 
 		} catch (Exception e) {

@@ -68,14 +68,13 @@ public class NhanVien implements Serializable {
 	@JoinColumn(name = "ma_pb")
 	private PhongBan phongBan;
 
-//	@ManyToOne
-//	@JoinColumn(name = "ma_cc")
-//	private BangChamCong bangChamCong;
-
 
 	@OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL)
 	private List<BangLuongNhanVien> bangLuongNhanViens = new ArrayList<BangLuongNhanVien>();
 
+	@OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL)
+	private List<PhieuLuong> phieuLuongs = new ArrayList<PhieuLuong>();
+	
 	public NhanVien() {
 		super();
 		// TODO Auto-generated constructor stub

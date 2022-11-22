@@ -12,11 +12,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "bang_luong")
 public class BangLuongNhanVien implements Serializable {
-	
 
 	/**
 	 * 
@@ -31,10 +31,16 @@ public class BangLuongNhanVien implements Serializable {
 	private double thue;
 
 	@Column(name = "phu_cap")
-	private double PhuCap;
+	private double phuCap;
 
-	@Column(name = "ngay_tinh_luong", columnDefinition = "datetime")
-	private String ngayTinhLuong;
+	@Column(name = "ngay")
+	private int ngay;
+
+	@Column(name = "thang")
+	private int thangLuong;
+
+	@Column(name = "nam")
+	private int nam;
 
 	@Column(name = "so_ngay_lam")
 	private int soNgayLam;
@@ -45,38 +51,56 @@ public class BangLuongNhanVien implements Serializable {
 	@Column(name = "chung_chi")
 	private int soChungChi;
 
-	@Column(name = "ngay_nhan", columnDefinition = "datetime")
-	private LocalDate ngayNhan;
-
 	@Column(name = "trang_thai")
 	private int trangThai;
 
 	@Column(name = "tien_phat")
 	private double tienPhat;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ma_nv")
 	private NhanVien nhanVien;
 
 	public BangLuongNhanVien() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public BangLuongNhanVien(int maLuong, double thue, double phuCap, String ngayTinhLuong, int soNgayLam,
-			double luongCoBan, int soChungChi, LocalDate ngayNhan, int trangThai, double tienPhat,
-			NhanVien nhanVien) {
+	public BangLuongNhanVien(int maLuong, double thue, double phuCap, int ngay, int thangLuong, int nam, int soNgayLam,
+			double luongCoBan, int soChungChi, int trangThai, double tienPhat, NhanVien nhanVien) {
 		super();
 		this.maLuong = maLuong;
 		this.thue = thue;
-		PhuCap = phuCap;
-		this.ngayTinhLuong = ngayTinhLuong;
+		this.phuCap = phuCap;
+		this.ngay = ngay;
+		this.thangLuong = thangLuong;
+		this.nam = nam;
 		this.soNgayLam = soNgayLam;
 		this.luongCoBan = luongCoBan;
 		this.soChungChi = soChungChi;
-		this.ngayNhan = ngayNhan;
 		this.trangThai = trangThai;
 		this.tienPhat = tienPhat;
 		this.nhanVien = nhanVien;
+	}
+
+	public BangLuongNhanVien(double thue, double phuCap, int ngay, int thangLuong, int nam, int soNgayLam,
+			double luongCoBan, int soChungChi, int trangThai, double tienPhat, NhanVien nhanVien) {
+		super();
+		this.thue = thue;
+		this.phuCap = phuCap;
+		this.ngay = ngay;
+		this.thangLuong = thangLuong;
+		this.nam = nam;
+		this.soNgayLam = soNgayLam;
+		this.luongCoBan = luongCoBan;
+		this.soChungChi = soChungChi;
+		this.trangThai = trangThai;
+		this.tienPhat = tienPhat;
+		this.nhanVien = nhanVien;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public int getMaLuong() {
@@ -96,19 +120,35 @@ public class BangLuongNhanVien implements Serializable {
 	}
 
 	public double getPhuCap() {
-		return PhuCap;
+		return phuCap;
 	}
 
 	public void setPhuCap(double phuCap) {
-		PhuCap = phuCap;
+		this.phuCap = phuCap;
 	}
 
-	public String getNgayTinhLuong() {
-		return ngayTinhLuong;
+	public int getNgay() {
+		return ngay;
 	}
 
-	public void setNgayTinhLuong(String ngayTinhLuong) {
-		this.ngayTinhLuong = ngayTinhLuong;
+	public void setNgay(int ngay) {
+		this.ngay = ngay;
+	}
+
+	public int getThangLuong() {
+		return thangLuong;
+	}
+
+	public void setThangLuong(int thangLuong) {
+		this.thangLuong = thangLuong;
+	}
+
+	public int getNam() {
+		return nam;
+	}
+
+	public void setNam(int nam) {
+		this.nam = nam;
 	}
 
 	public int getSoNgayLam() {
@@ -135,14 +175,6 @@ public class BangLuongNhanVien implements Serializable {
 		this.soChungChi = soChungChi;
 	}
 
-	public LocalDate getNgayNhan() {
-		return ngayNhan;
-	}
-
-	public void setNgayNhan(LocalDate ngayNhan) {
-		this.ngayNhan = ngayNhan;
-	}
-
 	public int getTrangThai() {
 		return trangThai;
 	}
@@ -151,12 +183,12 @@ public class BangLuongNhanVien implements Serializable {
 		this.trangThai = trangThai;
 	}
 
-	public double getLuongThucNhan() {
+	public double getTienPhat() {
 		return tienPhat;
 	}
 
-	public void setLuongThucNhan(double luongThucNhan) {
-		this.tienPhat = luongThucNhan;
+	public void setTienPhat(double tienPhat) {
+		this.tienPhat = tienPhat;
 	}
 
 	public NhanVien getNhanVien() {
@@ -167,39 +199,12 @@ public class BangLuongNhanVien implements Serializable {
 		this.nhanVien = nhanVien;
 	}
 
-	
 	@Override
 	public String toString() {
-		return "BangLuongNhanVien [maLuong=" + maLuong + ", thue=" + thue + ", PhuCap=" + PhuCap + ", ngayTinhLuong="
-				+ ngayTinhLuong + ", soNgayLam=" + soNgayLam + ", luongCoBan=" + luongCoBan + ", soChungChi="
-				+ soChungChi + ", ngayNhan=" + ngayNhan + ", trangThai=" + trangThai + ", luongThucNhan="
-				+ tienPhat + ", nhanVien=" + nhanVien + "]";
+		return "BangLuongNhanVien [maLuong=" + maLuong + ", thue=" + thue + ", PhuCap=" + phuCap + ", ngay=" + ngay
+				+ ", thangLuong=" + thangLuong + ", nam=" + nam + ", soNgayLam=" + soNgayLam + ", luongCoBan="
+				+ luongCoBan + ", soChungChi=" + soChungChi + ", trangThai=" + trangThai + ", tienPhat=" + tienPhat
+				+ "]";
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(PhuCap, luongCoBan, tienPhat, maLuong, ngayNhan, ngayTinhLuong, nhanVien, soChungChi,
-				soNgayLam, thue, trangThai);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		BangLuongNhanVien other = (BangLuongNhanVien) obj;
-		return Double.doubleToLongBits(PhuCap) == Double.doubleToLongBits(other.PhuCap)
-				&& Double.doubleToLongBits(luongCoBan) == Double.doubleToLongBits(other.luongCoBan)
-				&& Double.doubleToLongBits(tienPhat) == Double.doubleToLongBits(other.tienPhat)
-				&& maLuong == other.maLuong && Objects.equals(ngayNhan, other.ngayNhan)
-				&& Objects.equals(ngayTinhLuong, other.ngayTinhLuong) && Objects.equals(nhanVien, other.nhanVien)
-				&& soChungChi == other.soChungChi && soNgayLam == other.soNgayLam
-				&& Double.doubleToLongBits(thue) == Double.doubleToLongBits(other.thue) && trangThai == other.trangThai;
-	}
-	
-	
 
 }
