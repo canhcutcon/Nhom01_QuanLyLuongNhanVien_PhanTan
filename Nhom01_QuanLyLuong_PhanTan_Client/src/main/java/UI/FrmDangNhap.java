@@ -33,6 +33,7 @@ import javax.swing.border.EmptyBorder;
 
 import componentCustom.CurrentState;
 import dao.NhanVienDao;
+import entity.NhanVien;
 
 public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 
@@ -166,7 +167,7 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 		Component horizontalStrut = Box.createHorizontalStrut(20);
 		userPanel.add(horizontalStrut);
 
-		taiKhoanText = new JTextField("admin");
+		taiKhoanText = new JTextField("4");
 		taiKhoanText.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		userPanel.add(taiKhoanText);
 		taiKhoanText.setColumns(15);
@@ -183,7 +184,7 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 		Component horizontalStrut_1 = Box.createHorizontalStrut(20);
 		passPanel.add(horizontalStrut_1);
 
-		passwordText = new JPasswordField("admin");
+		passwordText = new JPasswordField("123456");
 		;
 		passwordText.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		passPanel.add(passwordText);
@@ -268,12 +269,11 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 			int userName = Integer.parseInt(taiKhoanText.getText());
 			@SuppressWarnings("deprecation")
 			String password = passwordText.getText();
-//			NhanVienDao nhanVienDao = getNhanVienDao();
-//			NhanVien nhanVien = nhanVienDao.getNhanVienTheoMa(userName);
-//			System.out.println(nhanVien.getTenNV());
+			NhanVienDao nhanVienDao = getNhanVienDao();
+			NhanVien nhanVien = nhanVienDao.getNhanVienTheoMa(userName);
 			if (checkLoginUser(userName, password)) {
 				this.setVisible(false);
-				FrmTrangChinh window = new FrmTrangChinh("Giang", CurrentState.ADMIN);
+				FrmTrangChinh window = new FrmTrangChinh(nhanVien.getTenNV(),getRole(nhanVien.getChucVu().trim()));
 				window.frmCngTyGsb.setVisible(true);
 				window.frmCngTyGsb.setLocationRelativeTo(null);
 			} else {
@@ -303,6 +303,21 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 			e1.printStackTrace();
 		}
 		return null;
+	}
+
+	public CurrentState getRole(String role) {
+		if (role.equalsIgnoreCase("ADMIN"))
+			return CurrentState.ADMIN;
+		else if (role.equalsIgnoreCase("EMPLOYEE"))
+			return CurrentState.EMPLOYEE;
+		else if (role.equalsIgnoreCase("MANAGER"))
+			return CurrentState.MANAGER;
+		else if (role.equalsIgnoreCase("SALARY_MANAGER"))
+			return CurrentState.SALARY_MANAGER;
+		else if (role.equalsIgnoreCase("EMPLOYEE_MANAGER"))
+			return CurrentState.EMPLOYEE_MANAGER;
+		return CurrentState.NONE;
+
 	}
 
 }

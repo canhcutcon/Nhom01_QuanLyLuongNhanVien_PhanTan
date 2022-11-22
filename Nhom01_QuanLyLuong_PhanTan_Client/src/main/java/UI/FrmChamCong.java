@@ -36,6 +36,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -60,7 +61,7 @@ import service.BangChamCongService;
 import service.NhanVienService;
 import service.PhongBanServic;
 
-public class FrmChamCong extends JFrame implements ActionListener, MouseListener, ItemListener {
+public class FrmChamCong extends JInternalFrame implements ActionListener, MouseListener, ItemListener {
 	private static final String HOST = "localhost";
 	private static final String PORT = "8988";
 	NhanVienService nhanVienService;

@@ -102,9 +102,9 @@ public class PhongBanDaoImpl extends UnicastRemoteObject implements PhongBanDao 
 	}
 
 	@Override
-	public boolean deletePhongBan(int id) throws RemoteException {
+	public boolean deletePhongBan(PhongBan phongBan) throws RemoteException {
 		entityTrans = entityManager.getTransaction();
-		PhongBan pb = this.getPhongBanTheoMa(id);
+		PhongBan pb = this.getPhongBanTheoMa(phongBan.getMaPB());
 		if(pb!=null) {
 			pb.setTrangThai(0);
 			try {
