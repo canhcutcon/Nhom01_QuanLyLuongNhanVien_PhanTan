@@ -185,7 +185,6 @@ public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 		passPanel.add(horizontalStrut_1);
 
 		passwordText = new JPasswordField("123456");
-		;
 		passwordText.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		passPanel.add(passwordText);
 		passwordText.setColumns(15);

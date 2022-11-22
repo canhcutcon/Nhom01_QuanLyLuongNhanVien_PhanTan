@@ -227,7 +227,7 @@ public class FrmTrangChinh {
 		frmQuanLyNhanVien.setBounds(0, 0, 1530, 800);
 		initInternalFrame(frmChamCong = new FrmChamCong());
 		initInternalFrame(frmQuanLyPhieuPhat = new FrmQuanLyPhieuPhat());
-//		initInternalFrame(frmBangLuongNhanVien = new FrmBangLuongNhanVien());
+		initInternalFrame(frmBangLuongNhanVien = new FrmBangLuongNhanVien());
 		initInternalFrame(frm_MucPhat = new Frm_MucPhat());
 		initInternalFrame(frmQuanLyPhongBan=new FrmQuanLyPhongBan());
 //		initInternalFrame(frmQuanLyNhanVien = new FrmQuanLyNhanVien());

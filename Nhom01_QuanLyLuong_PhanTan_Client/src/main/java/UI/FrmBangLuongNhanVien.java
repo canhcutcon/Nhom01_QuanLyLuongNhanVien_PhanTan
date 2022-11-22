@@ -14,7 +14,6 @@ import java.awt.event.MouseListener;
 import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,14 +21,16 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 import entity.BangLuongNhanVien;
@@ -39,10 +40,8 @@ import service.BangChamCongService;
 import service.BangLuongService;
 import service.NhanVienService;
 import service.PhongBanServic;
-import javax.swing.JCheckBox;
-import javax.swing.ListSelectionModel;
 
-public class FrmBangLuongNhanVien extends JFrame implements ActionListener, MouseListener {
+public class FrmBangLuongNhanVien extends JInternalFrame implements ActionListener, MouseListener {
 	private static final String HOST = "localhost";
 	private static final String PORT = "8988";
 	NhanVienService nhanVienService;
@@ -69,7 +68,6 @@ public class FrmBangLuongNhanVien extends JFrame implements ActionListener, Mous
 	JButton btnLoad;
 	JButton btnHuy;
 	JButton btnLuu;
-	JLabel lblTrangThaiTinhLuong, lblNgayTinhLuong;
 	private DefaultTableModel modelTableLuong;
 	DefaultComboBoxModel<String> modelPhongBan;
 	Date dateTinhLuong = new Date();
@@ -387,43 +385,6 @@ public class FrmBangLuongNhanVien extends JFrame implements ActionListener, Mous
 		JScrollPane scrollPane = new JScrollPane(tbl_BangLuong);
 		pnl_Table.add(scrollPane);
 
-		JPanel panel_2 = new JPanel();
-		panel_2.setPreferredSize(new Dimension(150, 10));
-		pnl_Table.add(panel_2, BorderLayout.WEST);
-		panel_2.setLayout(new GridLayout(2, 1, 0, 0));
-
-		JLabel lblNewLabel_7 = new JLabel("Ghi chú:");
-		lblNewLabel_7.setBackground(new Color(204, 255, 255));
-		lblNewLabel_7.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		lblNewLabel_7.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		panel_2.add(lblNewLabel_7);
-
-		JPanel panel_3 = new JPanel();
-		panel_2.add(panel_3);
-		panel_3.setLayout(new GridLayout(2, 2, 0, 0));
-
-		JLabel lblNewLabel_8 = new JLabel("-Trạng thái:");
-		lblNewLabel_8.setBackground(new Color(204, 255, 255));
-		lblNewLabel_8.setForeground(new Color(255, 0, 0));
-		lblNewLabel_8.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		panel_3.add(lblNewLabel_8);
-
-		lblTrangThaiTinhLuong = new JLabel("Đã hoàn tất");
-		lblTrangThaiTinhLuong.setBackground(new Color(204, 255, 255));
-		lblTrangThaiTinhLuong.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		panel_3.add(lblTrangThaiTinhLuong);
-
-		JLabel lblNewLabel_9 = new JLabel("Ngày chốt:");
-		lblNewLabel_9.setBackground(new Color(204, 255, 255));
-		lblNewLabel_9.setForeground(new Color(255, 0, 0));
-		lblNewLabel_9.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		panel_3.add(lblNewLabel_9);
-
-		lblNgayTinhLuong = new JLabel("New label");
-		lblNgayTinhLuong.setBackground(new Color(204, 255, 255));
-		lblNgayTinhLuong.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		panel_3.add(lblNgayTinhLuong);
-
 		JPanel pnl_Control_1 = new JPanel();
 		pnl_Control_1.setLayout(null);
 		pnl_Control_1.setBackground(new Color(252, 222, 223));
@@ -478,7 +439,7 @@ public class FrmBangLuongNhanVien extends JFrame implements ActionListener, Mous
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (nhanViens == null)
+		if (nhanViens == null || nhanViens.size() == 0)
 			return;
 		tbl_BangLuong.setModel(modelTableLuong = new DefaultTableModel(colNhanVien, 0));
 		for (NhanVien nhanVien : nhanViens) {
@@ -657,12 +618,48 @@ public class FrmBangLuongNhanVien extends JFrame implements ActionListener, Mous
 				btnLuu.setEnabled(false);
 				btnHuy.setEnabled(false);
 			}
+		}else if (obj.equals(btn_XuatPhieuLuong)) {
+			int select = tbl_BangLuong.getSelectedRow();
+			if (select >= 0) {
+				BangLuongNhanVien bangLuongNhanVien = null;
+				try {
+					int t = Integer.parseInt(cboThang.getSelectedItem().toString());
+					int year = Integer.parseInt(cboNam.getSelectedItem().toString());
+					bangLuongNhanVien = bangLuongService.getBLTheoMaNV(Integer.parseInt(txtMaNV.getText()), t, year);
+					if(bangLuongNhanVien == null) 
+					{
+						JOptionPane.showMessageDialog(null, "Xuất bảng lương không thành công");
+						return;
+					}
+					double tongLuong = tongLuong(Double.parseDouble(txtLuongCoBan.getText()),
+							Integer.parseInt(txtSoNgayLam.getText()));
+					double thucNhan = thucNhan(tongLuong, bangLuongNhanVien);
+					FrmPhieuLuong frm = new FrmPhieuLuong(bangLuongNhanVien, tongLuong, thucNhan);
+					frm.pack();
+					frm.setBounds(100, 100, 568, 650);
+					frm.setBackground(new Color(135, 206, 250));
+					frm.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+					frm.setFocusCycleRoot(true);
+					frm.setFocusableWindowState(true);
+					frm.setVisible(true);
+				} catch (NumberFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
 		} else if (obj.equals(btnSua)) {
 			BangLuongNhanVien bangLuongNhanVien = null;
 			int select = tbl_BangLuong.getSelectedRow();
 			if (select >= 0) {				
 				try {
-					bangLuongNhanVien = bangLuongService.getBLTheoMaNV(Integer.parseInt(txtMaNV.getText()), dateTinhLuong.getMonth()+1, dateTinhLuong.getYear()+1900);
+					int t = Integer.parseInt(cboThang.getSelectedItem().toString());
+					int year = Integer.parseInt(cboNam.getSelectedItem().toString());
+					bangLuongNhanVien = bangLuongService.getBLTheoMaNV(Integer.parseInt(txtMaNV.getText()), t, year);
+					
 				} catch (NumberFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

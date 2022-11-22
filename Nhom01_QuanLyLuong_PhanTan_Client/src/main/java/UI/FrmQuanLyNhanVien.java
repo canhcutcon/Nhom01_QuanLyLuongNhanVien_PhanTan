@@ -424,8 +424,8 @@ public class FrmQuanLyNhanVien extends JInternalFrame implements MouseListener, 
 			e1.printStackTrace();
 		}
 
-		if (nhanViens == null)
-			nhanViens = new ArrayList<NhanVien>();
+		if (nhanViens == null || nhanViens.size() == 0)
+			return;
 		int select = tableNhanVien.getSelectedRow();
 		if (select >= 0) {
 			try {

@@ -32,28 +32,32 @@ public class test {
 //			addAllNhanVien();
 //			nvDao.getListNhanVien().forEach(e -> System.out.println(e));
 			BangChamCongDao bangChamCongDao = new BangChamCongImpl();
-//			for (int i = 1; i < 31; i++) {
-//				BangChamCong bangChamCong = new BangChamCong(i, 11, 2022, 
-//			true, false, 1,a);
-//				bangChamCongDao.createChamCong(bangChamCong);
+//			for (int i = 11; i < 30; i++) {
+//				NhanVien a = nvDao.getNhanVienTheoMa(i);
+//				for (int j = 1; j < 22; j++) {
+//					BangChamCong bangChamCong = new BangChamCong(j, 10, 2022, true, false, 1, a);
+//					bangChamCongDao.createChamCong(bangChamCong);
+//				}
 //			}
+
 //			BangChamCong bangChamCong = bangChamCongDao.getBangChamCongById(1);
 //			System.out.println(bangChamCong);
 //			bangChamCong.setDiTre(true);
 //			bangChamCongDao.updateChamCong(bangChamCong);
-////			bangChamCongDao.getListChamCong(1, 11, 2022, 1).forEach(e -> System.out.println(e));
-////			System.out.println(bangChamCongDao.getBangChamCongById(1));
-			System.out.println(bangChamCongDao.getSoNgayCong(11, 2022, 1, 11));
+//			bangChamCongDao.getListChamCong(1, 11, 2022, 1).forEach(e -> System.out.println(e));
+//			System.out.println(bangChamCongDao.getBangChamCongById(1));
+//			System.out.println(bangChamCongDao.getSoNgayCong(11, 2022, 1, 11));
 			BangLuongDao bangLuongDao = new BangLuongDaoImpl();
-			System.out.println(bangLuongDao.getBLTheoMaNV(11, 11, 2022));
+//			System.out.println(bangLuongDao.getBLTheoMaNV(11, 11, 2022));
 
-//			for(int i = 11 ; i < 30;i++)
-//			{
-//				NhanVien a = nvDao.getNhanVienTheoMa(i);
-//				BangLuongNhanVien bangLuongNhanVien = new BangLuongNhanVien(0.5, 100000, 28, 10, 2022, 21, 500000, 0, 1, 0, a);
-//				bangLuongDao.createBangLuongNhanVien(bangLuongNhanVien);
-//			}
-			System.out.println(bangLuongDao.getBangLuongNhanVienTheoMa(1));
+			for(int i = 11 ; i < 30;i++)
+			{
+				int songayCong = bangChamCongDao.getSoNgayCong(10, 2022, 1, i);
+				NhanVien a = nvDao.getNhanVienTheoMa(i);
+				BangLuongNhanVien bangLuongNhanVien = new BangLuongNhanVien(0.5, 100000, 28, 10, 2022, songayCong, 500000, 0, 1, 0, a);
+				bangLuongDao.createBangLuongNhanVien(bangLuongNhanVien);
+			}
+//			System.out.println(bangLuongDao.getBangLuongNhanVienTheoMa(1));
 //			bangLuongDao.getListBangLuongNhanVien(1, 28, 8, 2022).forEach(e -> System.out.println(e));
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block

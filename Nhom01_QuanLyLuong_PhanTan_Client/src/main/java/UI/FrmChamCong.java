@@ -138,12 +138,16 @@ public class FrmChamCong extends JInternalFrame implements ActionListener, Mouse
 		bangChamCongPanelMethod(panel);
 		loadComboBox();
 		loadDatatoTable();
+		chooser.setDate(new Date());
 		chooser.getDateEditor().addPropertyChangeListener(new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent e) {
-				btnChamCong.setEnabled(false);
-				btnSuaChamCong.setEnabled(false);
-				cnkDiLam.setEnabled(false);
+//				btnChamCong.setEnabled(false);
+//				btnSuaChamCong.setEnabled(false);
+//				cnkDiLam.setEnabled(false);
+				btnSuaChamCong.setEnabled(true);
+				btnChamCong.setEnabled(true);
+				cnkDiLam.setEnabled(true);
 				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 				Date date = new Date();
 				Date d = chooser.getDate();
@@ -154,7 +158,7 @@ public class FrmChamCong extends JInternalFrame implements ActionListener, Mouse
 					btnChamCong.setEnabled(true);
 					cnkDiLam.setEnabled(true);
 				}
-
+				
 				if (d.after(date))
 					btnChamCong.setEnabled(false);
 				else
@@ -413,8 +417,8 @@ public class FrmChamCong extends JInternalFrame implements ActionListener, Mouse
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (nhanViens == null)
-			nhanViens = new ArrayList<NhanVien>();
+		if (nhanViens == null || nhanViens.size() == 0)
+			return;
 
 		tblModelChamCong = new DefaultTableModel(col, 0) {
 			Class[] columnTypes = new Class[] { String.class, String.class, String.class, String.class, Boolean.class,
@@ -442,9 +446,12 @@ public class FrmChamCong extends JInternalFrame implements ActionListener, Mouse
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (nhanViens == null)
-			nhanViens = new ArrayList<NhanVien>();
-
+		if (nhanViens == null || nhanViens.size() == 0)
+		{
+			loadDatatoTable();
+			return;
+		}
+		
 		tblModelChamCong = new DefaultTableModel(col, 0) {
 			Class[] columnTypes = new Class[] { String.class, String.class, String.class, String.class, Boolean.class,
 					Boolean.class };
@@ -463,6 +470,7 @@ public class FrmChamCong extends JInternalFrame implements ActionListener, Mouse
 		}
 	}
 
+
 	public void loadBangChamCongDatatoTable(String mapb, int ngayCong, int thang, int nam) {
 		List<BangChamCong> aBangChamCongs = null;
 		try {
@@ -471,8 +479,11 @@ public class FrmChamCong extends JInternalFrame implements ActionListener, Mouse
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (aBangChamCongs == null)
+		if (aBangChamCongs == null || aBangChamCongs.size()==0)
+		{
+			loadDatatoTable(mapb);
 			return;
+		}
 
 		tblModelChamCong = new DefaultTableModel(colChamCong, 0) {
 			Class[] columnTypes = new Class[] { String.class, String.class, String.class, String.class, String.class,
