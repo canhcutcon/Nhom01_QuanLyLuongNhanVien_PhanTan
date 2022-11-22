@@ -18,7 +18,7 @@ public class Application {
 			frmLogin.setVisible(true);
 			frmLogin.setLocationRelativeTo(null);			
 		} catch (Exception e) {
-			// TODO: handle exception
+			// TODO: handle 
 		}
 	}
 }

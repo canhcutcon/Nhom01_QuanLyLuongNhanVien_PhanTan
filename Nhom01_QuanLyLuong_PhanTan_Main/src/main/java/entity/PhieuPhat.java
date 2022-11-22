@@ -12,13 +12,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "phieu_phat")
 public class PhieuPhat implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2069455673500480424L;
+	private static final long serialVersionUID = -7134950012414695450L;
 
 	@Id
 	@Column(name = "ma_phieu_phat")
@@ -133,10 +135,6 @@ public class PhieuPhat implements Serializable {
 
 	public void setLoaiPhats(LoaiPhat loaiPhat) {
 		this.loaiPhat = loaiPhat;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 }

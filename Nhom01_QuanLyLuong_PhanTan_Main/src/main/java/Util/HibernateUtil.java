@@ -1,6 +1,7 @@
 package Util;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 public class HibernateUtil {
@@ -9,11 +10,10 @@ public class HibernateUtil {
 	 */
 private static HibernateUtil instance = null;
 	
-	private EntityManager entityManager;
+	private EntityManagerFactory entityManagerFactory;
 	
 	public HibernateUtil() {
-		entityManager = Persistence.createEntityManagerFactory("Nhom01_QuanLyLuong_PhanTan")
-				.createEntityManager();
+		entityManagerFactory = Persistence.createEntityManagerFactory("Nhom01_QuanLyLuong_PhanTan");
 	}
 	
 	public synchronized static HibernateUtil getInstance() {
@@ -21,9 +21,12 @@ private static HibernateUtil instance = null;
 			instance = new HibernateUtil();			
 		}
 		return instance;
-		
 	}
-	public EntityManager getEntityManager() {
-		return entityManager;
+
+	public EntityManagerFactory getEntityManagerFactory() {
+		return entityManagerFactory;
 	}
+	
+
+	
 }

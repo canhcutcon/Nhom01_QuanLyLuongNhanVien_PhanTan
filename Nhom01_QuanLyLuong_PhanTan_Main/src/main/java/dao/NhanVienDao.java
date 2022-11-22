@@ -9,6 +9,8 @@ import entity.NhanVien;
 public interface NhanVienDao extends Remote {
 
 	public List<NhanVien> getListNhanVien() throws RemoteException;
+	
+	public List<NhanVien> getListNhanVien(String maPB) throws RemoteException;
 
 	public NhanVien getNhanVienTheoMa(int id) throws RemoteException;
 
