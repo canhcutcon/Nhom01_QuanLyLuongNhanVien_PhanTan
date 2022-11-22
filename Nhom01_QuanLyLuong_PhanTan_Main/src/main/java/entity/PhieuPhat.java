@@ -43,9 +43,8 @@ public class PhieuPhat implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PhieuPhat(int maPhieuPhat, NhanVien maNV, LocalDate ngayPhat, int trangThai, LoaiPhat loaiPhat) {
+	public PhieuPhat( NhanVien maNV, LocalDate ngayPhat, int trangThai, LoaiPhat loaiPhat) {
 		super();
-		this.maPhieuPhat = maPhieuPhat;
 		this.maNV = maNV;
 		this.ngayPhat = ngayPhat;
 		this.trangThai = trangThai;

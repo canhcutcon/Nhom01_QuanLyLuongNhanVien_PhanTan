@@ -8,6 +8,7 @@ import java.util.List;
 import Util.HibernateUtil;
 import dao.LoaiPhatDao;
 import entity.LoaiPhat;
+import entity.PhongBan;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -61,44 +62,56 @@ public class LoaiPhatDaoImpl extends UnicastRemoteObject implements LoaiPhatDao 
 	@Override
 	public boolean updateMucPhat(LoaiPhat loaiPhat) throws RemoteException {
 		// TODO Auto-generated method stub
-		entityTrans = entityManager.getTransaction();
-		List<LoaiPhat> lstMucPhats = entityManager.createNativeQuery("select * from loai_phat where ma_lp=:x")
-				.setParameter("x", loaiPhat.getMaLoaiPhat()).getResultList();
+		LoaiPhat lp = this.getLoaiPhatTheoMa(loaiPhat.getMaLoaiPhat());
+		lp.setTenLoai(loaiPhat.getTenLoai());
+		lp.setTienPhat(loaiPhat.getTienPhat());
 		try {
 			entityTrans.begin();
-			for (LoaiPhat temp : lstMucPhats) {
-				temp.setTenLoai(loaiPhat.getTenLoai());
-				temp.setTienPhat(loaiPhat.getTienPhat());
-				temp.setTrangThai(loaiPhat.getMaLoaiPhat());
-				entityManager.merge(temp);
-				entityTrans.commit();
-			}
+			entityManager.persist(lp);
+			entityTrans.commit();
 			return true;
 		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
 			entityTrans.rollback();
 		}
 
 		return false;
+	}
+	public LoaiPhat getLoaiPhatTheoMa(int id) throws RemoteException {
+		// TODO Auto-generated method stub
+		LoaiPhat loaiPhat = null;
+		entityTrans = entityManager.getTransaction();
+		try {
+			entityTrans.begin();
+			loaiPhat = entityManager.find(LoaiPhat.class, id);
+			entityTrans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			entityTrans.rollback();
+		}
+		return loaiPhat;
 	}
 
 	@Override
 	public boolean deleteMucPhat(LoaiPhat mucPhat) throws RemoteException {
 		// TODO Auto-generated method stub
 		entityTrans = entityManager.getTransaction();
-		List<LoaiPhat> lstMucPhats = entityManager.createNativeQuery("select * from loai_phat where ma_lp =:x")
-				.setParameter("x", mucPhat.getMaLoaiPhat()).getResultList();
+		LoaiPhat lp = this.getLoaiPhatTheoMa(mucPhat.getMaLoaiPhat());
+		lp.setTrangThai(0);
 		try {
 			entityTrans.begin();
-			for (LoaiPhat temp : lstMucPhats) {
-				temp.setTrangThai(0);
-				entityManager.merge(temp);
-				entityTrans.commit();
-			}
+			entityManager.persist(lp);
+			entityTrans.commit();
 			return true;
 		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
 			entityTrans.rollback();
-		}
-		return false;
+		}	
+		return true;
+		
 	}
 
 }

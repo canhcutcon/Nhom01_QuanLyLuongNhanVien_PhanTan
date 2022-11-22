@@ -6,7 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
 import dao.LoaiPhatDao;
-import dao.PhongBanDao;
+
+
 
 public class Test {
 
@@ -21,7 +22,7 @@ public class Test {
 		EntityManager entityManager = Persistence.createEntityManagerFactory("Nhom01_QuanLyLuong_PhanTan").createEntityManager();
 		
 		try {
-			PhongBanDao phongBanDao = (PhongBanDao)Naming.lookup("rmi://LAPTOP-27HK0FFM:8988/phongBanDao");
+			//PhongBanDao phongBanDao = (PhongBanDao)Naming.lookup("rmi://LAPTOP-27HK0FFM:8988/phongBanDao");
 			LoaiPhatDao loaiPhatDao = (LoaiPhatDao) Naming.lookup("rmi://localhost:8988/loaiPhatDao");
 //			phongBanDao.getListPhongBan().forEach(e -> System.out.println(e));
 			loaiPhatDao.getListMucPhat().forEach(e->System.out.println(e.getTenLoai()));

@@ -6,6 +6,15 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -15,9 +24,23 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
+import dao.LoaiPhatDao;
+import dao.NhanVienDao;
+import dao.PhieuPhatDao;
+import entity.LoaiPhat;
+import entity.NhanVien;
+import entity.PhieuPhat;
+
 import javax.swing.ImageIcon;
 
 
@@ -27,8 +50,10 @@ public class FrmQuanLyPhieuPhat extends JInternalFrame {
 	private JTable tbl_BangLuong;
 //	private FrmQuanLyPhieuPhat frmQuanLyPhieuPhat;
 //	private Frm_MucPhat frm_MucPhat;
-	
-
+	DefaultTableModel modelPhieuPhat;
+	String[] colHeader = { "Mã phiếu phạt","Ngày phạt", "Nhân viên","Lí do"};
+	JComboBox cbb_MaMucPhat;
+	JComboBox cbb_MaNhanVien;
 	/**
 	 * Launch the application.
 	 */
@@ -47,8 +72,9 @@ public class FrmQuanLyPhieuPhat extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws RemoteException 
 	 */
-	public FrmQuanLyPhieuPhat() {
+	public FrmQuanLyPhieuPhat() throws RemoteException {
 		getContentPane().setBackground(new Color(252, 222, 223));
 		
 		setName("FrmQLPhieuPhat");
@@ -70,7 +96,7 @@ public class FrmQuanLyPhieuPhat extends JInternalFrame {
 //		frm_MucPhat = new Frm_MucPhat();
 	}
 
-	private void setUI() {
+	private void setUI() throws RemoteException {
 	
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(252, 222, 223));
@@ -93,11 +119,11 @@ public class FrmQuanLyPhieuPhat extends JInternalFrame {
 		lblNewLabel_4_2_1.setBounds(10, 57, 151, 23);
 		pnl_Input.add(lblNewLabel_4_2_1);
 		
-		JComboBox cbb_MaMucPhat = new JComboBox();
+		cbb_MaMucPhat = new JComboBox();
 		cbb_MaMucPhat.setBounds(171, 25, 1085, 22);
 		pnl_Input.add(cbb_MaMucPhat);
 		
-		JComboBox cbb_MaNhanVien = new JComboBox();
+	    cbb_MaNhanVien = new JComboBox();
 		cbb_MaNhanVien.setBounds(171, 59, 1085, 22);
 		pnl_Input.add(cbb_MaNhanVien);
 		
@@ -111,18 +137,7 @@ public class FrmQuanLyPhieuPhat extends JInternalFrame {
 		btnXoa.setBounds(1026, 92, 230, 48);
 		pnl_Input.add(btnXoa);
 		btnXoa.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JButton btn_Sua = new JButton("Sửa phiếu");
-		btn_Sua.setIcon(new ImageIcon("D:\\JavaPhanTan\\Nhom01_QuanLyLuongNhanVien_PhanTan\\Nhom01_QuanLyLuong_PhanTan_Client\\HinhAnh\\Icon\\repair.png"));
-		btn_Sua.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showConfirmDialog(null, "Sửa", "Thông báo", JOptionPane.DEFAULT_OPTION);
-			}
-		});
-		btn_Sua.setBounds(598, 92, 230, 48);
-		pnl_Input.add(btn_Sua);
-		btn_Sua.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
+	
 		JButton btn_Them = new JButton("Thêm phiếu");
 		btn_Them.setSelectedIcon(new ImageIcon("D:\\JavaPhanTan\\Nhom01_QuanLyLuongNhanVien_PhanTan\\Nhom01_QuanLyLuong_PhanTan_Client\\HinhAnh\\Icon\\add32.png"));
 		btn_Them.setIcon(new ImageIcon("D:\\JavaPhanTan\\Nhom01_QuanLyLuongNhanVien_PhanTan\\Nhom01_QuanLyLuong_PhanTan_Client\\HinhAnh\\Icon\\add32.png"));
@@ -131,7 +146,23 @@ public class FrmQuanLyPhieuPhat extends JInternalFrame {
 		btn_Them.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btn_Them.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showConfirmDialog(null, "Thêm", "Thông báo", JOptionPane.DEFAULT_OPTION);
+//				
+//				String temp_mp = cbb_MaMucPhat.getSelectedItem().toString();
+//
+//				int idMp = Character.getNumericValue(temp_mp.charAt(0));
+//				String temp_nv = cbb_MaNhanVien.getSelectedItem().toString();
+//
+//				int idNv = Character.getNumericValue(temp_nv.charAt(0));
+//				PhieuPhat phieuPhat = new PhieuPhat(idNv  );
+//				 PhieuPhat( NhanVien maNV, LocalDate ngayPhat, int trangThai, LoaiPhat loaiPhat) {
+//				LoaiPhatDao loaiPhatDao = getLoaiPhat();
+//				try {
+//					loaiPhatDao.createMucPhat(loaiPhat);
+//					getDataForTable(tbl_MucPhat, modelMucPhat);
+//				} catch (RemoteException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
 			}
 		});
 		
@@ -139,14 +170,139 @@ public class FrmQuanLyPhieuPhat extends JInternalFrame {
 		lblNewLabel_4_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		lblNewLabel_4_2_1_1.setBounds(508, 11, 221, 44);
 		panel.add(lblNewLabel_4_2_1_1);
+
+
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBounds(10, 241, 980, 251);
+	
+
+		modelPhieuPhat = new DefaultTableModel(colHeader, 0);
+		panel_3.setLayout(null);
+		tbl_BangLuong = new JTable(modelPhieuPhat);
+		JScrollPane scrollPane = new JScrollPane(tbl_BangLuong);
+		scrollPane.setBounds(0, 11, 980, 229);
+		panel_3.add(scrollPane);
+			getDataForTable(tbl_BangLuong, modelPhieuPhat);
+			tbl_BangLuong.addMouseListener(new MouseListener() {
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					{
+						int index = tbl_BangLuong.getSelectedRow();
+//						
+					}
+				}
+			});
+		panel.add(panel_3);
 		
-		JPanel pnl_Table = new JPanel();
-		pnl_Table.setBackground(new Color(252, 222, 223));
-		pnl_Table.setBounds(10, 249, 1268, 496);
-		panel.add(pnl_Table);
 		
-		tbl_BangLuong = new JTable();
-		tbl_BangLuong.setBackground(new Color(192, 192, 192));
-		pnl_Table.add(tbl_BangLuong);
+	}
+	public PhieuPhatDao getPhieuPhat() {
+		try {
+			return (PhieuPhatDao) Naming.lookup("rmi://localhost:8988/phieuPhatDao");
+		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return null;
+	}
+	public LoaiPhatDao getLoaiPhat() {
+		try {
+			return (LoaiPhatDao) Naming.lookup("rmi://localhost:8988/loaiPhatDao");
+		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return null;
+	}
+	public NhanVienDao getNhanVienDao() {
+		try {
+			return (NhanVienDao) Naming.lookup("rmi://localhost:8988/nhanVienDao");
+		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return null;
+	}
+	public void getDataForTable(JTable table, DefaultTableModel model) throws RemoteException {
+		clearModel(model);
+		PhieuPhatDao phieuPhatDao = getPhieuPhat();
+		
+		List<PhieuPhat> phieuPhats = phieuPhatDao.getListPhieuPhat();
+		for (PhieuPhat pp : phieuPhats) {
+			Vector vector = new Vector();
+			vector.add(pp.getMaPhieuPhat() + "");
+			vector.add(pp.getNgayPhat());
+			vector.add(pp.getMaNV().getTenNV()+"");
+			vector.add(pp.getLoaiPhat().getTenLoai()+"");
+			model.addRow(vector);
+			tbl_BangLuong.setModel(model);
+			Frm_MucPhat.setCellsAlignment(tbl_BangLuong, SwingConstants.CENTER);
+		}
+		LoaiPhatDao loaiPhatDao = getLoaiPhat();
+		List<LoaiPhat> loaiPhats = loaiPhatDao.getListMucPhat();
+		for (LoaiPhat loai  : loaiPhats) {
+			String x = loai.getMaLoaiPhat()+". "+loai.getTenLoai();
+			cbb_MaMucPhat.addItem(x);
+			}
+		NhanVienDao nhanVienDao = getNhanVienDao();
+		List<NhanVien> nhanViens = nhanVienDao.getListNhanVien();
+		for (NhanVien nv  : nhanViens) {
+			String x = nv.getMaNV()+". "+nv.getTenNV();
+			cbb_MaNhanVien.addItem(x);
+			}
+		
+	}
+
+
+	public boolean checkEmpty(String tenNhanvien) {
+		if (tenNhanvien.length() == 0)
+			return true;
+		else
+			return false;
+	}
+	
+	public void clearModel(DefaultTableModel model) {
+		while(model.getRowCount() > 0)
+		{
+			model.removeRow(0);
+		}
+	}
+
+	public static void setCellsAlignment(JTable table, int alignment) {
+		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+		rightRenderer.setHorizontalAlignment(alignment);
+
+		TableModel tableModel = table.getModel();
+
+		for (int columnIndex = 0; columnIndex < tableModel.getColumnCount(); columnIndex++) {
+			table.getColumnModel().getColumn(columnIndex).setCellRenderer(rightRenderer);
+		}
 	}
 }

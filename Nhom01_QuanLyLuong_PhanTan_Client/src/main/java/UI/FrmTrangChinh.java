@@ -202,7 +202,7 @@ public class FrmTrangChinh {
 		frmCngTyGsb.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 15));
 		frmCngTyGsb.setBackground(new Color(255, 192, 203));
 		frmCngTyGsb.setFocusCycleRoot(true);
-		frmCngTyGsb.setFocusableWindowState(false);
+		frmCngTyGsb.setFocusableWindowState(true);
 		frmCngTyGsb.setUndecorated(false);
 
 		// === set Main Panel =================================

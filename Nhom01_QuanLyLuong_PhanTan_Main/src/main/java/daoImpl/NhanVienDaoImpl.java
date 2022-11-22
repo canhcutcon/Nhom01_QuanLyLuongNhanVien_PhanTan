@@ -2,6 +2,7 @@ package daoImpl;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -31,21 +32,39 @@ public class NhanVienDaoImpl extends UnicastRemoteObject implements NhanVienDao 
 	@Override
 	public List<NhanVien> getListNhanVien() throws RemoteException {
 		// TODO Auto-generated method stub
-		List<NhanVien> lstNhanViens = (List<NhanVien>) entityManager
-				.createNativeQuery("select * from nhan_vien where trang_thai = 1", NhanVien.class).getResultList();
-//				.getResultList();
-//		List<NhanVien> lstNhanViens = new ArrayList<NhanVien>();
-//		List<?> lst = entityManager.createNativeQuery("select * from nhan_vien where trang_thai = 1", NhanVien.class)
-//				.getResultList();
-//		for (Object object : lst) {
-//			Object[] rs = (Object[])object;		
-//			int id = Integer.parseInt(rs[0].toString());
-//			String ten = (String)rs[1];
-//			int trangThai = Integer.parseInt(rs[2].toString());
-//			lstPhongBans.add(new PhongBan(id, ten, trangThai));
-//		}
+		List<NhanVien> lstNhanViens = new ArrayList<NhanVien>();
+		List<?> lstList = entityManager.createNativeQuery("select * from nhan_vien where trang_thai =:x")
+				.setParameter("x", 1).getResultList();
+//		lstNhanViens = (List<NhanVien>) lstList;
+		try {
+			for (Object object : lstList) {
+				Object[] rs = (Object[]) object;
+				int id = Integer.parseInt(rs[0].toString());
+				String chucVu = (String) rs[1];
+				String cmnd = (String) rs[2];
+				String diaChi = (String) rs[3];
+				String hinhAnh = (String) rs[4];
+				Boolean isAdmin = (Boolean) rs[5];
+				String matKhau = (String) rs[6];
+				String ngayVaoLam = rs[7].toString().substring(0, 10);
+				String ngaySinh = rs[8].toString().substring(0, 10);
+				String sdt = (String) rs[9];
+				String ten = (String) rs[10];
+				int trangThai = Integer.parseInt(rs[11].toString());
+
+				NhanVien nv = new NhanVien(id, ten, sdt, cmnd, diaChi, LocalDate.parse(ngayVaoLam),
+						LocalDate.parse(ngaySinh), chucVu, matKhau, Boolean.parseBoolean(sdt), hinhAnh, trangThai,
+						null);
+				lstNhanViens.add(nv);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return lstNhanViens;
 	}
+
+
 
 	@Override
 	public NhanVien getNhanVienTheoMa(int id) throws RemoteException {

@@ -96,6 +96,25 @@ public class NhanVien implements Serializable {
 		this.trangThai = trangThai;
 		this.phongBan = phongBan;
 	}
+	public NhanVien(int maNV, String tenNV, String sdt, String cmnd, String diaChi, LocalDate ngayVaoLam,
+			LocalDate ngaySinh, String chucVu, String matKhau, Boolean idAdmin, String hinhAnh, int trangThai,
+			PhongBan phongBan) {
+		super();
+		this.maNV = maNV;
+		this.tenNV = tenNV;
+		this.sdt = sdt;
+		this.cmnd = cmnd;
+		this.diaChi = diaChi;
+		this.ngayVaoLam = ngayVaoLam;
+		this.ngaySinh = ngaySinh;
+		this.chucVu = chucVu;
+		this.matKhau = matKhau;
+		this.idAdmin = idAdmin;
+		this.hinhAnh = hinhAnh;
+		this.trangThai = trangThai;
+		this.phongBan = phongBan;
+	}
+
 
 	public LocalDate getNgayVaoLam() {
 		return ngayVaoLam;

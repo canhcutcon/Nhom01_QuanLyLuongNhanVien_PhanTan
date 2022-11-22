@@ -265,6 +265,7 @@ public class FrmQuanLyPhongBan extends JInternalFrame {
 					int index = tblPhongBan.getSelectedRow();
 					txtMaPhongBan.setText((String) (modelPhongBan.getValueAt(index, 0)));
 					txtTenPB.setText((String) (modelPhongBan.getValueAt(index, 1)));
+					
 				}
 			}
 		});

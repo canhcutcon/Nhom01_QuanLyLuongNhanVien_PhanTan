@@ -6,11 +6,17 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.List;
+import java.util.Vector;
 
+import javax.persistence.Convert;
+import javax.persistence.Converter;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -18,13 +24,20 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import dao.LoaiPhatDao;
 import dao.PhongBanDao;
 import entity.LoaiPhat;
+import entity.PhongBan;
 
 public class Frm_MucPhat extends JInternalFrame {
 
@@ -62,8 +75,9 @@ public class Frm_MucPhat extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws RemoteException 
 	 */
-	public Frm_MucPhat() {
+	public Frm_MucPhat() throws RemoteException {
 		setBackground(Color.WHITE);
 		initGUI();
 		setUI();
@@ -79,8 +93,10 @@ public class Frm_MucPhat extends JInternalFrame {
 		
 		
 	}
-
-	private void setUI() {
+	DefaultTableModel modelMucPhat;
+	String[] colHeader = { "Mã mức phạt", "Tên mức phạt","Tiền phạt"};
+	int idSelected=-1;
+	private void setUI() throws RemoteException {
 	
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(252, 222, 223));
@@ -88,7 +104,7 @@ public class Frm_MucPhat extends JInternalFrame {
 		panel.setLayout(null);
 		
 		JPanel pnl_Input = new JPanel();
-		pnl_Input.setBounds(10, 75, 980, 416);
+		pnl_Input.setBounds(10, 66, 980, 157);
 		pnl_Input.setBackground(new Color(252, 222, 223));
 		panel.add(pnl_Input);
 		pnl_Input.setLayout(null);
@@ -106,7 +122,33 @@ public class Frm_MucPhat extends JInternalFrame {
 		JButton btnXoa = new JButton("Xoá mức phạt");
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int n = JOptionPane.showConfirmDialog(null, "Xoá ", "Thông báo", JOptionPane.YES_NO_OPTION);
+				int confirmDel = JOptionPane.showConfirmDialog(null, "U want delete ???", "!!!",
+						JOptionPane.YES_NO_OPTION);
+				if (confirmDel == 0) {
+					LoaiPhatDao loaiPhatDao = getLoaiPhat();
+					boolean isDelete = false;
+					try {
+						LoaiPhat lp = new LoaiPhat();
+						lp.setMaLoaiPhat(idSelected);
+						lp.setTrangThai(0);
+						isDelete = loaiPhatDao.deleteMucPhat(lp);
+					} catch (RemoteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					if (isDelete) {
+						JOptionPane.showMessageDialog(null, "Success ^^");
+						try {
+							getDataForTable(tbl_MucPhat, modelMucPhat);
+						} catch (RemoteException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Delete fail");
+					}
+				}
+
 			}
 		});
 		btnXoa.setBounds(734, 92, 230, 33);
@@ -116,7 +158,16 @@ public class Frm_MucPhat extends JInternalFrame {
 		JButton btn_Sua = new JButton("Sửa mức phạt");
 		btn_Sua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int n = JOptionPane.showConfirmDialog(null, "Sửa", "Thông báo", JOptionPane.YES_NO_OPTION);
+//				int n = JOptionPane.showConfirmDialog(null, "Thêm", "Thông báo", JOptionPane.YES_NO_OPTION);
+				LoaiPhat loaiPhat = new LoaiPhat(idSelected,txt_TenMucPhat.getText(), Double.parseDouble(txt_TienPhat.getText()) , 1);
+				LoaiPhatDao loaiPhatDao = getLoaiPhat();
+				try {
+					loaiPhatDao.updateMucPhat(loaiPhat);
+					getDataForTable(tbl_MucPhat, modelMucPhat);
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btn_Sua.setBounds(455, 92, 230, 33);
@@ -137,17 +188,14 @@ public class Frm_MucPhat extends JInternalFrame {
 		txt_TienPhat.setColumns(10);
 		txt_TienPhat.setBounds(171, 57, 793, 23);
 		pnl_Input.add(txt_TienPhat);
-		
-		tbl_MucPhat = new JTable();
-		tbl_MucPhat.setBounds(10, 136, 954, 269);
-		pnl_Input.add(tbl_MucPhat);
 		btn_Them.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //				int n = JOptionPane.showConfirmDialog(null, "Thêm", "Thông báo", JOptionPane.YES_NO_OPTION);
-				LoaiPhat loaiPhat = new LoaiPhat("Nghỉ không phép", 120000.0, 1);
+				LoaiPhat loaiPhat = new LoaiPhat(txt_TenMucPhat.getText(), Double.parseDouble(txt_TienPhat.getText()) , 1);
 				LoaiPhatDao loaiPhatDao = getLoaiPhat();
 				try {
 					loaiPhatDao.createMucPhat(loaiPhat);
+					getDataForTable(tbl_MucPhat, modelMucPhat);
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -159,6 +207,60 @@ public class Frm_MucPhat extends JInternalFrame {
 		lblNewLabel_4_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		lblNewLabel_4_2_1_1.setBounds(382, 11, 221, 44);
 		panel.add(lblNewLabel_4_2_1_1);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBounds(10, 223, 980, 269);
+	
+
+		modelMucPhat = new DefaultTableModel(colHeader, 0);
+		panel_3.setLayout(null);
+		tbl_MucPhat = new JTable(modelMucPhat);
+		JScrollPane scrollPane = new JScrollPane(tbl_MucPhat);
+		scrollPane.setBounds(0, 0, 980, 269);
+		panel_3.add(scrollPane);
+			getDataForTable(tbl_MucPhat, modelMucPhat);
+			tbl_MucPhat.addMouseListener(new MouseListener() {
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					{
+						int index = tbl_MucPhat.getSelectedRow();
+						txt_TenMucPhat.setText((String) (modelMucPhat.getValueAt(index, 1)));
+						txt_TienPhat.setText((String) (modelMucPhat.getValueAt(index, 2)));
+						String cc = tbl_MucPhat.getModel().getValueAt(index, 0).toString();
+						idSelected = Integer.parseInt(cc);
+					}
+				}
+			});
+		panel.add(panel_3);
+		
+		
 	}
 	public LoaiPhatDao getLoaiPhat() {
 		try {
@@ -169,4 +271,45 @@ public class Frm_MucPhat extends JInternalFrame {
 		}
 		return null;
 	}
+	public void getDataForTable(JTable table, DefaultTableModel model) throws RemoteException {
+		clearModel(model);
+		LoaiPhatDao loaiPhatDao = getLoaiPhat();
+		List<LoaiPhat> loaiPhats = loaiPhatDao.getListMucPhat();
+		for (LoaiPhat lp : loaiPhats) {
+			Vector vector = new Vector();
+			vector.add(lp.getMaLoaiPhat() + "");
+			vector.add(lp.getTenLoai());
+			vector.add(lp.getTienPhat()+"");
+			model.addRow(vector);
+			tbl_MucPhat.setModel(model);
+			Frm_MucPhat.setCellsAlignment(tbl_MucPhat, SwingConstants.CENTER);
+		}
+	}
+
+
+	public boolean checkEmpty(String tenPhongBan) {
+		if (tenPhongBan.length() == 0)
+			return true;
+		else
+			return false;
+	}
+	
+	public void clearModel(DefaultTableModel model) {
+		while(model.getRowCount() > 0)
+		{
+			model.removeRow(0);
+		}
+	}
+
+	public static void setCellsAlignment(JTable table, int alignment) {
+		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+		rightRenderer.setHorizontalAlignment(alignment);
+
+		TableModel tableModel = table.getModel();
+
+		for (int columnIndex = 0; columnIndex < tableModel.getColumnCount(); columnIndex++) {
+			table.getColumnModel().getColumn(columnIndex).setCellRenderer(rightRenderer);
+		}
+	}
+
 }
