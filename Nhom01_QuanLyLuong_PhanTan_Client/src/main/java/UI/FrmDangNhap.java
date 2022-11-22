@@ -34,7 +34,7 @@ import javax.swing.border.EmptyBorder;
 import componentCustom.CurrentState;
 import dao.NhanVienDao;
 import dao.PhongBanDao;
-import entity.NhanVien;
+
 
 public class FrmDangNhap extends JFrame implements ActionListener, KeyListener {
 

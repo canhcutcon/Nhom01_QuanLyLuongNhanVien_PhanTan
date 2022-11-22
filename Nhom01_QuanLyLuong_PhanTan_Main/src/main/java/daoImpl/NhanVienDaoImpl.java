@@ -65,7 +65,6 @@ public class NhanVienDaoImpl extends UnicastRemoteObject implements NhanVienDao 
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
->>>>>>> 668bbde74e97932b7795eac5d7abbb7cbab8759b
 		return lstNhanViens;
 	}
 

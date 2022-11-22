@@ -1,6 +1,8 @@
 package app;
 
 import java.rmi.RemoteException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.LoaiPhatDao;
@@ -18,17 +20,8 @@ public class App {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		PhongBanDao phongBanDao = null;
-		try {
-			LoaiPhatDao dao = new LoaiPhatDaoImpl();
-			List<LoaiPhat> loaiPhats = dao.getListMucPhat();
-			loaiPhats.forEach(b->System.out.println(b.getTenLoai()));
-//			phongBanDao = new PhongBanDaoImpl();
-//			System.out.println(phongBanDao.getPhongBanTheoMa(1).getTenPB());
-//			addAllNhanVien() ;
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+
+		addAllNhanVien() ;
 
 	}
 	
@@ -42,7 +35,7 @@ public class App {
 			List<NhanVien> list = new ArrayList<NhanVien>();
 			list.add(new NhanVien("Võ Thị Trà Giang", "0908776678", "123456789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "MANAGER", "123456", true, "", 1, bans.get(0)));
 			list.add(new NhanVien("Trần Văn Sỹ", "0908776111", "113456789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "SALARY_MANAGER", "123456", true, "", 1, bans.get(1)));
-			list.add(new NhanVien("Mã Tiểu Linh", "090877667", "173456789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "SALARY_MANAGER", "123456", true, "", 1, bans.get(3)));
+			list.add(new NhanVien("Mã Tiểu Linh", "090877667", "173456789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "SALARY_MANAGER", "123456", true, "", 1, bans.get(1)));
 			list.add(new NhanVien("Huỳnh Nguyễn Quốc Bảo", "0908776112", "133456789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "EMPLOYEE_MANAGER", "123456", true, "", 1, bans.get(2)));
 			
 			list.add(new NhanVien("Đoàn Ngọc Quốc Bảo", "0908776678", "143456789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "EMPLOYEE", "123456", false, "", 1, bans.get(0)));
@@ -60,12 +53,12 @@ public class App {
 			list.add(new NhanVien("Dương Thu Thúy", "090477667", "127456789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "EMPLOYEE", "123456", false, "", 1, bans.get(2)));
 			list.add(new NhanVien("Nguyễn Hà Đại Minh", "090577667", "128456789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "EMPLOYEE", "123456", false, "", 1, bans.get(2)));
 			
-			list.add(new NhanVien("Kim Tú Nghiên", "090677667", "129456789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "EMPLOYEE", "123456", false, "", 1, bans.get(3)));
-			list.add(new NhanVien("Dỗ Khánh Tú", "090777667", "123416789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "EMPLOYEE", "123456", false, "", 1, bans.get(3)));
-			list.add(new NhanVien("Phác Thái Anh", "090977667", "123256789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "EMPLOYEE", "123456", false, "", 1, bans.get(3)));
-			list.add(new NhanVien("Kim Trân Ni", "090077667", "123356789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "EMPLOYEE", "123456", false, "", 1, bans.get(3)));
+			list.add(new NhanVien("Kim Tú Nghiên", "090677667", "129456789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "EMPLOYEE", "123456", false, "", 1, bans.get(2)));
+			list.add(new NhanVien("Dỗ Khánh Tú", "090777667", "123416789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "EMPLOYEE", "123456", false, "", 1, bans.get(2)));
+			list.add(new NhanVien("Phác Thái Anh", "090977667", "123256789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "EMPLOYEE", "123456", false, "", 1, bans.get(2)));
+			list.add(new NhanVien("Kim Trân Ni", "090077667", "123356789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now(), LocalDate.now(), "EMPLOYEE", "123456", false, "", 1, bans.get(2)));
 			
-<<<<<<< HEAD
+
 			
 //			list.add(new NhanVien("Võ Thị Trà Giang", "0908776678", "123456789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now().toString(), LocalDate.now().toString(), "quanly", "123456", true, "", 1, bans.get(0)));
 //			list.add(new NhanVien("Trần Văn Sỹ", "0908776111", "113456789", "Nguyễn Văn Bảo Gò Vấp",LocalDate.now().toString(), LocalDate.now().toString(), "quanly", "123456", true, "", 1, bans.get(1)));
@@ -100,7 +93,7 @@ public class App {
 ////					e1.printStackTrace();
 ////				}
 ////			});
-=======
+
 			list.forEach(e -> {
 				try {
 					dao.createNhanVien(e);
@@ -109,7 +102,7 @@ public class App {
 					e1.printStackTrace();
 				}
 			});
->>>>>>> 668bbde74e97932b7795eac5d7abbb7cbab8759b
+
 			
 		
 		} catch (RemoteException e) {

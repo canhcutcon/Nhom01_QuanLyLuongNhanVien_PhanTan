@@ -1,14 +1,6 @@
 package app;
 
 import java.rmi.RemoteException;
-<<<<<<< HEAD
-
-import Util.HibernateUtil;
-import dao.NhanVienDao;
-import daoImpl.NhanVienDaoImpl;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
-=======
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +14,7 @@ import daoImpl.PhongBanDaoImpl;
 import entity.BangChamCong;
 import entity.NhanVien;
 import entity.PhongBan;
->>>>>>> 668bbde74e97932b7795eac5d7abbb7cbab8759b
+
 
 public class test {
 	public static void main(String[] args) throws RemoteException {
@@ -56,7 +48,7 @@ public class test {
 		}
 	}
 	
-	public static void addAllNhanVien() {
+	public static void addAllNhanVien() throws RemoteException {
 		try {
 			NhanVienDao dao = new NhanVienDaoImpl();
 			PhongBanDao phongBanDao = new PhongBanDaoImpl();
