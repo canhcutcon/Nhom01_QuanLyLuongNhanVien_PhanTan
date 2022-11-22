@@ -397,7 +397,7 @@ public class FrmBangLuongNhanVien extends JInternalFrame implements ActionListen
 		pnl_Control_1.add(lblNewLabel_10);
 
 		JLabel lblNewLabel_11 = new JLabel(
-				"- Chức năng tính lương sẽ được mở vào ngày 28 hàng tháng, và sẽ có 2 ngày để chỉnh sửa, sau hai ngày sẽ khóa.");
+				"Chức năng tính lương sẽ chỉ được mở vào tháng đang tính lương");
 		lblNewLabel_11.setBounds(468, 10, 832, 24);
 		pnl_Control_1.add(lblNewLabel_11);
 		lblNewLabel_11.setFont(new Font("Times New Roman", Font.ITALIC, 16));
